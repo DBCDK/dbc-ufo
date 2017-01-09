@@ -4,16 +4,28 @@
   "description": "Grænseflade til upload af billeder til DBC's Forsideservice",
   "main": "src/main.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "test:integration": "echo test:integration",
+    "test:integration:local": "echo test:integration:local"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DBCDK/dbc-ufo.git"
   },
-  "author": "dbcdk",
-  "license": "ISC",
+  "author": "DBCDK",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/DBCDK/dbc-ufo/issues"
   },
-  "homepage": "https://github.com/DBCDK/dbc-ufo#readme"
+  "engines": {
+    "node": ">=6.7.0"
+  },
+  "homepage": "https://github.com/DBCDK/dbc-ufo#readme",
+  "dependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-register": "^6.18.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1"
+  }
 }
