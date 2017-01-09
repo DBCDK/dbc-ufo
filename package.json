@@ -1,0 +1,19 @@
+{
+  "name": "dbc-ufo",
+  "version": "0.0.1",
+  "description": "Grænseflade til upload af billeder til DBC's Forsideservice",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DBCDK/dbc-ufo.git"
+  },
+  "author": "dbcdk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DBCDK/dbc-ufo/issues"
+  },
+  "homepage": "https://github.com/DBCDK/dbc-ufo#readme"
+}
