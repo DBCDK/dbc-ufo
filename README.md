@@ -1,6 +1,11 @@
 # dbc-ufo
 Grænseflade til upload af billeder til DBC's Forsideservice
 
+[![bitHound Overall Score](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/score.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo)
+[![bitHound Dependencies](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/dependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo/dbc-ufo-1-mmj/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/devDependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo/dbc-ufo-1-mmj/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/code.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo)
+
 ##Environment variables
 The variables are specified at the form `name : internal config object`. References in the log from the startup, will use the internal config object.
 - `PORT` : `app.port`  
