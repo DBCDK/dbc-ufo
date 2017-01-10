@@ -1,0 +1,54 @@
+var webpack = require('webpack');
+var path = require('path');
+var extractTextPlugin = require('extract-text-webpack-plugin');
+var autoprefixer = require('autoprefixer');
+
+var noErrorsPlugin = new webpack.NoErrorsPlugin();
+var extractCss = new extractTextPlugin('../css/[name].css', {allChunks: true});
+
+module.exports = [{
+  name: 'browser',
+
+  entry: {
+    index: './src/client/index.js',
+  },
+  output: {
+    path: path.join(__dirname, 'public/js'),
+    filename: '[name].js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+          plugins: ['transform-async-to-generator', 'transform-es2015-modules-commonjs']
+        }
+      },
+      {
+        test: /\.(scss|css)$/,
+        loader: extractTextPlugin.extract(
+          'css?sourceMap' +
+          '!sass?sourceMap' +
+          "&includePaths[]=" + path.resolve(__dirname, "./src/client/scss/") +
+          "&includePaths[]=" + path.resolve(__dirname, "./node_modules/") +
+          '!postcss-loader'
+        )
+      },
+    ]
+  },
+
+  postcss: [autoprefixer({browsers: ['last 2 versions'] }) ],
+  plugins: [
+    extractCss,
+    noErrorsPlugin
+  ],
+  resolve: {
+    alias: {
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat'
+    }
+  }
+}];
