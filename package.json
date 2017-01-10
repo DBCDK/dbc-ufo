@@ -4,6 +4,8 @@
   "description": "Grænseflade til upload af billeder til DBC's Forsideservice",
   "main": "src/main.js",
   "scripts": {
+    "dev": ". ./env.env && npm run serve",
+    "serve": "nodemon --exec node --no-stdin src/main.js",
     "test": "test",
     "test:integration": "echo test:integration",
     "test:integration:local": "echo test:integration:local"
@@ -22,10 +24,19 @@
   },
   "homepage": "https://github.com/DBCDK/dbc-ufo#readme",
   "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
-    "babel-register": "^6.18.0"
+    "babel-register": "^6.18.0",
+    "koa": "^2.0.0",
+    "koa-combine-routers": "^1.0.0",
+    "koa-convert": "^1.2.0",
+    "koa-pug": "^3.0.0-1",
+    "koa-router": "^7.0.0",
+    "koa-static": "^2.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^7.1.1"
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.13.0",
+    "nodemon": "^1.11.0"
   }
 }
