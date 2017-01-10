@@ -1,6 +1,5 @@
 import React from 'react';
 import ImageUpload from './imageUpload.component';
-import PreviewContainer from './previewContainer.component';
 
 export default class UploadFormContainer extends React.Component {
 
