@@ -17,13 +17,21 @@ import router from './routes/index.routes';
 // Utils
 import {CONFIG, validateConfig} from './utils/config.util';
 import {log} from './utils/logging.util';
+import sanityCheck from './utils/sanityCheck.util';
 
+// Clients
+import * as Smaug from './services/smaug/smaug.client';
 
 export function startServer() {
   validateConfig();
   const app = new Koa();
   app.name = 'UFO';
   const PORT = CONFIG.app.port;
+
+  // Sanitychecks
+  sanityCheck();
+
+  Smaug.setToken();
 
   // trust ip-addresses from X-Forwarded-By header, and log requests
   app.proxy = true;
