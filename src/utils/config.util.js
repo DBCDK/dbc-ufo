@@ -9,6 +9,7 @@ export const CONFIG = {
   app: {
     env: process.env.NODE_ENV,
     port: Number(process.env.PORT),
+    name: process.env.APP_NAME || 'no name'
   },
   log: {
     level: process.env.LOG_LEVEL,

@@ -9,6 +9,9 @@ Specifies the port to expose the application. Default: `3010`
 - `NODE_ENV` : `app.env`  
 Specifies the development for the application. Default: `default`
 
+- `APP_NAME` : `app.name`  
+Used to identify the app in i.e. logs. Default': `no name`
+
 - `LOG_LEVEL` : `log.level`  
 Specifies the log level used by the application. Defaults to `INFO`
 Log level constants supported:: `OFF` (0), `ERROR` (1), `WARN` (2), `WARNING` (2), `INFO` (3), `DEBUG` (4), `TRACE` (5)

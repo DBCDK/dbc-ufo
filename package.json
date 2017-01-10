@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "dev": ". ./env.env && npm run serve",
+    "lint": "eslint ./src --cache",
     "serve": "nodemon --exec node --no-stdin src/main.js",
     "test": "test",
     "test:integration": "echo test:integration",

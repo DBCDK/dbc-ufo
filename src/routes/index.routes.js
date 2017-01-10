@@ -4,7 +4,7 @@ import combineRouters from 'koa-combine-routers';
 import rootRoutes from './root.routes';
 
 const router = combineRouters([
-  rootRoutes,
+  rootRoutes
 ]);
 
 export default router;
