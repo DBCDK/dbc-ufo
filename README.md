@@ -1,6 +1,7 @@
 # dbc-ufo
 Grænseflade til upload af billeder til DBC's Forsideservice
 
+[![Build Status](https://travis-ci.org/DBCDK/dbc-ufo.svg?branch=master)](https://travis-ci.org/DBCDK/dbc-ufo)
 [![bitHound Overall Score](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/score.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo)
 [![bitHound Dependencies](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/dependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo/dbc-ufo-1-mmj/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/devDependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo/dbc-ufo-1-mmj/dependencies/npm)
