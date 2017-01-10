@@ -7,7 +7,7 @@
     "dev": ". ./env.env && npm run serve",
     "lint": "eslint ./src --cache",
     "serve": "nodemon --exec node --no-stdin src/main.js",
-    "test": "test",
+    "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
     "test:integration": "echo test:integration",
     "test:integration:local": "echo test:integration:local"
   },
@@ -37,7 +37,10 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "chai": "^3.5.0",
     "eslint": "^3.13.0",
-    "nodemon": "^1.11.0"
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "sinon": "^1.17.7"
   }
 }
