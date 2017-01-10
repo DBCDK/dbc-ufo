@@ -5,6 +5,8 @@
 
 // Libraries
 import Koa from 'koa';
+import convert from 'koa-convert';
+import serve from 'koa-static';
 
 // Middleware
 import {LoggerMiddleware} from './middlewares/logger.middleware';
@@ -26,6 +28,7 @@ export function startServer() {
   // trust ip-addresses from X-Forwarded-By header, and log requests
   app.proxy = true;
 
+  app.use(convert(serve('./public')));
   app.use(LoggerMiddleware);
   app.use(SetVersionHeader);
 

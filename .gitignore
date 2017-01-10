@@ -39,3 +39,4 @@ selenium/*.png
 # STATICS #
 # ==========
 static/css
+public

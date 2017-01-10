@@ -12,7 +12,7 @@
   },
   "globals": {},
   "plugins": [],
-  "extends": ["eslint:recommended"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     // Possible Errors
     "comma-dangle": [
