@@ -8,7 +8,7 @@
     "lint": "eslint ./src --cache",
     "serve": "nodemon --exec node --no-stdin src/main.js",
     "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
-    "test:integration": "echo test:integration",
+    "test:integration": ". ./test.env && TEST_ENV=saucelabs wdio ./integration/config/wdio.conf.js",
     "test:integration:local": ". ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js"
   },
   "repository": {
