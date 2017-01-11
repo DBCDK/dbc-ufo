@@ -6,8 +6,8 @@ describe('Testing frontpage', () => {
   });
 
   it('Should render frontpage', () => {
-    const text = browser.getText('body'); // eslint-disable-line no-undef
-    const expected = 'It\'s a bird...';
-    assert.equal(text, expected);
+    const text = browser.getText('#content'); // eslint-disable-line no-undef
+    const expected = 'Træk filer hertil for at uploade';
+    assert.include(text, expected);
   });
 });
