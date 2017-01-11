@@ -6,7 +6,7 @@ export default class UploadFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.minSize = 1000000;
+    this.minSize = 100000;
     this.maxSize = 5000000;
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.state = {
@@ -15,17 +15,17 @@ export default class UploadFormContainer extends React.Component {
     };
   }
 
-  onDrop(acceptedFiles, rejectedFiles) {
+  onDrop = (acceptedFiles, rejectedFiles) => {
     this.setState({
       acceptedFiles: this.state.acceptedFiles.concat(acceptedFiles),
       rejectedFiles: this.state.rejectedFiles.concat(rejectedFiles)
     });
-  }
+  };
 
   render() {
     return (
       <div className="upload-form-container">
-        <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={(acceptedFiles, rejectedFiles) => this.onDrop(acceptedFiles, rejectedFiles)} />
+        <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} />
         <PreviewContainer acceptedFiles={this.state.acceptedFiles} rejectedFiles={this.state.rejectedFiles} />
       </div>
     );
