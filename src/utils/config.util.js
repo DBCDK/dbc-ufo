@@ -18,10 +18,15 @@ export const CONFIG = {
   mock_externals: {
     smaug: process.env.MOCK_SMAUG === '1'
   },
-  smaug: {
-    uri: process.env.SMAUG_URI,
-    client_id: process.env.SMAUG_CLIENT_ID,
-    client_secret: process.env.SMAUG_CLIENT_SECRET
+  openplatform: {
+    serviceprovider: {
+      uri: process.env.SERVICE_PROVIDER_URI
+    },
+    smaug: {
+      uri: process.env.SMAUG_URI,
+      client_id: process.env.SMAUG_CLIENT_ID,
+      client_secret: process.env.SMAUG_CLIENT_SECRET
+    }
   }
 };
 
