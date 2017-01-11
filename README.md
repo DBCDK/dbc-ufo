@@ -24,3 +24,12 @@ Log level constants supported:: `OFF` (0), `ERROR` (1), `WARN` (2), `WARNING` (2
 
 - `PRETTY_LOG` : `log.pretty`  
 Set to `1` (`PRETTY_LOG=1`) for pretty printed log statements. Any other setting, will result in one-line log statements.
+
+- `SMAUG_CLIENT_ID` : `smaug.client_id`  
+The Smaug client ID for this application
+
+- `SMAUG_CLIENT_SECRET` : `smaug.client_secret`  
+The Smaug client secret for this application
+
+- `SMAUG_URI` : `smaug.uri`  
+The address of the Smaug service
