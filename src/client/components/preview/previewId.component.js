@@ -11,7 +11,7 @@ export default function PreviewId({value, onSubmit}) {
   );
 }
 
-IdForm.propTypes = {
+PreviewId.propTypes = {
   value: React.PropTypes.string,
   onSubmit: React.PropTypes.func
 };

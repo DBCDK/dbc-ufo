@@ -17,7 +17,7 @@ export default function PreviewWork({image, title, creator, type, isbn}) {
   );
 }
 
-WorkPreview.propTypes = {
+PreviewWork.propTypes = {
   image: React.PropTypes.string,
   title: React.PropTypes.string,
   creator: React.PropTypes.string,

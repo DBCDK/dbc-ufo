@@ -1,6 +1,6 @@
 import React from 'react';
 import UrlUpload from './urlUpload.component';
-import PreviewContainer from '../preview/previewContainer.component';
+import PreviewList from '../preview/previewList.component';
 import validateImage from '../../utils/validateImage.util';
 
 export default class UrlUploadContainer extends React.Component {
@@ -10,25 +10,54 @@ export default class UrlUploadContainer extends React.Component {
     this.state = {
       urls: [],
       needsValidation: [],
-      rejectedUrls: {},
-      acceptedUrls: {}
+      rejected: [],
+      accepted: []
     };
   }
 
+  /**
+   * Callback when urls are added.
+   *
+   * @param urls
+   */
   onUrlsAdded = (urls) => {
-    const {acceptedUrls, rejectedUrls} = this.state;
-    urls.forEach(url => validateImage({
+    this.setState({accepted: [], rejected: []});
+
+    this.unique(urls).forEach(url => validateImage({
       url,
-      onError: () => this.setState({rejectedUrls: Object.assign(rejectedUrls, {[url]: true})}),
-      onSuccess: () => this.setState({acceptedUrls: Object.assign(acceptedUrls, {[url]: true})})
+      onError: () => this.setState({rejected: this.state.rejected.concat([url])}),
+      onSuccess: () => this.setState({accepted: this.state.accepted.concat([url])})
     }));
+  };
+
+  /**
+   * Return array with unique values
+   *
+   * @param {Array} list
+   * @returns {Array}
+   */
+  unique(list) {
+    return list.filter((elem, pos, arr) => {
+      return arr.indexOf(elem) === pos;
+    });
+  }
+
+  /**
+   * Remove url from list.
+   *
+   * @param element
+   */
+  onRemove = (element) => {
+    const accepted = this.state.accepted.filter(file => file !== element);
+    const rejected = this.state.rejected.filter(file => file !== element);
+    this.setState({accepted, rejected});
   };
 
   render() {
     return (
       <div className="upload-urls-container">
         <UrlUpload onSubmit={this.onUrlsAdded}/>
-        <PreviewContainer acceptedUrls={Object.keys(this.state.acceptedUrls)} rejectedUrls={Object.keys(this.state.rejectedUrls)} />
+        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected} onRemove={this.onRemove} />
       </div>
     );
   }
