@@ -47,7 +47,7 @@ export async function setToken() {
  */
 export async function health() {
   return await promiseRequest('get', {
-    uri: CONFIG.smaug.uri + '/health'
+    uri: CONFIG.openplatform.smaug.uri + '/health'
   });
 }
 
@@ -87,18 +87,24 @@ function asyncsetToken() {
   }
 
   const req = {
-    url: `${CONFIG.smaug.uri}/oauth/token`,
+    url: `${CONFIG.openplatform.smaug.uri}/oauth/token`,
     form: {
       grant_type: 'password',
       username: '@',
       password: '@'
     },
     auth: {
-      user: CONFIG.smaug.client_id,
-      pass: CONFIG.smaug.client_secret
+      user: CONFIG.openplatform.smaug.client_id,
+      pass: CONFIG.openplatform.smaug.client_secret
     }
   };
   return promiseRequest('post', req).then((smaugResp) => {
-    return JSON.parse(smaugResp.body);
+    try {
+      return JSON.parse(smaugResp.body);
+    }
+    catch (e) {
+      log.error('Could not parse response from Smaug', {response: smaugResp.body});
+      throw new Error('Could not parse response from Smaug');
+    }
   });
 }

@@ -22,7 +22,7 @@ import sanityCheck from './utils/sanityCheck.util';
 // Clients
 import * as Smaug from './services/smaug/smaug.client';
 
-export function startServer() {
+export async function startServer() {
   validateConfig();
   const app = new Koa();
   app.name = 'UFO';
