@@ -3,7 +3,7 @@ import UrlUpload from './urlUpload.component';
 import PreviewContainer from '../preview/previewContainer.component';
 import validateImage from '../../utils/validateImage.util';
 
-export default class UploadUrlFormContainer extends React.Component {
+export default class UrlUploadContainer extends React.Component {
 
   constructor(props) {
     super(props);

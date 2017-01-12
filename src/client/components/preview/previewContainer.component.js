@@ -1,7 +1,7 @@
 import React from 'react';
 import PreviewImage from './previewImage.component';
-import WorkPreview from './workPreview.component';
-import IdForm from './idForm.component';
+import PreviewWork from './previewWork.component';
+import PreviewId from './previewId.component';
 
 export default class PreviewContainer extends React.Component {
   constructor(props) {
@@ -44,8 +44,8 @@ export default class PreviewContainer extends React.Component {
       <div className="preview-container component">
         {this.props.message && <div className="message">{this.props.message}</div>}
         <PreviewImage work={this.state.work} image={this.props.imageInfo} id={this.state.id} />
-        <IdForm value={this.state.id} onSubmit={this.onUpdateId}/>
-        {this.state.work && <WorkPreview {...this.state.work}/>}
+        <PreviewId value={this.state.id} onSubmit={this.onUpdateId}/>
+        {this.state.work && <PreviewWork {...this.state.work}/>}
         <button onClick={this.props.onRemove}>Fortryd Upload</button>
       </div>
     );

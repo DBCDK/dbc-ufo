@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function IdForm({value, onSubmit}) {
+export default function PreviewId({value, onSubmit}) {
   let refInput;
   return (
     <div className="id-form">

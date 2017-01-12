@@ -2,7 +2,7 @@ import React from 'react';
 import ImageUpload from './imageUpload.component';
 import PreviewList from '../preview/previewList.component';
 
-export default class UploadFormContainer extends React.Component {
+export default class ImageUploadContainer extends React.Component {
 
   constructor(props) {
     super(props);

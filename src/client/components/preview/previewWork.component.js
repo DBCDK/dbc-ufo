@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function WorkPreview({image, title, creator, type, isbn}) {
+export default function PreviewWork({image, title, creator, type, isbn}) {
   return (
     <div className="work-preview component container">
       {image && <div className='image'>
