@@ -15,14 +15,14 @@ describe('Testing url upload component', () => {
   it('Should show preview of image from url', () => {
     browser.setValue('.url-upload textarea', 'https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
     browser.click('.url-upload button');
-    browser.waitForValue('.urls-accepted img', 5000);
-    assert.include(browser.getAttribute('.urls-accepted img', 'alt'), 'horses-grazing-on-ranch.jpg');
+    browser.waitForValue('.preview-image', 5000);
+    assert.include(browser.getAttribute('.preview-image img', 'alt'), 'horses-grazing-on-ranch.jpg');
   });
 
   it('Should reject non image', () => {
     browser.setValue('.url-upload textarea', 'https://not-an-image');
     browser.click('.url-upload button');
-    browser.waitForValue('.urls-rejected', 5000);
-    assert.include(browser.element('.rejected-url').getText(), 'not-an-image');
+    browser.waitForValue('.preview-error', 5000);
+    assert.include(browser.element('.preview-error').getText(), 'not-an-image');
   });
 });
