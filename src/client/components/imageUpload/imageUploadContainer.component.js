@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageUpload from './imageUpload.component';
-import PreviewContainer from '../preview/previewContainer.component';
+import PreviewList from '../preview/previewList.component';
 
 export default class UploadFormContainer extends React.Component {
 
@@ -10,22 +10,29 @@ export default class UploadFormContainer extends React.Component {
     this.maxSize = 5000000;
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.state = {
-      acceptedFiles: [],
-      rejectedFiles: []
+      accepted: [],
+      rejected: []
     };
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
     this.setState({
-      acceptedFiles: this.state.acceptedFiles.concat(acceptedFiles),
-      rejectedFiles: this.state.rejectedFiles.concat(rejectedFiles)
+      accepted: this.state.accepted.concat(acceptedFiles),
+      rejected: this.state.rejected.concat(rejectedFiles)
     });
   };
+
+  onRemove = (element) => {
+    const accepted = this.state.accepted.filter(file => file !== element);
+    const rejected = this.state.rejected.filter(file => file !== element);
+    this.setState({accepted, rejected});
+  };
+
   render() {
     return (
       <div className="upload-form-container">
         <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} />
-        <PreviewContainer acceptedFiles={this.state.acceptedFiles} rejectedFiles={this.state.rejectedFiles} />
+        <PreviewList type="image" accepted={this.state.accepted} rejected={this.state.rejected} onRemove={this.onRemove} />
       </div>
     );
   }
