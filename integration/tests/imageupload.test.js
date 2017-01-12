@@ -8,7 +8,9 @@ describe('Testing image upload', () => {
   });
 
   it('Should render component', () => {
-    assert.equal(browser.element('.upload-form-container').state, 'success');
+    const element = $('.upload-form-container');
+    element.waitForExist(5000);
+    assert.include(element.getText(), 'Træk filer hertil');
   });
 
   it('Should show preview of image', () => {

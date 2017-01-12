@@ -7,7 +7,9 @@ describe('Testing url upload component', () => {
   });
 
   it('Should render component', () => {
-    assert.equal(browser.element('.upload-urls-container').state, 'success');
+    const element = $('.upload-urls-container');
+    element.waitForExist(5000);
+    assert.include(element.getText(), 'vis i liste');
   });
 
   it('Should show preview of image from url', () => {
