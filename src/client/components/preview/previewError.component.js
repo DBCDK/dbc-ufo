@@ -2,12 +2,12 @@ import React from 'react';
 
 export default function PreviewError({message, imageInfo, onRemove}) {
   return (
-    <div className="preview-error component container">
+    <div className="preview rejected component container">
       {message && <div className="message">{message}</div>}
       <div className='error'>
         Filnavn: {imageInfo.name}
       </div>
-      <button onClick={onRemove}>Fortryd Upload</button>
+      <button className="button remove" onClick={onRemove}>Fortryd Upload</button>
     </div>
   );
 }

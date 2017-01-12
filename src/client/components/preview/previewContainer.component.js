@@ -41,12 +41,12 @@ export default class PreviewContainer extends React.Component {
 
   render() {
     return (
-      <div className="preview-container component">
+      <div className="preview accepted component">
         {this.props.message && <div className="message">{this.props.message}</div>}
         <PreviewImage work={this.state.work} image={this.props.imageInfo} id={this.state.id} />
         <PreviewId value={this.state.id} onSubmit={this.onUpdateId}/>
         {this.state.work && <PreviewWork {...this.state.work}/>}
-        <button onClick={this.props.onRemove}>Fortryd Upload</button>
+        <button className="button remove" onClick={this.props.onRemove}>Fortryd Upload</button>
       </div>
     );
   }
