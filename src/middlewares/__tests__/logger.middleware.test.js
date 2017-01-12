@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import sinon from 'sinon';
 
 import {LoggerMiddleware} from '../logger.middleware';
-import {log} from '../../utils/logging.util';
+import {log} from 'dbc-node-logger';
 
 describe('LoggerMiddleware tests', () => {
   let sandbox;

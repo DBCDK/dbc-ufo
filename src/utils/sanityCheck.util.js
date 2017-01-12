@@ -5,7 +5,7 @@
 
 import * as Smaug from '../services/smaug/smaug.client';
 
-import {log} from './logging.util';
+import {log} from 'dbc-node-logger';
 
 export default async function sanityCheck() {
   return await Promise.all([

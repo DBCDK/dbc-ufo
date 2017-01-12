@@ -6,7 +6,7 @@
 import {CONFIG} from '../../utils/config.util';
 import {promiseRequest} from '../../utils/request.util';
 import * as Smaug from '../smaug/smaug.client';
-import {log} from '../../utils/logging.util';
+import {log} from 'dbc-node-logger';
 
 export async function getWork({params}) {
   return await makeRequestToServiceProvider(params, 'work');
