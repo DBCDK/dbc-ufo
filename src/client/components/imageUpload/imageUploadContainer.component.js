@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageUpload from './imageUpload.component';
-import PreviewContainer from './previewContainer.component';
+import PreviewContainer from '../preview/previewContainer.component';
 
 export default class UploadFormContainer extends React.Component {
 
@@ -21,7 +21,6 @@ export default class UploadFormContainer extends React.Component {
       rejectedFiles: this.state.rejectedFiles.concat(rejectedFiles)
     });
   };
-
   render() {
     return (
       <div className="upload-form-container">
@@ -31,3 +30,4 @@ export default class UploadFormContainer extends React.Component {
     );
   }
 }
+

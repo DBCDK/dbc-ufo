@@ -7,8 +7,9 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 
 // Components
-import UploadFormContainer from './components/uploadForm/uploadFormContainer.component';
+import UploadImageContainer from './components/imageUpload/imageUploadContainer.component';
+import UploadUrlontainer from './components/urlUpload/urlUploadContainer.component';
 
 const rootContainer = document.getElementById('content');
 
-ReactDOM.render(<UploadFormContainer />, rootContainer);
+ReactDOM.render(<div><UploadImageContainer /><UploadUrlontainer/></div>, rootContainer);
