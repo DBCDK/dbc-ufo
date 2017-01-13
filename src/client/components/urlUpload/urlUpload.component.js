@@ -18,6 +18,7 @@ export default class UrlUpload extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state.value.split('\n'));
+    this.setState({value: ''});
   }
   onChange = (e) => {
     this.setState({value: e.target.value});
