@@ -15,18 +15,20 @@ import errorMiddleware from './middlewares/error.middleware';
 import router from './routes/index.routes';
 
 // Utils
+import * as Logger from 'dbc-node-logger';
 import {CONFIG, validateConfig} from './utils/config.util';
-import {log} from './utils/logging.util';
 import sanityCheck from './utils/sanityCheck.util';
+import {VERSION} from './utils/version.util';
 
 // Clients
 import * as Smaug from './services/smaug/smaug.client';
 
-export async function startServer() {
+export function startServer() {
   validateConfig();
   const app = new Koa();
   app.name = 'UFO';
   const PORT = CONFIG.app.port;
+  Logger.setInfo({name: 'Forsideupload', version: VERSION});
 
   // Sanitychecks
   sanityCheck();
@@ -45,10 +47,10 @@ export async function startServer() {
   app.use(errorMiddleware);
 
   app.on('error', (err) => {
-    log.error('Server error', {error: err.message, stack: err.stack});
+    Logger.log.error('Server error', {error: err.message, stack: err.stack});
   });
 
   app.listen(PORT, () => {
-    log.debug(`Server is up and running on port ${PORT}!`);
+    Logger.log.debug(`Server is up and running on port ${PORT}!`);
   });
 }

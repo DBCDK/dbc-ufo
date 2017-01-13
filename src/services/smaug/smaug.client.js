@@ -5,7 +5,7 @@
 
 import {CONFIG} from '../../utils/config.util';
 import {promiseRequest} from '../../utils/request.util';
-import {log} from '../../utils/logging.util';
+import {log} from 'dbc-node-logger';
 
 let TOKEN = null;
 
@@ -28,7 +28,7 @@ export async function getToken() {
  * Requests a new token from smaug and sets TOKEN upon sucess
  */
 export async function setToken() {
-  const token = await asyncsetToken();
+  const token = await getNewTokenFromSmaug();
   if (token.error) {
     log.error('Error while retrieving token from Smaug', {response: token});
   }
@@ -77,7 +77,7 @@ function tokenIsValid() {
  *
  * @return {*}
  */
-function asyncsetToken() {
+function getNewTokenFromSmaug() {
   if (CONFIG.mock_externals.smaug) {
     return {
       token_type: 'bearer',

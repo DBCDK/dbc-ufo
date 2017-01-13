@@ -3,7 +3,7 @@
  * Add methods for handling the state object
  */
 
-import {log} from '../utils/logging.util';
+import {log} from 'dbc-node-logger';
 
 /**
  * Adds the get- and setState methods to the context object

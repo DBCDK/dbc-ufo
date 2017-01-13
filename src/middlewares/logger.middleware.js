@@ -1,4 +1,4 @@
-import {log} from '../utils/logging.util';
+import {log} from 'dbc-node-logger';
 
 export async function LoggerMiddleware(ctx, next) {
   await next();
