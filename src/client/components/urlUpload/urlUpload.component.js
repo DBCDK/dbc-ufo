@@ -32,6 +32,7 @@ function UrlUploadDisplay({value, onSubmit, onChange}) {
   return (
     <div className="url-upload component">
       <TextareaAutosize
+        placeholder="Skriv en URL pr. linie"
         useCacheForDOMMeasurements
         value={value}
         onChange={onChange}
