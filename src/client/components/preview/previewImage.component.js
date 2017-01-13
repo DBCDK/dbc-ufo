@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PreviewImage({image, work}) {
   return (
-    <div className="preview-image component container">
+    <div className="preview-images component">
       <div className='image'>
         <img style={{maxWidth: '300px'}} {...image}/>
         {work.image && <div className='description green center'>Ny</div> || ''}

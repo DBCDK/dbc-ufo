@@ -8,7 +8,9 @@ export default class PreviewContainer extends React.Component {
     super(props);
     this.state = {
       work: null,
-      id: props.id
+      id: props.id,
+      idIsValid: false,
+      error: null
     };
   }
 
@@ -21,16 +23,25 @@ export default class PreviewContainer extends React.Component {
   getWorkFromId(id) {
     // This is a dummy implementation
     // TODO We need to call openPlatform to get real work info #25
-    const work = {
-      id: id,
-      image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcQopG-5dUtkLnw2foe3296353NLF3L0tBIDwzYENV1qQTKIx9BB',
-      title: 'Titel',
-      creator: 'Ophav',
-      type: 'Materiale type',
-      isbn: 'ISBN'
-    };
-
-    setTimeout(() => this.setState({work}), 100);
+    let state = {};
+    if (id === '1234') {
+      const work = {
+        id: id,
+        image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcQopG-5dUtkLnw2foe3296353NLF3L0tBIDwzYENV1qQTKIx9BB',
+        title: 'Titel',
+        creator: 'Ophav',
+        type: 'Materiale type',
+        isbn: 'ISBN'
+      };
+      state = {work, idIsValid: true};
+    }
+    else {
+      state = {
+        idIsValid: false,
+        error: `Der findes ikke nogen post med id ${id}`
+      };
+    }
+    setTimeout(() => this.setState(state), 100);
   }
 
   componentDidMount() {
@@ -42,17 +53,18 @@ export default class PreviewContainer extends React.Component {
   render() {
     return (
       <div className="preview accepted component">
-        <div className="wrapper grow">
-          {this.props.message && <div className="message">{this.props.message}</div>}
-          <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id}/>
-          <div className="wrapper grow relative">
-            <PreviewId value={this.state.id} onSubmit={this.onUpdateId}/>
-            <PreviewWork {...this.state.work}/>
-            <button className="remove small" onClick={this.props.onRemove}>Fortryd Upload</button>
+        {this.state.error && <div className="message error">{this.state.error}</div>}
+        <div className="flex">
+          <div className="wrapper grow">
+            <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id}/>
+            <div className="preview-work grow">
+              <PreviewId value={this.state.id} onSubmit={this.onUpdateId} idIsValid={this.state.idIsValid}/>
+              <PreviewWork {...this.state.work}/>
+              <button className="remove small" onClick={this.props.onRemove}>Fortryd Upload</button>
+            </div>
           </div>
+          <div className="upload-status"></div>
         </div>
-        <div className="upload-status"></div>
-
       </div>
     );
   }

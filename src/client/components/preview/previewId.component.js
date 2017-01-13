@@ -1,17 +1,22 @@
 import React from 'react';
 
-export default function PreviewId({value, onSubmit}) {
+export default function PreviewId({value, onSubmit, idIsValid}) {
   let refInput;
+  const state = idIsValid && 'checkmark' || 'cross';
   return (
-    <div className="id-form">
+    <form onSubmit={(e) => onSubmit(refInput.value)} className="id-form component flex">
       <label htmlFor="id">ID</label>
-      <input className="id-input grow" ref={(input) => refInput = input} id="id" type="text" name="id" defaultValue={value} placeholder="Skriv id her"/>
+      <div className="input grow">
+        <input ref={(input) => refInput = input} id="id" type="text" name="id" defaultValue={value} placeholder="Skriv id her"/>
+        <span className={`state ${state}`}></span>
+      </div>
       <button className="submit small" onClick={() => onSubmit(refInput.value)}>Opdater</button>
-    </div>
+    </form>
   );
 }
 
 PreviewId.propTypes = {
   value: React.PropTypes.string,
+  idIsValid: React.PropTypes.string,
   onSubmit: React.PropTypes.func
 };
