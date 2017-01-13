@@ -12,7 +12,7 @@ export default class UrlUpladPage {
   submitId(id) {
     browser.setValue('.id-form input', id);
     browser.click('.id-form button');
-    browser.waitForValue('.work-preview', 5000);
-    return browser.element('.work-preview');
+    browser.waitForValue('.work .title', 5000);
+    return browser.element('.work');
   }
 }
