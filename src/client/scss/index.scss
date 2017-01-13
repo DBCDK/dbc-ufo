@@ -6,14 +6,18 @@
 /* Includes */
 @import 'includes/spacer';
 @import 'includes/buttons';
+@import 'includes/gutter';
+@import 'includes/flex';
 
 /* Globals */
+@import 'globals/load-svg';
 @import 'globals/resets';
 @import 'globals/typography';
 @import 'globals/globals';
 
 /* Components */
 @import '/components/preview';
+@import '/components/messages';
 @import '/components/id-form';
 @import '/components/upload-status';
 @import '/components/description';

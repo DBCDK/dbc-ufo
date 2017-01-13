@@ -1,0 +1,6 @@
+.message {
+  &.error {
+    color:$red;
+  }
+  margin-bottom: gutter(0.5);
+}
