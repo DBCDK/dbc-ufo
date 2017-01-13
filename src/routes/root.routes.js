@@ -13,6 +13,7 @@ router.get('/', async (ctx) => {
     <html>
       <head>
         <title>Image upload</title>
+        <link rel="stylesheet" type="text/css" href="/css/index.css"/>
       </head>
       <body>
           <div id="content"></div>
