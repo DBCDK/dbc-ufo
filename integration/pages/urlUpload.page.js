@@ -1,3 +1,5 @@
+/* eslint no-undef: 0 */
+
 export default class UrlUpladPage {
   open() {
     browser.url('/');

@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "npm run build:dev & . ./env.env && npm run serve",
-    "lint": "eslint ./src ./integration/tests --cache",
+    "lint": "eslint ./src ./integration/ --cache",
     "serve": "nodemon --exec node --no-stdin src/main.js",
     "build": "webpack --define process.env.NODE_ENV='\"production\"' --progress --colors -p",
     "build:dev": "webpack --progress --colors --watch -d",
