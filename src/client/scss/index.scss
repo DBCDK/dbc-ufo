@@ -1,1 +1,30 @@
 /* Add components to index file */
+
+/* Config */
+@import "config/config";
+
+/* Includes */
+@import 'includes/spacer';
+@import 'includes/buttons';
+
+/* Globals */
+@import 'globals/resets';
+@import 'globals/typography';
+@import 'globals/globals';
+
+/* Components */
+@import '/components/preview';
+@import '/components/id-form';
+@import '/components/upload-status';
+@import '/components/description';
+@import '/components/button';
+
+
+/* GLOBAL STYLING */
+
+#content {
+  width: 800px;
+  margin: auto;
+  padding: 1em;
+  background-color: $background-color;
+}

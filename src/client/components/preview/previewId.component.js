@@ -5,8 +5,8 @@ export default function PreviewId({value, onSubmit}) {
   return (
     <div className="id-form">
       <label htmlFor="id">ID</label>
-      <input ref={(input) => refInput = input} id="id" type="text" name="id" defaultValue={value}/>
-      <button onClick={() => onSubmit(refInput.value)}>Opdater</button>
+      <input className="id-input grow" ref={(input) => refInput = input} id="id" type="text" name="id" defaultValue={value} placeholder="Skriv id her"/>
+      <button className="submit small" onClick={() => onSubmit(refInput.value)}>Opdater</button>
     </div>
   );
 }

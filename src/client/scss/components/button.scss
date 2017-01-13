@@ -1,0 +1,18 @@
+button {
+  @include button-reset();
+  &.inactive {
+    background-color: gray;
+    color: white;
+  }
+  &.submit {
+    background-color: $green;
+    color: white;
+  }
+  &.remove {
+    background-color: $red;
+    color: white;
+  }
+  &.small {
+    font-size: 10px;
+  }
+}

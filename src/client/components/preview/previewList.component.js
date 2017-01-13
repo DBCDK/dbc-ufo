@@ -38,6 +38,7 @@ export default class PreviewList extends React.Component {
   render() {
     return (
       <div className="preview-list component">
+        {(this.props.accepted.length || this.props.rejected.length) && <h2>Preview af billeder og materialer</h2> || ''}
         <div className="accepted">
           {this.renderAccepted()}
         </div>

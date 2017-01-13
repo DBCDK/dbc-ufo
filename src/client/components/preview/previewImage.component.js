@@ -5,11 +5,11 @@ export default function PreviewImage({image, work}) {
     <div className="preview-image component container">
       <div className='image'>
         <img style={{maxWidth: '300px'}} {...image}/>
-        {work.image && <span className='image-description new'>Ny</span> || ''}
+        {work.image && <div className='description green center'>Ny</div> || ''}
       </div>
       {work.image && <div className='image'>
         <img style={{maxWidth: '300px'}} src={work.image} alt={`Forside til ${work.title}`}/>
-        <span className='image-description old'>Eksisterende forside</span>
+        <div className='description small center'>Eksisterende</div>
       </div> || ''}
     </div>
   );

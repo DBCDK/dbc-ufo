@@ -1,0 +1,41 @@
+.preview-list {
+  margin-top: 3rem;
+  h2 {
+    margin-bottom: 2rem;
+  }
+}
+
+.preview {
+  display: flex;
+}
+
+.preview > .wrapper {
+  display: flex;
+  & > * + * {
+    margin-left: 2rem;
+  }
+  @include spacer();
+}
+
+.preview .image {
+  & + .image {
+    margin-left: 1rem;
+  }
+  display: inline-block;
+  max-width: 120px;
+  img {
+    width: 100%;
+  }
+}
+
+// Force remove button to bottom of container
+.preview button.remove {
+  position: absolute;
+  bottom: 0;
+}
+
+// Make room for remove button
+.preview .work {
+  margin-bottom: 3rem;
+}
+

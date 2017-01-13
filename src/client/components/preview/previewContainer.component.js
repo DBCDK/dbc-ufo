@@ -23,7 +23,7 @@ export default class PreviewContainer extends React.Component {
     // TODO We need to call openPlatform to get real work info #25
     const work = {
       id: id,
-      image: 'https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg',
+      image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcQopG-5dUtkLnw2foe3296353NLF3L0tBIDwzYENV1qQTKIx9BB',
       title: 'Titel',
       creator: 'Ophav',
       type: 'Materiale type',
@@ -42,11 +42,17 @@ export default class PreviewContainer extends React.Component {
   render() {
     return (
       <div className="preview accepted component">
-        {this.props.message && <div className="message">{this.props.message}</div>}
-        <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id} />
-        <PreviewId value={this.state.id} onSubmit={this.onUpdateId}/>
-        {this.state.work && <PreviewWork {...this.state.work}/>}
-        <button className="button remove" onClick={this.props.onRemove}>Fortryd Upload</button>
+        <div className="wrapper grow">
+          {this.props.message && <div className="message">{this.props.message}</div>}
+          <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id}/>
+          <div className="wrapper grow relative">
+            <PreviewId value={this.state.id} onSubmit={this.onUpdateId}/>
+            <PreviewWork {...this.state.work}/>
+            <button className="remove small" onClick={this.props.onRemove}>Fortryd Upload</button>
+          </div>
+        </div>
+        <div className="upload-status"></div>
+
       </div>
     );
   }
