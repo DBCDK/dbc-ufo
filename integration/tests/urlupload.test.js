@@ -3,7 +3,7 @@ import {assert} from 'chai';
 import UrlUpladPage from '../pages/urlUpload.page';
 
 describe('Testing url upload component', () => {
-  const page = new UrlUpladPage;
+  const page = new UrlUpladPage();
   beforeEach(() => {
     page.open();
   });
