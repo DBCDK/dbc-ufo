@@ -48,8 +48,9 @@ export default class ImageUploadContainer extends React.Component {
   render() {
     return (
       <div className="upload-form-container">
-        <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} />
-        <PreviewList type="image" accepted={this.state.accepted} rejected={this.state.rejected} onRemove={this.onRemove} />
+        <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop}/>
+        <PreviewList type="image" accepted={this.state.accepted} rejected={this.state.rejected}
+                     onRemove={this.onRemove}/>
       </div>
     );
   }
