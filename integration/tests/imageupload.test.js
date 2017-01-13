@@ -24,11 +24,13 @@ describe('Testing image upload', () => {
     var toUpload = path.join(__dirname, 'assets', 'horses_small.jpg');
     browser.chooseFile('.dropzone input', toUpload);
     assert.include(browser.element('.rejected').getText(), 'horses_small.jpg');
+    assert.include(browser.element('.message.error').getText(), 'Filen har ikke en gyldig størrelse', 'error message is shown');
   });
 
   it('Should reject non image', () => {
-    var toUpload = path.join(__dirname, 'assets', 'invalid_horse.png');
+    var toUpload = path.join(__dirname, 'assets', 'invalid_horse.txt');
     browser.chooseFile('.dropzone input', toUpload);
-    assert.include(browser.element('.rejected').getText(), 'invalid_horse.png');
+    assert.include(browser.element('.rejected').getText(), 'invalid_horse.txt');
+    assert.include(browser.element('.message.error').getText(), 'Filen er ikke en gyldig type', 'error message is shown');
   });
 });

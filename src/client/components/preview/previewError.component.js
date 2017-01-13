@@ -3,7 +3,7 @@ import React from 'react';
 export default function PreviewError({message, imageInfo, onRemove}) {
   return (
     <div className="preview rejected component container">
-      {message && <div className="message">{message}</div>}
+      {message && <div className={`message ${message.type}`}>{message.text}</div>}
       <div className='error'>
         Filnavn: {imageInfo.name}
       </div>
@@ -15,7 +15,7 @@ export default function PreviewError({message, imageInfo, onRemove}) {
 PreviewError.propTypes = {
   error: React.PropTypes.string,
   imageInfo: React.PropTypes.object,
-  message: React.PropTypes.string,
+  message: React.PropTypes.object,
   onRemove: React.PropTypes.func
 };
 

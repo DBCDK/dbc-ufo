@@ -31,7 +31,7 @@ export default class PreviewList extends React.Component {
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError {...this.getImageInfo(element)} onRemove={() => this.props.onRemove(element)}/>);
+      return (<PreviewError {...this.getImageInfo(element)} message={element.message} onRemove={() => this.props.onRemove(element)}/>);
     });
   }
 
