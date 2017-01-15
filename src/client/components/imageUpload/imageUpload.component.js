@@ -3,8 +3,8 @@ import Dropzone from 'react-dropzone';
 
 export default function ImageUpload({minSize, maxSize, accept, onDrop}) {
   return (
-    <div className="dropzone component">
-      <Dropzone {...{minSize, maxSize, accept, onDrop}} >
+    <div className="image-upload component">
+      <Dropzone className="dropzone" {...{minSize, maxSize, accept, onDrop}} >
         <div className="content">
           <p className="description">Træk filer hertil for at uploade</p>
           <p className="break-text">eller</p>

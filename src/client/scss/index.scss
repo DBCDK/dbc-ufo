@@ -22,6 +22,8 @@
 @import '/components/upload-status';
 @import '/components/description';
 @import '/components/button';
+@import '/components/dropzone';
+@import '/components/header';
 
 
 /* GLOBAL STYLING */
@@ -29,6 +31,6 @@
 #content {
   width: 800px;
   margin: auto;
-  padding: 1em;
+  padding: gutter(2);
   background-color: $background-color;
 }
