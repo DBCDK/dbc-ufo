@@ -1,0 +1,12 @@
+.header {
+  width: 800px;
+  margin: auto;
+  padding: 3px gutter(2);
+  background-color: $header-color;
+  .logo {
+    display: inline-block;
+    width: 325px;
+    height: 44px;
+    background: svg-inline(logo) no-repeat;
+  }
+}
