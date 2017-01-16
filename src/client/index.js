@@ -11,7 +11,6 @@ import './scss/index.scss';
 
 // Components
 import UploadImageContainer from './components/imageUpload/imageUploadContainer.component';
-import UploadUrlontainer from './components/urlUpload/urlUploadContainer.component';
 
 const rootContainer = document.getElementById('content');
 
