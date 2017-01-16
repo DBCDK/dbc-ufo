@@ -27,7 +27,7 @@ export default class PreviewContainer extends React.Component {
     if (id === '1234') {
       const work = {
         id: id,
-        image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcQopG-5dUtkLnw2foe3296353NLF3L0tBIDwzYENV1qQTKIx9BB',
+        image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcSKL5_5TfA5_e9SJSXKKyhQmLA7vD-kGqvsFheQaPo9PckwNVuV',
         title: 'Titel',
         creator: 'Ophav',
         type: 'Materiale type',
@@ -38,7 +38,8 @@ export default class PreviewContainer extends React.Component {
     else {
       state = {
         idIsValid: false,
-        error: `Der findes ikke nogen post med id ${id}`
+        error: `Der findes ikke nogen post med id ${id}`,
+        work: null
       };
     }
     setTimeout(() => this.setState(state), 100);

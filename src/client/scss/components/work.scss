@@ -1,0 +1,10 @@
+.work {
+  .title {
+    font-style: italic;
+  }
+  & > * {
+    margin-bottom: gutter(0.25);
+  }
+
+  margin-bottom: gutter(0.5);
+}

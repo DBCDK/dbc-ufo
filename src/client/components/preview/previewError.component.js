@@ -2,8 +2,9 @@ import React from 'react';
 
 export default function PreviewError({message, imageInfo, onRemove}) {
   return (
-    <div className="preview rejected component container">
+    <div className="preview error component container">
       {message && <div className={`message ${message.type}`}>{message.text}</div>}
+      <div className="icon"></div>
       <div className='error'>
         Filnavn: {imageInfo.name}
       </div>

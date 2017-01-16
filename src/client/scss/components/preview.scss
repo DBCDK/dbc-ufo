@@ -15,7 +15,7 @@
   @include gutter-children(0.5);
   .image {
     display: inline-block;
-    max-width: 120px;
+    width: 100px;
     img {
       width: 100%;
     }
@@ -29,11 +29,11 @@
 .preview-work {
   display: flex;
   flex-direction: column;
-  .work {
-    flex-grow: 1;
-  }
   button {
     align-self: baseline;
   }
 }
 
+.preview.error {
+
+}

@@ -15,4 +15,4 @@ import UploadUrlontainer from './components/urlUpload/urlUploadContainer.compone
 
 const rootContainer = document.getElementById('content');
 
-ReactDOM.render(<div><UploadImageContainer /><UploadUrlontainer/></div>, rootContainer);
+ReactDOM.render(<div><UploadImageContainer /></div>, rootContainer);
