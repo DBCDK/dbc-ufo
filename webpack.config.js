@@ -11,6 +11,7 @@ module.exports = [{
 
   entry: {
     index: './src/client/index.js',
+    login: './src/client/login.js',
   },
   output: {
     path: path.join(__dirname, 'public/js'),

@@ -8,8 +8,6 @@ import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-rout
 const router = new Router();
 
 router.get('/', (ctx) => {
-  console.log(ctx.session);
-  ctx.session.test = 'hest';
   ctx.body = `
     <!DOCTYPE html>
     <html>
@@ -24,8 +22,19 @@ router.get('/', (ctx) => {
   `;
 });
 
-router.get('/login', () => {
-  ctx.body('You need to login...');
+router.get('/login', (ctx) => {
+  ctx.body = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Log in - Image upload</title>
+      </head>
+      <body>
+          <div id="content"></div>
+          <script src="/js/login.js"></script>
+      </body>
+    </html>
+  `;
 });
 
 export default router;

@@ -13,6 +13,7 @@ import session from "koa-session2";
 import {LoggerMiddleware} from './middlewares/logger.middleware';
 import {SetVersionHeader} from './middlewares/headers.middleware';
 import errorMiddleware from './middlewares/error.middleware';
+import * as Session from './middlewares/session.middleware';
 import router from './routes/index.routes';
 
 // Session
@@ -51,6 +52,9 @@ export function startServer() {
   app.use(convert(serve('./public')));
   app.use(LoggerMiddleware);
   app.use(SetVersionHeader);
+
+  app.use(Session.AuthenticationCheck);
+  app.use(Session.RefreshSession);
 
   app.use(router);
 
