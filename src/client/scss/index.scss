@@ -16,22 +16,14 @@
 @import 'globals/globals';
 
 /* Components */
-@import '/components/preview';
-@import '/components/messages';
-@import '/components/id-form';
-@import '/components/upload-status';
-@import '/components/description';
 @import '/components/button';
+@import '/components/content';
+@import '/components/description';
 @import '/components/dropzone';
 @import '/components/header';
+@import '/components/preview';
+@import '/components/icons';
+@import '/components/id-form';
+@import '/components/messages';
+@import '/components/upload-status';
 @import '/components/work';
-
-
-/* GLOBAL STYLING */
-
-#content {
-  width: 800px;
-  margin: auto;
-  padding: gutter(2);
-  background-color: $background-color;
-}

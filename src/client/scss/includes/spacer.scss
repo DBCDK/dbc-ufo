@@ -1,5 +1,12 @@
-@mixin spacer() {
+@mixin spacer($width) {
+  position: relative;
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 2px solid rgba(#000, 0.2);;
+  &:after {
+    position: absolute;
+    bottom: 0;
+    content: " ";
+    width   : $width;
+    border-bottom: 2px solid rgba(0,0,0,.2);
+  }
 }

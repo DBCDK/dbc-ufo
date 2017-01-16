@@ -54,17 +54,21 @@ export default class PreviewContainer extends React.Component {
   render() {
     return (
       <div className="preview accepted component">
-        {this.state.error && <div className="message error">{this.state.error}</div>}
-        <div className="flex">
-          <div className="wrapper grow">
-            <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id}/>
-            <div className="preview-work grow">
-              <PreviewId value={this.state.id} onSubmit={this.onUpdateId} idIsValid={this.state.idIsValid}/>
-              <PreviewWork {...this.state.work}/>
-              <button className="remove small" onClick={this.props.onRemove}>Fortryd Upload</button>
-            </div>
+        <div className="images">
+          <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id}/>
+        </div>
+        <div className="main">
+          <div className="preview-work grow">
+            <PreviewId value={this.state.id} onSubmit={this.onUpdateId} idIsValid={this.state.idIsValid}/>
+            {this.state.work && this.state.work.image &&
+            <div className="message notice">Posten med id {this.state.id} har allerede en forside</div> || ''}
+            {this.state.error && <div className="message error">{this.state.error}</div>}
+            <PreviewWork {...this.state.work}/>
+            <button className="remove small" onClick={this.props.onRemove}>Fortryd Upload</button>
           </div>
-          <div className="upload-status"></div>
+        </div>
+        <div className="status">
+
         </div>
       </div>
     );

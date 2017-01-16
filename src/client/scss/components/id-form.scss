@@ -29,10 +29,4 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  &.checkmark {
-    background: svg-inline(checkmark) no-repeat center;
-  }
-  &.cross {
-    background: svg-inline(cross) no-repeat center;
-  }
 }

@@ -4,6 +4,6 @@
 
 @mixin gutter-children($multiply: 1){
   & > * + * {
-    margin-left: gutter($multiply);
+    padding-left: gutter($multiply);
   }
 }

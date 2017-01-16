@@ -2,17 +2,19 @@
   margin-bottom: gutter();
 }
 
-.preview .flex {
+.preview {
   display: flex;
-  & > .wrapper {
-    display: flex;
-    @include gutter-children();
-    @include spacer();
+  @include gutter-children();
+  @include spacer(80%);
+  .status {
+    width: 20%;
   }
-}
-
-.preview-images {
-  @include gutter-children(0.5);
+  .main {
+    flex-grow: 1;
+  }
+  .image + .image {
+    margin-left: gutter(0.5);
+  }
   .image {
     display: inline-block;
     width: 100px;
@@ -23,17 +25,4 @@
       text-align: center;
     }
   }
-}
-
-// Make room for remove button
-.preview-work {
-  display: flex;
-  flex-direction: column;
-  button {
-    align-self: baseline;
-  }
-}
-
-.preview.error {
-
 }
