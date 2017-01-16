@@ -16,7 +16,7 @@ describe('Testing url upload component', () => {
 
   it('Should show preview of image from url', () => {
     page.uploadUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
-    assert.include(browser.getAttribute('.preview-image img', 'alt'), 'horses-grazing-on-ranch.jpg');
+    assert.include(browser.getAttribute('.preview-images img', 'alt'), 'horses-grazing-on-ranch.jpg');
   });
 
   it('Should reject non image', () => {
@@ -26,9 +26,9 @@ describe('Testing url upload component', () => {
 
   it('Remove image from list', () => {
     page.uploadUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
-    assert.equal(browser.elements('.preview-image').value.length, 1);
+    assert.equal(browser.elements('.preview-images').value.length, 1);
     browser.click('button.remove');
-    assert.equal(browser.elements('.preview-image').value.length, 0);
+    assert.equal(browser.elements('.preview-images').value.length, 0);
   });
   it('Remove rejected from list', () => {
     page.uploadUrls('not_an_image');

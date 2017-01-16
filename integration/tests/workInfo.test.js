@@ -11,7 +11,7 @@ describe('Testing url upload component', () => {
 
   it('Should show work information', () => {
     page.uploadUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
-    const element = page.submitId(12345).getText();
+    const element = page.submitId(1234).getText();
     assert.include(element, 'Titel');
     assert.include(element, 'Ophav');
     assert.include(element, 'Materiale type');
@@ -20,7 +20,7 @@ describe('Testing url upload component', () => {
 
   it('Should compare existing image with new image', () => {
     page.uploadUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
-    page.submitId(12345);
+    page.submitId(1234);
     const previewImage = browser.element('.preview-image').getText();
     assert.include(previewImage, 'Ny');
     assert.include(previewImage, 'Eksisterende');

@@ -7,7 +7,7 @@ export default class UrlUpladPage {
   uploadUrls(url) {
     browser.setValue('.url-upload textarea', url);
     browser.click('.url-upload button');
-    browser.waitForValue('.preview.component', 5000);
+    browser.waitForValue('.preview', 5000);
   }
   submitId(id) {
     browser.setValue('.id-form input', id);
