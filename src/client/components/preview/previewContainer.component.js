@@ -31,9 +31,9 @@ export default class PreviewContainer extends React.Component {
         title: 'Titel',
         creator: 'Ophav',
         type: 'Materiale type',
-        isbn: 'ISBN'
+        isbn: 'ISBN',
       };
-      state = {work, idIsValid: true};
+      state = {work, idIsValid: true, error: null};
     }
     else {
       state = {

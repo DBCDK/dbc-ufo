@@ -5,6 +5,11 @@
   margin-bottom: gutter(3);
 }
 
+.dropzone.active {
+  border-color: $green;
+}
+
+
 .dropzone .content {
 text-align: center;
 }
