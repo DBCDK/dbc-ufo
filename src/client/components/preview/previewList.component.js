@@ -31,13 +31,14 @@ export default class PreviewList extends React.Component {
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError {...this.getImageInfo(element)} onRemove={() => this.props.onRemove(element)}/>);
+      return (<PreviewError {...this.getImageInfo(element)} message={element.message} onRemove={() => this.props.onRemove(element)}/>);
     });
   }
 
   render() {
     return (
-      <div className="preview-list component">
+      <div className="previews component">
+        {(this.props.accepted.length || this.props.rejected.length) && <h2>Preview af billeder og materialer</h2> || ''}
         <div className="accepted">
           {this.renderAccepted()}
         </div>

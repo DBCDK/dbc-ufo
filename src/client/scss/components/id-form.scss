@@ -1,0 +1,38 @@
+.id-form {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  & > * + * {
+    margin-left: 2rem;
+  }
+  button {
+    height: 22px;
+    font-size: 10px;
+    line-height: 1;
+  }
+  input {
+    width: 100%;
+  }
+  @extend %flex-center;
+}
+
+.input {
+  position: relative;
+  .state {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.state {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  &.checkmark {
+    background: svg-inline(checkmark) no-repeat center;
+  }
+  &.cross {
+    background: svg-inline(cross) no-repeat center;
+  }
+}

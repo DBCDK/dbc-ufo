@@ -1,0 +1,9 @@
+@svg-load checkmark url(svg/checkmark.svg) {
+  fill: $green;
+}
+@svg-load cross url(svg/cross.svg) {
+  fill: $red;
+}
+@svg-load logo url(svg/logo.svg) {
+  fill: white;
+}

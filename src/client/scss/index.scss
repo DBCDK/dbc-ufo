@@ -1,0 +1,37 @@
+/* Add components to index file */
+
+/* Config */
+@import "config/config";
+
+/* Includes */
+@import 'includes/spacer';
+@import 'includes/buttons';
+@import 'includes/gutter';
+@import 'includes/flex';
+
+/* Globals */
+@import 'globals/load-svg';
+@import 'globals/resets';
+@import 'globals/typography';
+@import 'globals/globals';
+
+/* Components */
+@import '/components/preview';
+@import '/components/messages';
+@import '/components/id-form';
+@import '/components/upload-status';
+@import '/components/description';
+@import '/components/button';
+@import '/components/dropzone';
+@import '/components/header';
+@import '/components/work';
+
+
+/* GLOBAL STYLING */
+
+#content {
+  width: 800px;
+  margin: auto;
+  padding: gutter(2);
+  background-color: $background-color;
+}

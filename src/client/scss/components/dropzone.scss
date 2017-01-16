@@ -1,0 +1,21 @@
+.dropzone {
+  border: 4px dashed $header-color;
+  width: 80%;
+  padding: gutter(2);
+  margin-bottom: gutter(3);
+}
+
+.dropzone .content {
+text-align: center;
+}
+
+.dropzone a {
+  background-color: $header-color;
+  padding: 2rem;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+}

@@ -30,18 +30,15 @@ module.exports = [{
       },
       {
         test: /\.(scss|css)$/,
-        loader: extractTextPlugin.extract(
-          'css?sourceMap' +
-          '!sass?sourceMap' +
-          "&includePaths[]=" + path.resolve(__dirname, "./src/client/scss/") +
-          "&includePaths[]=" + path.resolve(__dirname, "./node_modules/") +
-          '!postcss-loader'
-        )
-      },
+        loader: extractTextPlugin.extract(['css-loader', 'postcss-loader', 'sass-loader'])}
     ]
   },
 
-  postcss: [autoprefixer({browsers: ['last 2 versions'] }) ],
+  postcss: [
+    autoprefixer({browsers: ['last 2 versions'] }),
+    require('postcss-inline-svg'),
+    require('cssnano')
+  ],
   plugins: [
     extractCss,
     noErrorsPlugin

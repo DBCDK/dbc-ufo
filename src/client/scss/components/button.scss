@@ -1,0 +1,19 @@
+button {
+  @include button-reset();
+  transition: all 200ms ease-in;
+  &.submit {
+    background-color: $green;
+    color: white;
+  }
+  &.remove {
+    background-color: $red;
+    color: white;
+  }
+  &.small {
+    font-size: 10px;
+  }
+  &:disabled{
+    background-color: rgba($green, 0.1);
+    color: rgba(white, 0.5);
+  }
+}

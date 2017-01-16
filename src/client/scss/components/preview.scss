@@ -1,0 +1,39 @@
+.previews h2 {
+  margin-bottom: gutter();
+}
+
+.preview .flex {
+  display: flex;
+  & > .wrapper {
+    display: flex;
+    @include gutter-children();
+    @include spacer();
+  }
+}
+
+.preview-images {
+  @include gutter-children(0.5);
+  .image {
+    display: inline-block;
+    width: 100px;
+    img {
+      width: 100%;
+    }
+    .description {
+      text-align: center;
+    }
+  }
+}
+
+// Make room for remove button
+.preview-work {
+  display: flex;
+  flex-direction: column;
+  button {
+    align-self: baseline;
+  }
+}
+
+.preview.error {
+
+}

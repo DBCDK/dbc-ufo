@@ -1,0 +1,9 @@
+@function gutter($multiply: 1){
+  @return $gutter * $multiply;
+}
+
+@mixin gutter-children($multiply: 1){
+  & > * + * {
+    margin-left: gutter($multiply);
+  }
+}
