@@ -7,7 +7,9 @@ import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-rout
 
 const router = new Router();
 
-router.get('/', async (ctx) => {
+router.get('/', (ctx) => {
+  console.log(ctx.session);
+  ctx.session.test = 'hest';
   ctx.body = `
     <!DOCTYPE html>
     <html>
@@ -20,6 +22,10 @@ router.get('/', async (ctx) => {
       </body>
     </html>
   `;
+});
+
+router.get('/login', () => {
+  ctx.body('You need to login...');
 });
 
 export default router;
