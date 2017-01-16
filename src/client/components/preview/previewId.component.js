@@ -4,8 +4,8 @@ export default class PreviewId extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentValue: props.value,
-    }
+      currentValue: props.value
+    };
   }
 
   onSubmit = (e) => {
