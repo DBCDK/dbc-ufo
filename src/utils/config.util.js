@@ -27,9 +27,6 @@ export const CONFIG = {
       client_id: process.env.SMAUG_CLIENT_ID,
       client_secret: process.env.SMAUG_CLIENT_SECRET
     }
-  },
-  session: {
-    key: process.env.SESSION_REDIS_KEY
   }
 };
 

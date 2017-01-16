@@ -7,16 +7,12 @@
 import Koa from 'koa';
 import convert from 'koa-convert';
 import serve from 'koa-static';
-import session from "koa-session2";
 
 // Middleware
 import {LoggerMiddleware} from './middlewares/logger.middleware';
 import {SetVersionHeader} from './middlewares/headers.middleware';
 import errorMiddleware from './middlewares/error.middleware';
 import router from './routes/index.routes';
-
-// Session
-import SessionStore from './session/store.session';
 
 // Utils
 import * as Logger from 'dbc-node-logger';
@@ -41,12 +37,6 @@ export function startServer() {
 
   // trust ip-addresses from X-Forwarded-By header, and log requests
   app.proxy = true;
-
-  app.use(session({
-    key: CONFIG.session.key,
-    store: new SessionStore(),
-    maxAge: 10000
-  }));
 
   app.use(convert(serve('./public')));
   app.use(LoggerMiddleware);

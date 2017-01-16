@@ -5,8 +5,7 @@ module.exports = function(wallaby) {
     files: [
       'package.json',
       'src/**/*.js',
-      '!src/**/*.test.js',
-      '!src/client/**/*'
+      '!src/**/*.test.js'
     ],
 
     tests: [
