@@ -1,0 +1,10 @@
+input.underline {
+  color: $text-color;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid $text-color;
+  padding-left: 0;
+  width: 100%;
+}

@@ -21,7 +21,6 @@ body {
   color: $text-color;
 }
 
-// Reset fonts for relevant elements
 input,
 button,
 select,
@@ -31,14 +30,3 @@ textarea {
   line-height: inherit;
 }
 
-input[type=text] {
-  color: #000;
-  background-color: transparent;
-  box-shadow: none;
-  border: none;
-  border-radius: 0;
-  border-bottom: 2px solid #000;
-  padding-left: 0;
-  font-size: inherit;
-  font-weight: inherit;
-}

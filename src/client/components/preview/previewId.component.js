@@ -4,8 +4,8 @@ export default class PreviewId extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentValue: props.value,
-    }
+      currentValue: props.value
+    };
   }
 
   onSubmit = (e) => {
@@ -32,12 +32,17 @@ export default class PreviewId extends React.Component {
     return (
       <form onSubmit={this.onSubmit} className="id-form component flex">
         <label htmlFor="id">ID</label>
-        <div className="input grow">
-          <input onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id" defaultValue={value}
+        <div className="id-input grow">
+          <input className="underline" onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id"
+                 defaultValue={value}
                  placeholder="Skriv id her"/>
-          <span className={`state ${state}`}></span>
+          <span className="state">
+            <span className={`icon ${state}`}></span>
+          </span>
         </div>
-        <button disabled={!this.isButtonActive() && 'disabled' || ''} className="submit small" onClick={this.onSubmit}>Opdater</button>
+        <button disabled={!this.isButtonActive() && 'disabled' || ''} className="submit small" onClick={this.onSubmit}>
+          Opdater
+        </button>
       </form>
     );
   }
