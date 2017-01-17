@@ -64,7 +64,7 @@ export default class PreviewContainer extends React.Component {
             <div className="message notice">Posten med id {this.state.id} har allerede en forside</div> || ''}
             {this.state.error && <div className="message error">{this.state.error}</div>}
             <PreviewWork {...this.state.work}/>
-            <button className="remove small" onClick={this.props.onRemove}>Fortryd Upload</button>
+            <a className="remove small" href="#" onClick={this.props.onRemove}>Fortryd</a>
           </div>
         </div>
         <div className="status">

@@ -1,4 +1,4 @@
-button {
+button, .button {
   @include button-reset();
   transition: all 200ms ease-in;
   &.submit {
@@ -8,9 +8,6 @@ button {
   &.remove {
     background-color: $red;
     color: white;
-  }
-  &.small {
-    font-size: 10px;
   }
   &:disabled{
     background-color: rgba($green, 0.1);

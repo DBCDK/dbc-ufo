@@ -11,7 +11,7 @@ export default function PreviewError({message, imageInfo, onRemove}) {
       <div className="main">
         <h4>Filnavn: {imageInfo.name}</h4>
         {message && <div className={`message ${message.type}`}>{message.text}</div>}
-        <button className="button remove" onClick={onRemove}>Fortryd Upload</button>
+        <a href="#" className="remove small" onClick={onRemove}>Fjern</a>
       </div>
       <div className="status">
       </div>
