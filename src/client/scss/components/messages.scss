@@ -1,0 +1,10 @@
+.message {
+  &.error {
+    color:$red;
+    font-weight: 700;
+  }
+  &.notice {
+    color:$red;
+  }
+  margin-bottom: gutter(0.5);
+}

@@ -8,7 +8,9 @@ export default class PreviewContainer extends React.Component {
     super(props);
     this.state = {
       work: null,
-      id: props.id
+      id: props.id,
+      idIsValid: false,
+      error: null
     };
   }
 
@@ -21,16 +23,26 @@ export default class PreviewContainer extends React.Component {
   getWorkFromId(id) {
     // This is a dummy implementation
     // TODO We need to call openPlatform to get real work info #25
-    const work = {
-      id: id,
-      image: 'https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg',
-      title: 'Titel',
-      creator: 'Ophav',
-      type: 'Materiale type',
-      isbn: 'ISBN'
-    };
-
-    setTimeout(() => this.setState({work}), 100);
+    let state = {};
+    if (id === '1234') {
+      const work = {
+        id: id,
+        image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcSKL5_5TfA5_e9SJSXKKyhQmLA7vD-kGqvsFheQaPo9PckwNVuV',
+        title: 'Titel',
+        creator: 'Ophav',
+        type: 'Materiale type',
+        isbn: 'ISBN'
+      };
+      state = {work, idIsValid: true, error: null};
+    }
+    else {
+      state = {
+        idIsValid: false,
+        error: `Der findes ikke nogen post med id ${id}`,
+        work: null
+      };
+    }
+    setTimeout(() => this.setState(state), 100);
   }
 
   componentDidMount() {
@@ -42,11 +54,22 @@ export default class PreviewContainer extends React.Component {
   render() {
     return (
       <div className="preview accepted component">
-        {this.props.message && <div className="message">{this.props.message}</div>}
-        <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id} />
-        <PreviewId value={this.state.id} onSubmit={this.onUpdateId}/>
-        {this.state.work && <PreviewWork {...this.state.work}/>}
-        <button className="button remove" onClick={this.props.onRemove}>Fortryd Upload</button>
+        <div className="images">
+          <PreviewImage work={this.state.work || {}} image={this.props.imageInfo} id={this.state.id}/>
+        </div>
+        <div className="main">
+          <div className="preview-work grow">
+            <PreviewId value={this.state.id} onSubmit={this.onUpdateId} idIsValid={this.state.idIsValid}/>
+            {this.state.work && this.state.work.image &&
+            <div className="message notice">Posten med id {this.state.id} har allerede en forside</div> || ''}
+            {this.state.error && <div className="message error">{this.state.error}</div>}
+            <PreviewWork {...this.state.work}/>
+            <a className="remove small" href="#" onClick={this.props.onRemove}>Fortryd</a>
+          </div>
+        </div>
+        <div className="status">
+
+        </div>
       </div>
     );
   }

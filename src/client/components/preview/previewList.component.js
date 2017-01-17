@@ -23,21 +23,28 @@ export default class PreviewList extends React.Component {
     data.id = element.id || null;
     return data;
   }
+
+  onRemove = (e, element) => {
+    e.preventDefault();
+    this.props.onRemove(element);
+  }
+
   renderAccepted() {
     return this.props.accepted.map(element => {
-      return (<PreviewContainer {...this.getImageInfo(element)} onRemove={() => this.props.onRemove(element)}/>);
+      return (<PreviewContainer {...this.getImageInfo(element)} onRemove={e => this.onRemove(e, element)}/>);
     });
   }
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError {...this.getImageInfo(element)} message={element.message} onRemove={() => this.props.onRemove(element)}/>);
+      return (<PreviewError {...this.getImageInfo(element)} message={element.message} onRemove={e => this.onRemove(e, element)}/>);
     });
   }
 
   render() {
     return (
-      <div className="preview-list component">
+      <div className="previews component">
+        {(this.props.accepted.length || this.props.rejected.length) && <h2>Preview af billeder og materialer</h2> || ''}
         <div className="accepted">
           {this.renderAccepted()}
         </div>
