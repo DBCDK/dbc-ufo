@@ -1,32 +1,23 @@
 .id-form {
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 2rem;
-  & > * + * {
-    margin-left: 2rem;
-  }
+  margin-bottom: gutter();
   button {
     height: 22px;
     font-size: 10px;
     line-height: 1;
   }
-  input {
-    width: 100%;
-  }
   @extend %flex-center;
-}
-
-.input {
-  position: relative;
-  .state {
-    position: absolute;
-    right: 0;
-    top: 0;
+  @include gutter-children-margin();
+  .id-input {
+    position: relative;
+    .state {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+    }
   }
-}
-
-.state {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
 }

@@ -32,8 +32,8 @@ export default class PreviewId extends React.Component {
     return (
       <form onSubmit={this.onSubmit} className="id-form component flex">
         <label htmlFor="id">ID</label>
-        <div className="input grow">
-          <input onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id"
+        <div className="id-input grow">
+          <input className="underline" onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id"
                  defaultValue={value}
                  placeholder="Skriv id her"/>
           <span className="state">
