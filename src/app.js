@@ -7,7 +7,7 @@
 import Koa from 'koa';
 import convert from 'koa-convert';
 import serve from 'koa-static';
-import session from "koa-session2";
+import session from 'koa-session2';
 
 // Middleware
 import {LoggerMiddleware} from './middlewares/logger.middleware';

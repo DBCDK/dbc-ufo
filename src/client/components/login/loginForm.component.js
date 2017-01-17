@@ -10,7 +10,7 @@ export default class LoginForm extends React.Component {
         user: '',
         pin: ''
       }
-    }
+    };
   }
 
   onSubmit = (e) => {
@@ -49,7 +49,7 @@ export default class LoginForm extends React.Component {
           </div>
           <div className='form-group'>
             <label htmlFor="termas-and-conditions" className='pointer'>
-              <input type="checkbox" name="termas-and-conditions" id="termas-and-conditions" />
+              <input type="checkbox" name="termas-and-conditions" id="termas-and-conditions"/>
               <span>Jeg har læst og accepteret retningslinjerne for upload af billeder til Forsideservice.</span>
             </label>
           </div>
@@ -62,6 +62,6 @@ export default class LoginForm extends React.Component {
   }
 }
 
-LoginForm.props = {
+LoginForm.propTypes = {
   onSubmit: React.PropTypes.func.isRequired
 };

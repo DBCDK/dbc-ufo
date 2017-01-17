@@ -6,12 +6,10 @@ import LoginForm from './loginForm.component';
 
 export default class LoginContainer extends React.Component {
   onSubmit = (fields) => {
-    console.log('onSubmit', fields);
-    // TODO superagent...
     const agencyid = fields.agencyid;
     const user = fields.user;
     const pin = fields.pin;
-    this.requestLogin({agencyid, user, pin})
+    this.requestLogin({agencyid, user, pin});
   };
 
   requestLogin(params) {
@@ -20,11 +18,11 @@ export default class LoginContainer extends React.Component {
       .send(params)
       .set('Accept', 'application/json')
       .end((err, res) => {
-        if (!err) {
+        if (!err && res.status === 200) {
           window.location = '/';
         }
         else {
-          console.error(err);
+          console.error(err); // eslint-disable-line no-console
         }
       });
   }

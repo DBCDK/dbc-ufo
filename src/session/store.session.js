@@ -2,9 +2,9 @@
  * @file
  * Session store class
  */
-import Redis from "ioredis";
-import {Store} from "koa-session2";
-import {CONFIG} from "../utils/config.util";
+import Redis from 'ioredis';
+import {Store} from 'koa-session2';
+import {CONFIG} from '../utils/config.util';
 
 export default class Sessiontore extends Store {
   constructor() {
@@ -18,7 +18,7 @@ export default class Sessiontore extends Store {
   }
 
   async set(session, opts) {
-    if(!opts.sid) {
+    if (!opts.sid) {
       opts.sid = this.getID(24);
     }
     await this.redis.set(`${CONFIG.session.key}:${opts.sid}`, JSON.stringify(session));
