@@ -1,6 +1,7 @@
 import React from 'react';
+import State from '../../state/state';
 
-export default function PreviewError({message, imageInfo, onRemove}) {
+export default function PreviewError({element}) {
   return (
     <div className="preview error">
       <div className="images">
@@ -9,9 +10,9 @@ export default function PreviewError({message, imageInfo, onRemove}) {
         </div>
       </div>
       <div className="main">
-        <h4>Filnavn: {imageInfo.name}</h4>
-        {message && <div className={`message ${message.type}`}>{message.text}</div>}
-        <a href="#" className="remove small" onClick={onRemove}>Fjern</a>
+        <h4>Filnavn: {element.name}</h4>
+        <div className="message error">{element.error}</div>
+        <a className="remove small" onClick={() => State.remove(element)}>Fjern</a>
       </div>
       <div className="status">
       </div>
@@ -20,9 +21,5 @@ export default function PreviewError({message, imageInfo, onRemove}) {
 }
 
 PreviewError.propTypes = {
-  error: React.PropTypes.string,
-  imageInfo: React.PropTypes.object,
-  message: React.PropTypes.object,
-  onRemove: React.PropTypes.func
+  element: React.PropTypes.object
 };
-

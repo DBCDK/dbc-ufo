@@ -1,11 +1,11 @@
 import React from 'react';
 import ImageUpload from './imageUpload.component';
-import PreviewList from '../preview/previewList.component';
+import State from '../../state/state';
 
 export default class ImageUploadContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.minSize = 100000;
     this.maxSize = 5000000;
     this.accepts = 'image/jpeg, image/jpg, image/png';
@@ -13,6 +13,9 @@ export default class ImageUploadContainer extends React.Component {
       accepted: [],
       rejected: []
     };
+    State.addListener((elements, errors) => {
+      this.setState({accepted: elements, rejected: errors});
+    });
   }
 
   rejectedReason = (rejectedFile) => {
@@ -24,33 +27,18 @@ export default class ImageUploadContainer extends React.Component {
       reason = `Filen har ikke en gyldig størrelse. Den skal være minimum ${this.minSize / 1000000}MB og maksimalt ${this.maxSize / 1000000}MB`;
     }
 
-    rejectedFile.message = {
-      type: 'error',
-      text: reason
-    };
-
+    rejectedFile.error = reason;
     return rejectedFile;
   };
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    this.setState({
-      accepted: this.state.accepted.concat(acceptedFiles),
-      rejected: this.state.rejected.concat(rejectedFiles.map(this.rejectedReason))
-    });
-  };
-
-  onRemove = (element) => {
-    const accepted = this.state.accepted.filter(file => file !== element);
-    const rejected = this.state.rejected.filter(file => file !== element);
-    this.setState({accepted, rejected});
+    State.addImages(acceptedFiles, rejectedFiles.map(this.rejectedReason));
   };
 
   render() {
     return (
       <div className="upload-form-container">
         <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop}/>
-        <PreviewList type="image" accepted={this.state.accepted} rejected={this.state.rejected}
-                     onRemove={this.onRemove}/>
       </div>
     );
   }
