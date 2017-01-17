@@ -4,6 +4,9 @@
  */
 
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
+import koabody from 'koa-body';
+
+const bodyparser = new koabody();
 
 const router = new Router();
 
@@ -44,5 +47,36 @@ router.get('/login', (ctx) => {
     </html>
   `;
 });
+
+router.post('/login', bodyparser, async(ctx) => {
+  const valid = validateBody(ctx.request.body);
+
+  if (!valid) {
+    ctx.status = 406;
+    ctx.body = 'invalid request';
+  }
+
+  // TODO do forsrights request
+
+  ctx.session.authenticated = true;
+  ctx.body = 'success';
+  ctx.status = 200;
+});
+
+function validateBody(body) {
+  if (!body.agencyid || typeof body.agencyid !== 'string') {
+    return false;
+  }
+
+  if (!body.user || typeof body.user !== 'string') {
+    return false;
+  }
+
+  if (!body.pin || typeof body.pin !== 'string') {
+    return false;
+  }
+
+  return true;
+}
 
 export default router;

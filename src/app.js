@@ -46,7 +46,7 @@ export function startServer() {
   app.use(session({
     key: CONFIG.session.key,
     store: new SessionStore(),
-    maxAge: 10000
+    maxAge: 2592000000 // 30 days (miliseconds)
   }));
 
   app.use(convert(serve('./public')));
