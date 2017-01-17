@@ -21,7 +21,7 @@ describe('Testing url upload component', () => {
   it('Should compare existing image with new image', () => {
     page.uploadUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
     page.submitId(1234);
-    const previewImage = browser.element('.preview-image').getText();
+    const previewImage = browser.element('.preview-images').getText();
     assert.include(previewImage, 'Ny');
     assert.include(previewImage, 'Eksisterende');
   });
