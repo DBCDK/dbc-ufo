@@ -1,6 +1,7 @@
 import {UrlElement, ImageElement} from './stateElements';
 import unique from '../utils/unique.util';
 import validateImage from '../utils/validateImage.util';
+import request from 'superagent';
 
 /**
  * Simple State management for image and URL upload.
@@ -53,8 +54,17 @@ class State {
   }
 
   upload() {
-    // TODO call upload on all elements, and handle callbacks
-    this.elementsUpdated();
+    var req = request.post('/upload');
+    this.elements.forEach((image)=> {
+      const file = image.element.file;
+      req.attach(file.name, file);
+    });
+    req.end((err, res) => {
+      // TODO change status on elements
+      console.log(res, err); // eslint-disable-line
+
+      this.elementsUpdated();
+    });
   }
 }
 
