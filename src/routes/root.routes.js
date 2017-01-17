@@ -32,10 +32,14 @@ router.get('/login', (ctx) => {
     <html>
       <head>
         <title>Log in - Image upload</title>
+        <link rel="stylesheet" type="text/css" href="/css/index.css"/>
       </head>
       <body>
+      <div class="main">
+          <div class="header"><a href="/"><span class="logo"></a></div>
           <div id="content"></div>
           <script src="/js/login.js"></script>
+        </div>
       </body>
     </html>
   `;

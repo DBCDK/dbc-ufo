@@ -4,10 +4,11 @@
 @import "config/config";
 
 /* Includes */
-@import 'includes/spacer';
 @import 'includes/buttons';
-@import 'includes/gutter';
 @import 'includes/flex';
+@import 'includes/form-group';
+@import 'includes/gutter';
+@import 'includes/spacer';
 
 /* Globals */
 @import 'globals/load-svg';
@@ -25,6 +26,9 @@
 @import '/components/dropzone';
 @import '/components/header';
 @import '/components/work';
+
+/* Components -- Login */
+@import '/components/login-form';
 
 
 /* GLOBAL STYLING */

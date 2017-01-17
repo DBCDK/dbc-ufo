@@ -8,7 +8,7 @@ export async function RefreshSession(ctx, next){
 
 export async function AuthenticationCheck(ctx, next) {
   if(!ctx.session.authenticated && ctx.req.url !== '/login'){
-    ctx.redirect('/login');
+    // ctx.redirect('/login');
   }
 
   await next();

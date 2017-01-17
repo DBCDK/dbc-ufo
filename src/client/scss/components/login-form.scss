@@ -1,0 +1,42 @@
+.login-form {
+  .form-group {
+    @include form-group();
+  }
+
+  .submit {
+    font-size: 16px;
+    padding: 10px 50px;
+    float: right;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+  input[type="checkbox"] + span {
+    display: inline-block;
+  }
+
+  input[type="checkbox"]:checked + span:before {
+    //background: svg-inline(checkmark) no-repeat center;
+    background: svg-inline(checkmark) no-repeat center;
+    background-color: $green;
+    background-size: 15px 15px;
+    border: none;
+  }
+
+  input[type="checkbox"] + span:before {
+    content: " ";
+    position: relative;
+    margin-right: 10px;
+    top: 5px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+    border-radius: 4px;
+  }
+}
+
+.login-form--submit-btn-container {
+  margin-bottom: 50px;
+}
