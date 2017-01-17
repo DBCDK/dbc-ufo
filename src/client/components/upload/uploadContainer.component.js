@@ -1,5 +1,7 @@
 import React from 'react';
 import ImageUpload from './imageUpload.component';
+import UrlUpload from './urlUpload.component';
+import PreviewList from '../preview/previewList.component';
 import State from '../../state/state';
 
 export default class ImageUploadContainer extends React.Component {
@@ -39,6 +41,8 @@ export default class ImageUploadContainer extends React.Component {
     return (
       <div className="upload-form-container">
         <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop}/>
+        <UrlUpload onSubmit={State.addUrls}/>
+        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected} />
       </div>
     );
   }
