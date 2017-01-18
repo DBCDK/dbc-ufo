@@ -27,7 +27,6 @@ export default class PreviewContainer extends React.Component {
         <div className='status'>
           <PreviewStatus status={element.status} />
         </div>
-
       </div>
     );
   }

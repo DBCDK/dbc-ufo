@@ -8,7 +8,7 @@ describe('Testing image upload', () => {
   });
 
   it('Should render component', () => {
-    const element = $('.upload-form-container');
+    const element = $('.upload-form');
     element.waitForExist(5000);
     assert.include(element.getText(), 'Træk filer hertil');
   });
