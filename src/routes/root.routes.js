@@ -40,13 +40,24 @@ router.get('/login', async(ctx) => {
       </head>
       <body>
       <div class="main">
-          <div class="header"><a href="/"><span class="logo"></a></div>
+          <div id="topbar"></div>
+          <!-- <div class="header"><a href="/"><span class="logo"></div> -->
           <div id="content"></div>
           <script src="/js/login.js"></script>
         </div>
       </body>
     </html>
   `;
+});
+
+router.get('/logout', (ctx) => {
+  ctx.session = null;
+  ctx.redirect('/login');
+});
+
+router.get('/isauthenticated', async (ctx, next) => {
+  ctx.body = !!ctx.session.authenticated;
+  await next();
 });
 
 router.post('/login', bodyparser, async(ctx) => {
