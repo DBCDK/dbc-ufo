@@ -10,9 +10,8 @@ import React from 'react';
 import './scss/index.scss';
 
 // Components
-import UploadImageContainer from './components/imageUpload/imageUploadContainer.component';
-import UploadUrlontainer from './components/urlUpload/urlUploadContainer.component';
+import UploadContainer from './components/upload/uploadContainer.component';
 
 const rootContainer = document.getElementById('content');
 
-ReactDOM.render(<div><UploadImageContainer /><UploadUrlontainer/></div>, rootContainer);
+ReactDOM.render(<div><UploadContainer /></div>, rootContainer);
