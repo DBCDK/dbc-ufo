@@ -4,6 +4,7 @@ import PreviewWork from './previewWork.component';
 import PreviewId from './previewId.component';
 import PreviewStatus from './previewStatus.component';
 import State from '../../state/state';
+import constants from '../../state/constants';
 
 export default class PreviewContainer extends React.Component {
   render() {
@@ -18,7 +19,7 @@ export default class PreviewContainer extends React.Component {
             <PreviewId value={element.id} onSubmit={(id) => element.setId(id)} idIsValid={element.work && true}/>
             {element.work && element.work.image &&
             <div className="message notice">Posten med id {element.id} har allerede en forside</div> || ''}
-            {element.error && <div className="message error">Der findes ikke nogen post med id {element.id}</div>}
+            {element.status === constants.ERROR_NO_WORK && <div className="message error">Der findes ikke nogen post med id {element.id}</div>}
             <PreviewWork {...element.work}/>
             <a className="remove small" onClick={() => State.remove(element)}>Fortryd</a>
           </div>

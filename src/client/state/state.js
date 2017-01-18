@@ -1,6 +1,6 @@
 import {UrlElement, ImageElement} from './stateElements';
-import unique from '../utils/unique.util';
-import validateImage from '../utils/validateImage.util';
+import unique from '../../utils/unique.util';
+import validateImage from '../../utils/validateImage.util';
 
 /**
  * Simple State management for image and URL upload.
