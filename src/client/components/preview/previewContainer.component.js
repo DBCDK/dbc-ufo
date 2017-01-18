@@ -2,6 +2,7 @@ import React from 'react';
 import PreviewImage from './previewImage.component';
 import PreviewWork from './previewWork.component';
 import PreviewId from './previewId.component';
+import PreviewStatus from './previewStatus.component';
 import State from '../../state/state';
 
 export default class PreviewContainer extends React.Component {
@@ -22,8 +23,10 @@ export default class PreviewContainer extends React.Component {
             <a className="remove small" onClick={() => State.remove(element)}>Fortryd</a>
           </div>
         </div>
-        <div className="status">
+        <div className='status'>
+          <PreviewStatus status={element.status} />
         </div>
+
       </div>
     );
   }
