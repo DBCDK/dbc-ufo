@@ -5,6 +5,7 @@
 
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
 import koabody from 'koa-body';
+import {authenticateUser} from "../services/forsrights/forsrights.client";
 
 const bodyparser = new koabody();
 
@@ -29,7 +30,7 @@ router.get('/', (ctx) => {
   `;
 });
 
-router.get('/login', (ctx) => {
+router.get('/login', async(ctx) => {
   ctx.body = `
     <!DOCTYPE html>
     <html>
@@ -50,21 +51,29 @@ router.get('/login', (ctx) => {
 
 router.post('/login', bodyparser, async(ctx) => {
   const valid = validateBody(ctx.request.body);
+  const body = ctx.request.body;
+  const result = await authenticateUser({agency: body.agency, user: body.user, password: body.password});
+  console.log('result: ', result);
 
   if (!valid) {
+    ctx.session.authenticated = false;
     ctx.status = 406;
     ctx.body = 'invalid request';
   }
-
-  // TODO do forsrights request
-
-  ctx.session.authenticated = true;
-  ctx.body = 'success';
-  ctx.status = 200;
+  else if (result.error || !result.authenticated) {
+    ctx.session.authenticated = false;
+    ctx.status = 401;
+    ctx.body = result.error || 'user could not be authenticated';
+  }
+  else {
+    ctx.session.authenticated = true;
+    ctx.body = 'success';
+    ctx.status = 200;
+  }
 });
 
 function validateBody(body) {
-  if (!body.agencyid || typeof body.agencyid !== 'string') {
+  if (!body.agency || typeof body.agency !== 'string') {
     return false;
   }
 
@@ -72,7 +81,11 @@ function validateBody(body) {
     return false;
   }
 
-  if (!body.pin || typeof body.pin !== 'string') {
+  if (!body.password || typeof body.password !== 'string') {
+    return false;
+  }
+
+  if (!body.agreement || typeof body.agreement !== 'boolean') {
     return false;
   }
 

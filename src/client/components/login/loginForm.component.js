@@ -3,12 +3,14 @@ import React from 'react';
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
 
     this.state = {
       fields: {
-        agencyid: '',
+        agency: '',
         user: '',
-        pin: ''
+        password: '',
+        agreement: false
       }
     };
   }
@@ -27,14 +29,23 @@ export default class LoginForm extends React.Component {
     }
   };
 
+  checkboxHandler = () => {
+    const state = Object.assign(this.state, {});
+    state.fields.agreement = !this.state.fields.agreement;
+    this.setState(state);
+  };
+
   render() {
-    const disabled = !({...this.state.fields});
+    const disabled = !this.state.fields.agency || !this.state.fields.user || !this.state.fields.password || !this.state.fields.agreement;
+    const errorMsg = this.props.error ? (<div className="message error"><h2>Fejl: {this.props.error}</h2></div>) : null;
+
     return (
       <div className='login-form'>
+        {errorMsg}
         <form>
           <div className='form-group'>
             <label>Biblioteksnummer
-              <input type='text' onChange={this.onChange} name='agencyid' value={this.state.fields.agencyid}/>
+              <input type='text' onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
             </label>
           </div>
           <div className='form-group'>
@@ -44,12 +55,12 @@ export default class LoginForm extends React.Component {
           </div>
           <div className='form-group'>
             <label>Adgangskode
-              <input type='text' onChange={this.onChange} name='pin' value={this.state.fields.pin}/>
+              <input type='password' onChange={this.onChange} name='password' value={this.state.fields.password}/>
             </label>
           </div>
           <div className='form-group'>
             <label htmlFor="termas-and-conditions" className='pointer'>
-              <input type="checkbox" name="termas-and-conditions" id="termas-and-conditions"/>
+              <input type="checkbox" name="termas-and-conditions" id="termas-and-conditions" checked={this.state.fields.agreement} onClick={this.checkboxHandler}/>
               <span>Jeg har læst og accepteret retningslinjerne for upload af billeder til Forsideservice.</span>
             </label>
           </div>
@@ -63,5 +74,6 @@ export default class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-  onSubmit: React.PropTypes.func.isRequired
+  onSubmit: React.PropTypes.func.isRequired,
+  error: React.PropTypes.string
 };

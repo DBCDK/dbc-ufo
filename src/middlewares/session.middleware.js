@@ -3,6 +3,7 @@
  */
 export async function RefreshSession(ctx, next) {
   ctx.session.lastTouch = Date.now();
+  console.log(ctx.session);
   await next();
 }
 

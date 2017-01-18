@@ -5,11 +5,20 @@ import request from 'superagent';
 import LoginForm from './loginForm.component';
 
 export default class LoginContainer extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      error: null
+    }
+  }
+
   onSubmit = (fields) => {
-    const agencyid = fields.agencyid;
+    const agency = fields.agency;
     const user = fields.user;
-    const pin = fields.pin;
-    this.requestLogin({agencyid, user, pin});
+    const password = fields.password;
+    const agreement = fields.agreement;
+    this.requestLogin({agency, user, password, agreement});
   };
 
   requestLogin(params) {
@@ -22,7 +31,9 @@ export default class LoginContainer extends React.Component {
           window.location = '/';
         }
         else {
+          console.error(res.text);
           console.error(err); // eslint-disable-line no-console
+          this.setState({error: res.text})
         }
       });
   }
@@ -30,7 +41,7 @@ export default class LoginContainer extends React.Component {
   render() {
     return (
       <div>
-        <LoginForm onSubmit={this.onSubmit}/>
+        <LoginForm onSubmit={this.onSubmit} error={this.state.error} />
       </div>
     );
   }
