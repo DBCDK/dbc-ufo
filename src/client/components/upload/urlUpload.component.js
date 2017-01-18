@@ -31,14 +31,24 @@ export default class UrlUpload extends React.Component {
 
 function UrlUploadDisplay({value, onSubmit, onChange}) {
   return (
-    <div className="url-upload component">
+    <div className="url-upload">
       <TextareaAutosize
+        rows={8}
         placeholder="Skriv en URL pr. linie"
         useCacheForDOMMeasurements
         value={value}
         onChange={onChange}
       />
-      <button onClick={onSubmit}>vis i liste</button>
+      <div className="relative">
+        <div className="help description">
+          Skriv en URL på hver linie <i>eller</i><br />
+          Skriv URL og materialeID på samme linie adskilt af mellemrum eller tab
+        </div>
+        <div className="absolute right text-right">
+          <button disabled={!value} className="submit" onClick={onSubmit}>Hent preview af billeder</button>
+        </div>
+      </div>
+
     </div>
   );
 }

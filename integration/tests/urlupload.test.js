@@ -11,7 +11,7 @@ describe('Testing url upload component', () => {
   it('Should render component', () => {
     const element = $('.url-upload');
     element.waitForExist(5000);
-    assert.include(element.getText(), 'VIS I LISTE');
+    assert.include(element.getText(), 'HENT PREVIEW AF BILLEDER');
   });
 
   it('Should show preview of image from url', () => {

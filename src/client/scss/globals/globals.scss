@@ -8,6 +8,17 @@
 .relative {
   position: relative;
 }
+.absolute {
+  position: absolute;
+  &.right {
+    top: 0;
+    right: 0;
+  }
+}
+
+.container {
+  margin-bottom: gutter(3);
+}
 
 .is-hidden    { display:    none !important; }
 .is-invisible { visibility: hidden !important; }

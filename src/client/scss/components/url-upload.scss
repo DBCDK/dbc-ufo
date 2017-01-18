@@ -1,0 +1,12 @@
+.url-upload {
+  textarea {
+    width: 100%;
+    background-color: inherit;
+    border: 2px solid;
+    padding: 2rem;
+    margin-bottom: gutter();
+  }
+  .help {
+    max-width: 50%;
+  }
+}
