@@ -5,12 +5,12 @@ import request from 'superagent';
 import LoginForm from './loginForm.component';
 
 export default class LoginContainer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
       error: null
-    }
+    };
   }
 
   onSubmit = (fields) => {
@@ -31,9 +31,9 @@ export default class LoginContainer extends React.Component {
           window.location = '/';
         }
         else {
-          console.error(res.text);
+          console.error(res.text); // eslint-disable-line no-console
           console.error(err); // eslint-disable-line no-console
-          this.setState({error: res.text})
+          this.setState({error: res.text});
         }
       });
   }
@@ -41,7 +41,7 @@ export default class LoginContainer extends React.Component {
   render() {
     return (
       <div>
-        <LoginForm onSubmit={this.onSubmit} error={this.state.error} />
+        <LoginForm onSubmit={this.onSubmit} error={this.state.error}/>
       </div>
     );
   }

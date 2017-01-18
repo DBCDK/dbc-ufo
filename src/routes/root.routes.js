@@ -5,7 +5,7 @@
 
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
 import koabody from 'koa-body';
-import {authenticateUser} from "../services/forsrights/forsrights.client";
+import {authenticateUser} from '../services/forsrights/forsrights.client';
 
 const bodyparser = new koabody();
 
@@ -53,7 +53,6 @@ router.post('/login', bodyparser, async(ctx) => {
   const valid = validateBody(ctx.request.body);
   const body = ctx.request.body;
   const result = await authenticateUser({agency: body.agency, user: body.user, password: body.password});
-  console.log('result: ', result);
 
   if (!valid) {
     ctx.session.authenticated = false;

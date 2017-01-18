@@ -6,7 +6,7 @@
 import {promiseRequest} from '../../utils/request.util';
 import {CONFIG} from '../../utils/config.util';
 import {log} from 'dbc-node-logger';
-import {MOCKED_RESPONSE} from './forsrights.mock';
+import {MOCKED_POSITIVE_RESPONSE} from './forsrights.mock';
 
 export async function authenticateUser(credentials) {
   const response = await makeForsRightsRequest(credentials);
@@ -22,14 +22,14 @@ export function parseResponseFromForsRights(response) {
   };
 
   if (response.forsRightsResponse && response.forsRightsResponse.error) {
-    result.error = response.forsRightsResponse.error['$'];
+    result.error = response.forsRightsResponse.error.$;
   }
 
   else if (response.forsRightsResponse && response.forsRightsResponse.ressource) {
     response.forsRightsResponse.ressource.forEach((val) => {
-      if (val.name['$'] === 'netpunkt.dk' && val.right) {
+      if (val.name.$ === 'netpunkt.dk' && val.right) {
         val.right.forEach((right) => {
-          if (right['$'] === '500') {
+          if (right.$ === '500') {
             result.authenticated = true;
           }
         });
@@ -42,7 +42,7 @@ export function parseResponseFromForsRights(response) {
 
 function makeForsRightsRequest(credentials) {
   if (CONFIG.app.env === 'test') {
-    return MOCKED_RESPONSE;
+    return MOCKED_POSITIVE_RESPONSE;
   }
 
   const userIdAut = credentials.user;
@@ -67,7 +67,6 @@ function makeForsRightsRequest(credentials) {
 
   return promiseRequest('post', params).then((forsRightsResponse) => {
     try {
-      console.log(forsRightsResponse.body);
       return JSON.parse(forsRightsResponse.body);
     }
     catch (e) {

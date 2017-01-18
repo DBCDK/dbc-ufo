@@ -3,7 +3,6 @@ import React from 'react';
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
 
     this.state = {
       fields: {
@@ -45,27 +44,27 @@ export default class LoginForm extends React.Component {
         <form>
           <div className='form-group'>
             <label>Biblioteksnummer
-              <input type='text' onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
+              <input type='text' id='login-input-agency' onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
             </label>
           </div>
           <div className='form-group'>
             <label>Brugernavn
-              <input type='text' onChange={this.onChange} name='user' value={this.state.fields.user}/>
+              <input type='text' id="login-input-user" onChange={this.onChange} name='user' value={this.state.fields.user}/>
             </label>
           </div>
           <div className='form-group'>
             <label>Adgangskode
-              <input type='password' onChange={this.onChange} name='password' value={this.state.fields.password}/>
+              <input type='password' id="login-input-password" onChange={this.onChange} name='password' value={this.state.fields.password}/>
             </label>
           </div>
           <div className='form-group'>
-            <label htmlFor="termas-and-conditions" className='pointer'>
-              <input type="checkbox" name="termas-and-conditions" id="termas-and-conditions" checked={this.state.fields.agreement} onClick={this.checkboxHandler}/>
+            <label htmlFor="termas-and-conditions" className='pointer' id='login-input-tac'>
+              <input type="checkbox" id='termas-and-conditions' name="termas-and-conditions" checked={this.state.fields.agreement} onClick={this.checkboxHandler}/>
               <span>Jeg har læst og accepteret retningslinjerne for upload af billeder til Forsideservice.</span>
             </label>
           </div>
           <div className='login-form--submit-btn-container'>
-            <button className='submit pointer' onClick={this.onSubmit} disabled={disabled}>LOG IND</button>
+            <button className='submit pointer' id="login-input-submit" onClick={this.onSubmit} disabled={disabled}>LOG IND</button>
           </div>
         </form>
       </div>
