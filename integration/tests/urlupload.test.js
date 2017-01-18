@@ -10,7 +10,7 @@ describe('Testing url upload component', () => {
   });
 
   it('Should render component', () => {
-    const element = $('.upload-urls-container');
+    const element = $('.url-upload');
     element.waitForExist(5000);
     assert.include(element.getText(), 'VIS I LISTE');
   });

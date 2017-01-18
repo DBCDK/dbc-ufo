@@ -16,9 +16,11 @@ module.exports = function(wallaby) {
     compilers: {
       '**/*.js': wallaby.compilers.babel({
         babel: babel,
+        presets: ['es2015', 'react'],
         plugins: [
           'transform-es2015-modules-commonjs',
-          'transform-async-to-generator'
+          'transform-async-to-generator',
+          'transform-class-properties'
         ]
       })
     },
