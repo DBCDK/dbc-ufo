@@ -5,8 +5,12 @@ export default class Topbar extends React.Component {
     return (
       <div className="header">
         <a href="/"><span className="logo"/></a>
-        {this.props.authenticated && <a href="/logout">Log ud</a>}
+        {this.props.authenticated && <a id='logout-btn' href="/logout">Log ud</a>}
       </div>
     );
   }
 }
+
+Topbar.propTypes = {
+  authenticated: React.PropTypes.bool.isRequired
+};

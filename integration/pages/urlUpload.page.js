@@ -2,7 +2,7 @@
 
 export default class UrlUpladPage {
   open() {
-    browser.url('/');
+    browser.signIn();
   }
   uploadUrls(url) {
     browser.setValue('.url-upload textarea', url);

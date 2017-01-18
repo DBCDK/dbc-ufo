@@ -3,7 +3,7 @@ import Topbar from './topbar.component';
 import request from 'superagent';
 
 export default class TopbarContainer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -11,16 +11,15 @@ export default class TopbarContainer extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     request
       .get('/isauthenticated')
       .end((err, res) => {
-        console.log('err', err);
-        console.log('res', res);
-        if(err){
+        if (err) {
           console.error(err); // eslint-disable-line no-console
-        } else {
-          this.setState({authenticted: res.body})
+        }
+        else {
+          this.setState({authenticted: res.body});
         }
       });
   }

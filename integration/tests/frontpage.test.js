@@ -4,7 +4,6 @@ import {assert} from 'chai';
 describe('Testing frontpage', () => {
   beforeEach(() => {
     browser.signIn();
-    browser.url('/');
   });
 
   it('Should render frontpage', () => {
