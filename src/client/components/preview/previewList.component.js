@@ -21,7 +21,9 @@ export default class PreviewList extends React.Component {
     return (
       <div className="previewlist-header">
         <h2>Preview af billeder og materialer</h2>
-        <button className="submit" disabled={!State.readyForUpload()} onClick={State.upload}>Upload billeder</button>
+        <div className="upload-button text-right mb1">
+          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}>Upload billeder</button>
+        </div>
       </div>
     );
   }
