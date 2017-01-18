@@ -21,7 +21,7 @@ router.get('/', (ctx) => {
       </head>
       <body>
         <div class="main">
-          <div class="header"><a href="/"><span class="logo"></a></div>
+          <div id="topbar"></div>
           <div id="content"></div>
           <script src="/js/index.js"></script>
         </div>
@@ -41,7 +41,6 @@ router.get('/login', async(ctx) => {
       <body>
       <div class="main">
           <div id="topbar"></div>
-          <!-- <div class="header"><a href="/"><span class="logo"></div> -->
           <div id="content"></div>
           <script src="/js/login.js"></script>
         </div>
