@@ -117,7 +117,7 @@ export class ImageElement extends UploadElement {
     request.post('/upload')
       .attach(file.name, file)
       .end((err, res) => {
-        if (res.status === 200) {
+        if (res && res.status === 200) {
           this.setStatus(constants.DONE_OK);
         }
         else {
