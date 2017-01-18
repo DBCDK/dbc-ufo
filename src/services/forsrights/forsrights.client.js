@@ -52,15 +52,15 @@ function makeForsRightsRequest(credentials) {
   const params = {
     url: CONFIG.forsrights.uri,
     body: `
-  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:for="http://oss.dbc.dk/ns/forsrights">
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ufo="http://oss.dbc.dk/ns/forsrights">
    <soapenv:Header/>
    <soapenv:Body>
-      <for:forsRightsRequest>
-         <for:userIdAut>${userIdAut}</for:userIdAut>
-         <for:groupIdAut>${groupIdAut}</for:groupIdAut>
-         <for:passwordAut>${passwordAut}</for:passwordAut>
-         <for:outputType>json</for:outputType>
-      </for:forsRightsRequest>
+      <ufo:forsRightsRequest>
+         <ufo:userIdAut>${userIdAut}</ufo:userIdAut>
+         <ufo:groupIdAut>${groupIdAut}</ufo:groupIdAut>
+         <ufo:passwordAut>${passwordAut}</ufo:passwordAut>
+         <ufo:outputType>json</ufo:outputType>
+      </ufo:forsRightsRequest>
    </soapenv:Body>
 </soapenv:Envelope>`
   };
