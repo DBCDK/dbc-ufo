@@ -56,7 +56,7 @@ export function startServer() {
   app.use(Session.AuthenticationCheck);
   app.use(Session.RefreshSession);
 
-  app.use(router);
+  app.use(router.routes());
 
   app.use(errorMiddleware);
 
