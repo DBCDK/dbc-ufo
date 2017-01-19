@@ -10,5 +10,7 @@ export default {
   UPLOAD_WAITING: 'upload-waiting',
   UPLOAD_STARTED: 'upload-started',
   DONE_OK: 'done-ok',
-  DONE_ERROR: 'done-error'
+  DONE_ERROR: 'done-error',
+  UPLOAD_TYPE_IMAGE: 'image_upload',
+  UPLOAD_TYPE_URL: 'url_upload'
 };

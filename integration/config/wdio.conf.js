@@ -157,7 +157,7 @@ let config = {
   // before: function (capabilities, specs) {
   // },
   before() {
-    require('../utils/signin.util');
+    require('../utils/browser.util');
   },
   //
   // Hook that gets executed before the suite starts

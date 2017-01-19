@@ -7,6 +7,7 @@ describe('Testing image upload', () => {
 
   beforeEach(() => {
     browser.signIn();
+    browser.selectImageUpload();
   });
 
   it('Should render component', () => {
