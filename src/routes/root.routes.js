@@ -4,6 +4,9 @@
  */
 
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
+import asyncBusboy from 'async-busboy';
+import fs from 'fs';
+import path from 'path';
 import koabody from 'koa-body';
 import {authenticateUser} from '../services/forsrights/forsrights.client';
 
@@ -28,6 +31,22 @@ router.get('/', (ctx) => {
       </body>
     </html>
   `;
+});
+
+router.post('/upload', async(ctx) => {
+  try {
+    const {files} = await asyncBusboy(ctx.req);
+    files.forEach(async(file) => {
+      // TODO sent image to MoreInfo Update instead of public folder.
+      var newPath = path.join(__dirname, '../../', 'public', file.filename);
+      await fs.rename(file.path, newPath);
+    });
+    ctx.status = 200;
+    ctx.body = JSON.stringify({result: true});
+  }
+  catch (e) {
+    ctx.body = JSON.stringify({error: e});
+  }
 });
 
 router.get('/login', async(ctx) => {

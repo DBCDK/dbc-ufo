@@ -13,4 +13,8 @@ button, .button {
     background-color: rgba($header-color, 0.1);
     color: rgba(white, 0.5);
   }
+  &.small {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
 }

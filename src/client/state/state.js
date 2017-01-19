@@ -1,6 +1,6 @@
 import {UrlElement, ImageElement} from './stateElements';
-import unique from '../utils/unique.util';
-import validateImage from '../utils/validateImage.util';
+import unique from '../../utils/unique.util';
+import validateImage from '../../utils/validateImage.util';
 
 /**
  * Simple State management for image and URL upload.
@@ -52,9 +52,18 @@ class State {
     this.elementsUpdated();
   }
 
-  upload() {
-    // TODO call upload on all elements, and handle callbacks
-    this.elementsUpdated();
+  upload = () => {
+    this.elements.forEach(element => element.status.includes('ready') && element.upload());
+  }
+
+  readyForUpload() {
+    const waiting = this.elements.filter(element => element.status.includes('wait'));
+    const ready = this.elements.filter(element => element.status.includes('ready'));
+    if (ready.length > 0 && waiting.length === 0) {
+      return true;
+    }
+
+    return false;
   }
 }
 

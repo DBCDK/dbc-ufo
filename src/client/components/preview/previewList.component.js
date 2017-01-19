@@ -1,6 +1,7 @@
 import React from 'react';
 import PreviewContainer from './previewContainer.component';
 import PreviewError from './previewError.component';
+import State from '../../state/state';
 
 export default class PreviewList extends React.Component {
 
@@ -20,6 +21,9 @@ export default class PreviewList extends React.Component {
     return (
       <div className="previewlist-header">
         <h2>Preview af billeder og materialer</h2>
+        <div className="upload-button text-right mb1">
+          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}>Upload billeder</button>
+        </div>
       </div>
     );
   }
