@@ -9,8 +9,10 @@ branches:
   only:
   - master
 env:
-- TEST_SUITE=test
-- TEST_SUITE=test:integration
+  - TEST_SUITE=test
+  - TEST_SUITE=test:integration
+services:
+  - redis-server
 before_install:
   - if [ "${TEST_SUITE}" != "test:integration" ]; then unset SAUCE_USERNAME && unset SAUCE_ACCESS_KEY; fi
 script: npm run $TEST_SUITE

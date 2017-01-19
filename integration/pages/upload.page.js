@@ -4,7 +4,7 @@ import {assert} from 'chai';
 
 export default class UrlUpladPage {
   open() {
-    browser.url('/');
+    browser.signIn();
   }
   addUrls(url) {
     browser.setValue('.url-upload textarea', url);

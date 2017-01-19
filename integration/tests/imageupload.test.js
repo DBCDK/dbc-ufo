@@ -6,7 +6,7 @@ describe('Testing image upload', () => {
   const page = new uploadPage();
 
   beforeEach(() => {
-    browser.url('/');
+    browser.signIn();
   });
 
   it('Should render component', () => {
