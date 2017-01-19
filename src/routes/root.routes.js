@@ -33,7 +33,8 @@ router.post('/upload', async(ctx) => {
   try {
     const {files} = await asyncBusboy(ctx.req);
     files.forEach(async(file) => {
-      var newPath = path.join(__dirname, '../../', 'public/test', file.filename);
+      // TODO sent image to MoreInfo Update instead of public folder.
+      var newPath = path.join(__dirname, '../../', 'public', file.filename);
       await fs.rename(file.path, newPath);
     });
     ctx.status = 200;
