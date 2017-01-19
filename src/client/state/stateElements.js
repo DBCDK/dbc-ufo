@@ -42,8 +42,6 @@ class UploadElement {
   }
 
   _fetchWork = (id) => {
-    // This is a dummy implementation
-    // TODO We need to call openPlatform to get real work info #25
     let work;
     if (id === '12345678') {
       work = {
@@ -54,8 +52,23 @@ class UploadElement {
         type: 'Materiale type',
         isbn: 'ISBN'
       };
+      setTimeout(() => this._setWork(work, id), 100);
     }
-    setTimeout(() => this._setWork(work, id), 100);
+    else {
+      request
+        .post('/posts')
+        .send({id})
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (!err && res.status === 200) {
+            work = JSON.parse(res.text);
+            this._setWork(work);
+          }
+          else {
+            this._setWork(null);
+          }
+        });
+    }
   }
 
   _setWork(work) {

@@ -9,6 +9,9 @@ import fs from 'fs';
 import path from 'path';
 import koabody from 'koa-body';
 import {authenticateUser} from '../services/forsrights/forsrights.client';
+import {getWork} from '../services/serviceprovider/serviceprovider.client';
+import {validateId} from '../utils/validateId.util';
+import {log} from 'dbc-node-logger';
 
 const bodyparser = new koabody();
 const router = new Router();
@@ -32,7 +35,7 @@ router.get('/', (ctx) => {
   `;
 });
 
-router.post('/upload', async(ctx) => {
+router.post('/upload', async (ctx) => {
   try {
     const {files} = await asyncBusboy(ctx.req);
     files.forEach(async(file) => {
@@ -48,7 +51,29 @@ router.post('/upload', async(ctx) => {
   }
 });
 
-
+router.post('/posts', bodyparser, async (ctx) => {
+  const {id, type: idType} = validateId(ctx.request.body.id);
+  let work;
+  try {
+    switch (idType) {
+      case 'pid':
+        work = (await getWork({params: {pids: [id]}})).data[0];
+        break;
+      default:
+        ctx.status = 402;
+    }
+    if (!Object.keys(work).length) {
+      ctx.status = 402;
+      return;
+    }
+    const {dcTitleFull: title, creator, identifierISBN: isbn, typeBibDKType: matType} = work;
+    ctx.status = 200;
+    ctx.body = JSON.stringify({title, creator, isbn, matType, id, idType});
+  }
+  catch (e) {
+    log.error(e);
+  }
+});
 
 router.get('/login', async(ctx) => {
   ctx.body = `
@@ -74,7 +99,7 @@ router.get('/logout', (ctx) => {
   ctx.redirect('/login');
 });
 
-router.get('/isauthenticated', async (ctx, next) => {
+router.get('/isauthenticated', async(ctx, next) => {
   ctx.body = !!ctx.session.authenticated;
   await next();
 });
