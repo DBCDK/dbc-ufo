@@ -20,14 +20,12 @@ browser.signIn = () => {
 };
 
 browser.selectImageUpload = () => {
-  browser.refresh();
   browser.waitForVisible('#select-image-upload', 1000);
   browser.click('#select-image-upload');
   browser.waitForVisible('#select-image-upload', 1000, true);
 };
 
 browser.selectUrlUpload = () => {
-  browser.refresh();
   browser.waitForVisible('#select-url-upload', 1000);
   browser.click('#select-url-upload');
   browser.waitForVisible('#select-url-upload', 1000, true);
