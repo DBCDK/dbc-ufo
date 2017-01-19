@@ -40,3 +40,8 @@ selenium/*.png
 # ==========
 static/css
 public
+
+# ==========
+# REDIS #
+# ==========
+dump.rdb

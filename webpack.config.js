@@ -11,6 +11,7 @@ module.exports = [{
 
   entry: {
     index: './src/client/index.js',
+    login: './src/client/login.js',
   },
   output: {
     path: path.join(__dirname, 'public/js'),
@@ -24,7 +25,7 @@ module.exports = [{
         loader: 'babel',
         query: {
           presets: ['es2015', 'react'],
-          plugins: ['transform-async-to-generator', 'transform-class-properties', 'transform-es2015-modules-commonjs']
+          plugins: ['transform-async-to-generator', 'transform-class-properties', 'transform-es2015-modules-commonjs', 'transform-object-rest-spread']
         }
       },
       {

@@ -11,6 +11,9 @@ export const CONFIG = {
     port: Number(process.env.PORT),
     name: process.env.APP_NAME || 'no name'
   },
+  forsrights: {
+    uri: process.env.FORS_RIGHTS_URI
+  },
   log: {
     level: process.env.LOG_LEVEL,
     pretty: process.env.PRETTY_LOG === '1'
@@ -27,6 +30,9 @@ export const CONFIG = {
       client_id: process.env.SMAUG_CLIENT_ID,
       client_secret: process.env.SMAUG_CLIENT_SECRET
     }
+  },
+  session: {
+    key: process.env.SESSION_REDIS_KEY
   }
 };
 

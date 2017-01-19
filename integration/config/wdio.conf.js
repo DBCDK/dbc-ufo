@@ -156,8 +156,9 @@ let config = {
   // variables, such as `browser`. It is the perfect place to define custom commands.
   // before: function (capabilities, specs) {
   // },
-  // before() {
-  // },
+  before() {
+    require('../utils/signin.util');
+  },
   //
   // Hook that gets executed before the suite starts
   // beforeSuite: function (suite) {

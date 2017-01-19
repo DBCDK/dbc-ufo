@@ -5,7 +5,8 @@ module.exports = function(wallaby) {
     files: [
       'package.json',
       'src/**/*.js',
-      '!src/**/*.test.js'
+      '!src/**/*.test.js',
+      '!src/client/**/*'
     ],
 
     tests: [
@@ -29,6 +30,7 @@ module.exports = function(wallaby) {
       runner: 'node',
       params: {
         env: // @see https://wallabyjs.com/docs/config/runner.html
+        'NODE_ENV=test;' +
         'PORT=4001;' +
         'APP_NAME=UFO_TEST;' +
         'LOG_LEVEL=OFF;'

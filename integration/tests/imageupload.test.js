@@ -4,7 +4,7 @@ import path from 'path';
 
 describe('Testing image upload', () => {
   beforeEach(() => {
-    browser.url('/');
+    browser.signIn();
   });
 
   it('Should render component', () => {
