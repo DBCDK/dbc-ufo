@@ -7,13 +7,13 @@ export default class PreviewList extends React.Component {
 
   renderAccepted() {
     return this.props.accepted.map(element => {
-      return (<PreviewContainer element={element} />);
+      return (<PreviewContainer key={element.name} element={element} />);
     });
   }
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError element={element} />);
+      return (<PreviewError key={element.name} element={element} />);
     });
   }
 

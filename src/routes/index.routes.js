@@ -9,9 +9,8 @@ import fs from 'fs';
 import path from 'path';
 import koabody from 'koa-body';
 import {authenticateUser} from '../services/forsrights/forsrights.client';
-import {getWork} from '../services/serviceprovider/serviceprovider.client';
+import {getWork, search} from '../services/serviceprovider/serviceprovider.client';
 import {validateId} from '../utils/validateId.util';
-import {log} from 'dbc-node-logger';
 
 const bodyparser = new koabody();
 const router = new Router();
@@ -35,7 +34,7 @@ router.get('/', (ctx) => {
   `;
 });
 
-router.post('/upload', async (ctx) => {
+router.post('/upload', async(ctx) => {
   try {
     const {files} = await asyncBusboy(ctx.req);
     files.forEach(async(file) => {
@@ -51,29 +50,34 @@ router.post('/upload', async (ctx) => {
   }
 });
 
-router.post('/posts', bodyparser, async (ctx) => {
+router.post('/posts', bodyparser, async(ctx) => {
   const {id, type: idType} = validateId(ctx.request.body.id);
-  let work;
-  try {
-    switch (idType) {
-      case 'pid':
-        work = (await getWork({params: {pids: [id]}})).data[0];
-        break;
-      default:
-        ctx.status = 402;
-    }
-    if (!Object.keys(work).length) {
-      ctx.status = 402;
-      return;
-    }
-    const {dcTitleFull: title, creator, identifierISBN: isbn, typeBibDKType: matType} = work;
-    ctx.status = 200;
-    ctx.body = JSON.stringify({title, creator, isbn, matType, id, idType});
-  }
-  catch (e) {
-    log.error(e);
-  }
+  const work = await getWorkForId(id, idType);
+  ctx.status = work.error && 400 || 200;
+  ctx.body = JSON.stringify(work);
 });
+
+async function getWorkForId(id, type) {
+  if (type === 'error') {
+    return {error: 'invalid_id'};
+  }
+  const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType',  'pid', 'coverUrlFull']
+  const result = await (type === 'pid' && getWork({params: {pids: [id], fields}}) || search({params: {q: `(nr=${id})`, fields}}));
+
+  if (!result.error && result.length) {
+    const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];
+    return {
+      title: dcTitleFull.join(', '),
+      creator: creator.join(', '),
+      isbn: identifierISBN.join(', '),
+      matType: typeBibDKType.join(', '),
+      image: coverUrlFull.shift(),
+      pid: pid.join(', ')
+    };
+  }
+
+  return {error: 'no_work_for_id'};
+}
 
 router.get('/login', async(ctx) => {
   ctx.body = `

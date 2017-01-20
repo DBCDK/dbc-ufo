@@ -42,17 +42,16 @@ class UploadElement {
   }
 
   _fetchWork = (id) => {
-    let work;
     if (id === '12345678') {
-      work = {
+      const work = {
         pid: id,
         image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcSKL5_5TfA5_e9SJSXKKyhQmLA7vD-kGqvsFheQaPo9PckwNVuV',
         title: 'Titel',
         creator: 'Ophav',
-        type: 'Materiale type',
+        matType: 'Materiale type',
         isbn: 'ISBN'
       };
-      setTimeout(() => this._setWork(work, id), 100);
+      setTimeout(() => this._setWork(work, id), 1000);
     }
     else {
       request
@@ -61,7 +60,7 @@ class UploadElement {
         .set('Accept', 'application/json')
         .end((err, res) => {
           if (!err && res.status === 200) {
-            work = JSON.parse(res.text);
+            const work = JSON.parse(res.text);
             this._setWork(work);
           }
           else {
