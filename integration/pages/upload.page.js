@@ -2,10 +2,9 @@
 import path from 'path';
 import {assert} from 'chai';
 
-export default class UrlUpladPage {
+export default class UploadPage {
   open() {
     browser.signIn();
-    browser.selectUrlUpload();
   }
 
   addUrls(url) {

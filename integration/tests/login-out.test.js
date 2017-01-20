@@ -21,6 +21,7 @@ describe('Testing login/-out functionalty', () => {
 
   it('Should logout and redirect to /login', () => {
     browser.signIn();
+    browser.waitForVisible('#logout-btn');
     browser.click('#logout-btn');
     const url = browser.getUrl();
     assert.isTrue(url.endsWith('/login'));
