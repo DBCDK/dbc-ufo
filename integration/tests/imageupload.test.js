@@ -31,7 +31,7 @@ describe('Testing image upload', () => {
 
   it('Should upload image', () => {
     page.addImage('horses.jpg');
-    page.submitId(12345678);
+    page.submitId('9788792813114');
     page.upload();
   });
 });

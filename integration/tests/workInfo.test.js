@@ -12,16 +12,22 @@ describe('Testing url upload component', () => {
 
   it('Should show work information', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
-    const element = page.submitId(12345678).getText();
-    assert.include(element, 'Titel');
-    assert.include(element, 'Ophav');
-    assert.include(element, 'Materiale type');
-    assert.include(element, 'ISBN');
+    const element = page.submitId('9788792813114').getText();
+    assert.include(element, 'God hund, slem hund');
+    assert.include(element, 'Erling Bugge');
+    assert.include(element, 'Bog');
+    assert.include(element, '9788792813114');
+  });
+
+  it('Should show wrong ID Error', () => {
+    page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
+    const element = page.rejectId('9788792813119').getText();
+    assert.include(element, 'error-no-work');
   });
 
   it('Should compare existing image with new image', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
-    page.submitId(12345678);
+    page.submitId('9788792813114');
     const previewImage = browser.element('.preview-images').getText();
     assert.include(previewImage, 'Ny');
     assert.include(previewImage, 'Eksisterende');

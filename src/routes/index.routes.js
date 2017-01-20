@@ -57,12 +57,25 @@ router.post('/posts', bodyparser, async(ctx) => {
   ctx.body = JSON.stringify(work);
 });
 
+/**
+ * Get work for id of type.
+ *
+ * @param id
+ * @param type
+ * @returns {*}
+ */
 async function getWorkForId(id, type) {
   if (type === 'error') {
     return {error: 'invalid_id'};
   }
-  const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType',  'pid', 'coverUrlFull']
-  const result = await (type === 'pid' && getWork({params: {pids: [id], fields}}) || search({params: {q: `(nr=${id})`, fields}}));
+  const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull'];
+  let result;
+  if (type === 'pid') {
+    result = await getWork({params: {pids: [id], fields}});
+  }
+  else {
+    result = await search({params: {q: `(nr=${id})`, fields}});
+  }
 
   if (!result.error && result.length) {
     const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];

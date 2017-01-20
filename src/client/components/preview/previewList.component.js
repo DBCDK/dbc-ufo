@@ -6,8 +6,8 @@ import State from '../../state/state';
 export default class PreviewList extends React.Component {
 
   renderAccepted() {
-    return this.props.accepted.map(element => {
-      return (<PreviewContainer key={element.name} element={element} />);
+    return this.props.accepted.map(item => {
+      return (<PreviewContainer key={item.element.name} element={item} />);
     });
   }
 
