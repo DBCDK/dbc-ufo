@@ -51,7 +51,7 @@ class UploadElement {
         matType: 'Materiale type',
         isbn: 'ISBN'
       };
-      setTimeout(() => this._setWork(work, id), 1000);
+      setTimeout(() => this._setWork(work, id), 5000);
     }
     else {
       request

@@ -9,6 +9,7 @@
 @import 'includes/form-group';
 @import 'includes/gutter';
 @import 'includes/spacer';
+@import 'includes/spinner';
 
 /* Globals */
 @import 'globals/load-svg';
@@ -24,9 +25,9 @@
 @import '/components/dropzone';
 @import '/components/header';
 @import '/components/preview';
-@import '/components/icons';
 @import '/components/id-form';
 @import '/components/messages';
+@import '/components/status';
 @import '/components/upload-form';
 @import '/components/upload-status';
 @import '/components/url-upload';

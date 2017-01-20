@@ -1,5 +1,6 @@
 import React from 'react';
 import State from '../../state/state';
+import PreviewStatus from './previewStatus.component';
 
 export default function PreviewError({element}) {
   return (
@@ -15,6 +16,7 @@ export default function PreviewError({element}) {
         <a className="remove small" onClick={() => State.remove(element)}>Fjern</a>
       </div>
       <div className="status">
+        <PreviewStatus status={element.status} />
       </div>
     </div>
   );
