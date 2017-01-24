@@ -5,7 +5,6 @@ import UrlUpladPage from '../pages/upload.page';
 describe('Testing url upload component', () => {
   const page = new UrlUpladPage();
   beforeEach(() => {
-    browser.signIn();
     page.open();
   });
 

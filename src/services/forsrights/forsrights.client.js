@@ -41,7 +41,7 @@ export function parseResponseFromForsRights(response) {
 }
 
 function makeForsRightsRequest(credentials) {
-  if (CONFIG.app.env === 'test') {
+  if (CONFIG.mock_externals.forsrights) {
     return MOCKED_POSITIVE_RESPONSE;
   }
 

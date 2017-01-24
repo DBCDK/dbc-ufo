@@ -26,7 +26,7 @@ describe('Testing login/-out functionalty', () => {
     assert.isTrue(url.endsWith('/login'));
   });
 
-  it('Should reflect current autication state', () => {
+  it('Should reflect current authentication state', () => {
     browser.url('/logout');
     browser.url('/isauthenticated');
 
