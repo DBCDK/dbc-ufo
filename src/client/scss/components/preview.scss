@@ -12,9 +12,11 @@
   .main {
     flex-grow: 1;
   }
-  .image + .image {
-    margin-left: gutter(0.5);
-  }
+}
+
+.preview-images {
+  white-space:nowrap;
+  @include gutter-children-margin(0.5);
   .image {
     display: inline-block;
     width: 100px;

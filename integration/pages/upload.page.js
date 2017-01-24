@@ -34,6 +34,13 @@ export default class UrlUpladPage {
     return browser.element('.work');
   }
 
+  rejectId(id) {
+    browser.setValue('.id-input input', id);
+    browser.click('.id-form button');
+    browser.waitForValue('.message.error', 5000);
+    return browser.element('.status');
+  }
+
   upload(waitForClass = '.done-ok') {
     browser.click('.upload-button button');
     browser.waitForValue(waitForClass, 5000);

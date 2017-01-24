@@ -31,9 +31,13 @@ async function makeRequestToServiceProvider(params, endpoint) {
 
     if (result.statusCode !== 200) {
       log.error('An error occurred while retrieveing data from openplatform', {result});
+      throw new Error('Invalid response from openplatform', result);
+    }
+    if (result.data && result.data.length && Object.keys(result.data[0]).length) {
+      return result.data;
     }
 
-    return result;
+    return [];
   }
   catch (e) {
     log.error('Error while parsing response from openplatform', {error: e.message, stack: e.stack});

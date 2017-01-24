@@ -6,14 +6,14 @@ import State from '../../state/state';
 export default class PreviewList extends React.Component {
 
   renderAccepted() {
-    return this.props.accepted.map(element => {
-      return (<PreviewContainer element={element} />);
+    return this.props.accepted.map(item => {
+      return (<PreviewContainer key={item.element.name} element={item} />);
     });
   }
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError element={element} />);
+      return (<PreviewError key={element.name} element={element} />);
     });
   }
 

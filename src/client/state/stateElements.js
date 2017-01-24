@@ -42,20 +42,32 @@ class UploadElement {
   }
 
   _fetchWork = (id) => {
-    // This is a dummy implementation
-    // TODO We need to call openPlatform to get real work info #25
-    let work;
     if (id === '12345678') {
-      work = {
+      const work = {
         pid: id,
         image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcSKL5_5TfA5_e9SJSXKKyhQmLA7vD-kGqvsFheQaPo9PckwNVuV',
         title: 'Titel',
         creator: 'Ophav',
-        type: 'Materiale type',
+        matType: 'Materiale type',
         isbn: 'ISBN'
       };
+      setTimeout(() => this._setWork(work, id), 1000);
     }
-    setTimeout(() => this._setWork(work, id), 100);
+    else {
+      request
+        .post('/posts')
+        .send({id})
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (!err && res.status === 200) {
+            const work = JSON.parse(res.text);
+            this._setWork(work);
+          }
+          else {
+            this._setWork(null);
+          }
+        });
+    }
   }
 
   _setWork(work) {
