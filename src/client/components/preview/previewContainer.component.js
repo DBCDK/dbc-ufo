@@ -16,7 +16,7 @@ export default class PreviewContainer extends React.Component {
         </div>
         <div className="main">
           <div className="preview-work grow">
-            <PreviewId value={element.id} onSubmit={(id) => element.setId(id)} idIsValid={element.work && true}/>
+            <PreviewId value={element.id} onSubmit={(id) => element.setId(id)} />
             {element.work && element.work.image &&
             <div className="message notice">Posten med id {element.id} har allerede en forside</div> || ''}
             {element.status === constants.ERROR_NO_WORK && <div className="message error">Der findes ikke nogen post med id {element.id}</div>}

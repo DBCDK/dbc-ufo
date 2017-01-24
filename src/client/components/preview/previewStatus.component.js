@@ -1,21 +1,40 @@
 import React from 'react';
 
-export default function PreviewStatus({status, text}) {
+function stateFromStatus(status) {
+  const states = {
+    ready: {icon: 'ready', description: 'klar til upload'},
+    'ready-double-image': {icon: 'ready', description: 'klar til upload'},
+    'wait-for-work': {icon: 'spinner', description: 'henter titel'},
+    'error-no-id': {icon: 'fail', description: 'mangler ID'},
+    'error-invalid-id': {icon: 'error', description: 'ugyldigt ID'},
+    'error-invalid-image': {icon: 'error', description: 'ugyldigt billede'},
+    'error-invalid-url': {icon: 'error', description: 'ugyldig URL'},
+    'error-no-work': {icon: 'error', description: 'ugyldigt ID'},
+    'upload-waiting': {icon: 'pause', description: 'Venter'},
+    'upload-started': {icon: 'spinner', description: 'Uploader'},
+    'done-ok': {icon: 'done', description: 'Uploadet'},
+    'done-error': {icon: 'error', description: 'Fejl i upload'}
+  };
+
+  const defaultState = {icon: 'unkown', description: 'Ukendt Status'};
+
+  return states[status] || defaultState;
+}
+
+export default function PreviewStatus({status}) {
+  const {icon, description} = stateFromStatus(status);
   return (
     <div className="preview-status">
       <div className="icon-wrapper">
-        <span className={`icon ${status}`}>
-          {status}
-        </span>
+        <span className={`icon ${icon}`}/>
       </div>
       <div className="description">
-        {text || ''}
+        {description}
       </div>
     </div>
   );
 }
 
 PreviewStatus.propTypes = {
-  status: React.PropTypes.string,
-  text: React.PropTypes.string
+  status: React.PropTypes.string
 };

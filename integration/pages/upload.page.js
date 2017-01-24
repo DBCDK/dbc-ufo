@@ -41,7 +41,7 @@ export default class UrlUpladPage {
     return browser.element('.status');
   }
 
-  upload(waitForClass = '.done-ok') {
+  upload(waitForClass = '.done') {
     browser.click('.upload-button button');
     browser.waitForValue(waitForClass, 5000);
   }

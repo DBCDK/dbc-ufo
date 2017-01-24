@@ -9,15 +9,4 @@
   }
   @extend %flex-center;
   @include gutter-children-margin();
-  .id-input {
-    position: relative;
-    .state {
-      position: absolute;
-      right: 0;
-      top: 0;
-      display: inline-block;
-      width: 25px;
-      height: 25px;
-    }
-  }
 }

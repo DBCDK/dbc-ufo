@@ -1,6 +1,7 @@
 import {UrlElement, ImageElement} from './stateElements';
 import unique from '../../utils/unique.util';
 import validateImage from '../../utils/validateImage.util';
+import constants from '../state/constants';
 
 /**
  * Simple State management for image and URL upload.
@@ -17,7 +18,7 @@ class State {
     unique(urls).forEach(url => validateImage({
       url,
       onError: () => {
-        this.errors.push({name: url, error: `${url} er ikke en gyldig billed url`});
+        this.errors.push({name: url, error: `${url} er ikke en gyldig billed url`, status: constants.ERROR_INVALID_URL});
         this.elementsUpdated();
       },
       onSuccess: () => {
@@ -29,12 +30,7 @@ class State {
 
   addImages = (images, errors) => {
     this.elements = this.elements.concat(images.map(url => new ImageElement(url, this.elementsUpdated)));
-    this.errors = this.errors.concat(errors);
-    this.elementsUpdated();
-  }
-
-  addErrors(errors) {
-    this.errors = errors;
+    this.errors = this.errors.concat(errors.map(error => Object.assign(error, {status: constants.ERROR_INVALID_IMAGE})));
     this.elementsUpdated();
   }
 
