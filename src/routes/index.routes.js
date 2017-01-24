@@ -6,9 +6,9 @@
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
 import asyncBusboy from 'async-busboy';
 import fs from 'fs';
-import path from 'path';
 import koabody from 'koa-body';
 import {authenticateUser} from '../services/forsrights/forsrights.client';
+import moreInfoUpdate from '../services/moreinfoUpdate/moreinfoUpdate.client';
 import {getWork, search} from '../services/serviceprovider/serviceprovider.client';
 import {validateId} from '../utils/validateId.util';
 
@@ -34,14 +34,11 @@ router.get('/', (ctx) => {
   `;
 });
 
-router.post('/upload', async(ctx) => {
+router.post('/upload', bodyparser, async(ctx) => {
   try {
     const {files} = await asyncBusboy(ctx.req);
-    files.forEach(async(file) => {
-      // TODO sent image to MoreInfo Update instead of public folder.
-      var newPath = path.join(__dirname, '../../', 'public', file.filename);
-      await fs.rename(file.path, newPath);
-    });
+    const buffer = await getBufferFromFile(files[0].path);
+    await moreInfoUpdate('libraryId', ctx.body.id, buffer);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
   }
@@ -161,6 +158,27 @@ function validateBody(body) {
   }
 
   return true;
+}
+
+
+/**
+ * Converts a file to base64 buffer.
+ *
+ * @param file
+ * @returns {Promise}
+ */
+function getBufferFromFile(file) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(file.path, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      else {
+        const encodedImage = new Buffer(data, 'binary').toString('base64');
+        resolve(encodedImage);
+      }
+    });
+  });
 }
 
 export default router;
