@@ -4,8 +4,8 @@ import uploadPage from '../pages/upload.page';
 
 describe('Testing url upload component', () => {
   const page = new uploadPage();
+
   beforeEach(() => {
-    browser.signIn();
     page.open();
   });
 

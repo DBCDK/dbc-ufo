@@ -19,7 +19,8 @@ export const CONFIG = {
     pretty: process.env.PRETTY_LOG === '1'
   },
   mock_externals: {
-    smaug: process.env.MOCK_SMAUG === '1'
+    smaug: process.env.MOCK_SMAUG === '1',
+    forsrights: process.env.MOCK_FORS_RIGHTS === '1'
   },
   openplatform: {
     serviceprovider: {

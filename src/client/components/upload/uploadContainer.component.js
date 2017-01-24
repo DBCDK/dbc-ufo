@@ -1,8 +1,10 @@
 import React from 'react';
 import ImageUpload from './imageUpload.component';
+import UploadTypePicker from './uploadTypePicker.component';
 import UrlUpload from './urlUpload.component';
 import PreviewList from '../preview/previewList.component';
 import State from '../../state/state';
+import CONSTANTS from '../../state/constants';
 
 export default class ImageUploadContainer extends React.Component {
 
@@ -13,8 +15,10 @@ export default class ImageUploadContainer extends React.Component {
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.state = {
       accepted: [],
-      rejected: []
+      rejected: [],
+      selectedUploadMethod: null
     };
+
     State.addListener((elements, errors) => {
       this.setState({accepted: elements, rejected: errors});
     });
@@ -37,13 +41,30 @@ export default class ImageUploadContainer extends React.Component {
     State.addImages(acceptedFiles, rejectedFiles.map(this.rejectedReason));
   };
 
+  onTypePicked = (type) => {
+    this.setState({selectedUploadMethod: type});
+  };
+
+  getUploadMethod() {
+    let uploadElement = null;
+
+    if (this.state.selectedUploadMethod === CONSTANTS.UPLOAD_TYPE_IMAGE) {
+      uploadElement = (<ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop}/>);
+    }
+    else if (this.state.selectedUploadMethod === CONSTANTS.UPLOAD_TYPE_URL) {
+      uploadElement = (<UrlUpload onSubmit={State.addUrls}/>);
+    }
+
+    return uploadElement;
+  }
+
   render() {
+    const uploadMethod = this.getUploadMethod();
     return (
       <div className="upload-form">
         <div className="container">
-          <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop}/>
-          <div className="small mb1 text-center"><i>eller</i></div>
-          <UrlUpload onSubmit={State.addUrls}/>
+          {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
+          {uploadMethod}
         </div>
         <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}/>
       </div>

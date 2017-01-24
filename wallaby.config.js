@@ -16,7 +16,7 @@ module.exports = function(wallaby) {
     compilers: {
       '**/*.js': wallaby.compilers.babel({
         babel: babel,
-        presets: ['es2015', 'react'],
+        presets: ['react'],
         plugins: [
           'transform-es2015-modules-commonjs',
           'transform-async-to-generator',
@@ -30,7 +30,7 @@ module.exports = function(wallaby) {
       runner: 'node',
       params: {
         env: // @see https://wallabyjs.com/docs/config/runner.html
-        'NODE_ENV=test;' +
+        'MOCK_FORS_RIGHTS=1;' +
         'PORT=4001;' +
         'APP_NAME=UFO_TEST;' +
         'LOG_LEVEL=OFF;'

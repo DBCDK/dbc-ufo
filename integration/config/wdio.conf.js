@@ -34,7 +34,7 @@ let config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 10,
+  maxInstances: 1,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -44,7 +44,7 @@ let config = {
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instance available you can make sure that not more than
     // 5 instance gets started at a time.
-    maxInstances: 5,
+    maxInstances: 1,
     browserName: 'chrome',
     platform: 'OS X 10.11',
     version: 'latest',
@@ -157,7 +157,7 @@ let config = {
   // before: function (capabilities, specs) {
   // },
   before() {
-    require('../utils/signin.util');
+    require('../utils/browser.util');
   },
   //
   // Hook that gets executed before the suite starts
