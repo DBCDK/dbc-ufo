@@ -1,12 +1,13 @@
 /* eslint no-undef: 0 */
 import {assert} from 'chai';
-import uploadPage from '../pages/upload.page';
+import UploadPage from '../pages/upload.page';
 
 describe('Testing url upload component', () => {
-  const page = new uploadPage();
+  const page = new UploadPage();
 
   beforeEach(() => {
     page.open();
+    browser.selectUrlUpload();
   });
 
   it('Should render component', () => {

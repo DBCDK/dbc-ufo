@@ -21,8 +21,8 @@ static/*.css
 # ==========
 # ENV #
 # ==========
-env.env
-mmj.env
+*.env
+!test.env
 
 # ==========
 # SELENIUM #
