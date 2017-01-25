@@ -12,7 +12,8 @@
     "precommit": "npm run lint && npm run test && npm run test:integration:local",
     "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
     "test:integration": ". ./test.env && npm run build && TEST_ENV=saucelabs wdio ./integration/config/wdio.conf.js",
-    "test:integration:local": ". ./env.env && . ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js"
+    "test:integration:local": "rm -rf errorShots/*.png && . ./env.env && . ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js",
+    "test:integration:jenkins": "npm run build && TEST_ENV=jenkins wdio ./integration/config/wdio.conf.js"
   },
   "repository": {
     "type": "git",
