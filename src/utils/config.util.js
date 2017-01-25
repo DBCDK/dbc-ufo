@@ -23,7 +23,8 @@ export const CONFIG = {
   },
   mock_externals: {
     smaug: process.env.MOCK_SMAUG === '1',
-    forsrights: process.env.MOCK_FORS_RIGHTS === '1'
+    forsrights: process.env.MOCK_FORS_RIGHTS === '1',
+    moreinfo_update: process.env.MOCK_MOREINFO_UPDATE === '1'
   },
   openplatform: {
     serviceprovider: {

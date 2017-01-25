@@ -43,6 +43,10 @@ export async function uploadUrl(libraryCode, localId, url) {
  * @returns {boolean}
  */
 async function makeRequest(libraryCode, localId, moreInfoData) {
+  if (CONFIG.mock_externals.moreinfo_update) {
+    return mockRequest(libraryCode, localId);
+  }
+
   const params = {
     url: CONFIG.moreinfo_update.uri,
     body: `
@@ -100,4 +104,17 @@ function getBufferFromFile(path) {
       }
     });
   });
+}
+
+/**
+ * Mock calls to Moreinfo Update webservice
+ * @param libraryCode
+ * @param localId
+ * @returns {boolean}
+ */
+function mockRequest(libraryCode, localId) {
+  if (localId === '06108466') {
+    throw new Error('Mock request throws error');
+  }
+  return true;
 }
