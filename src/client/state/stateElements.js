@@ -51,7 +51,7 @@ class UploadElement {
         matType: 'Materiale type',
         isbn: 'ISBN'
       };
-      setTimeout(() => this._setWork(work, id), 5000);
+      setTimeout(() => this._setWork(work, id), 100);
     }
     else {
       request
@@ -127,6 +127,7 @@ export class ImageElement extends UploadElement {
     this.setStatus(constants.UPLOAD_STARTED);
     const file = this.element.file;
     request.post('/upload')
+      .field('id', this.work.pid)
       .attach(file.name, file)
       .end((err, res) => {
         if (res && res.status === 200) {
