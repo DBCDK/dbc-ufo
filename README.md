@@ -33,3 +33,6 @@ The Smaug client secret for this application
 
 - `SMAUG_URI` : `smaug.uri`  
 The address of the Smaug service
+
+- `MOREINFO_UPDATE_URI` : `http://moreinfoupate_uri`  
+The url to the moreinfo update service
