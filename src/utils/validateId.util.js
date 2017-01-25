@@ -44,6 +44,18 @@ export function getIdFromFile(filename) {
 }
 
 /**
+ * Split elements in pid
+ * @param pid
+ * @returns {{localIdentifier: T, libraryId: *}}
+ */
+export function splitPid(pid) {
+  const localIdentifier = pid.split(':').pop();
+  const libraryId = pid.split('-')[0];
+  const source = pid.split('-')[1].split(':')[0];
+  return {localIdentifier, source, libraryId};
+}
+
+/**
  * Test if string is pid id.
  *
  * @param id

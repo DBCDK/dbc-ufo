@@ -2,22 +2,57 @@
  * @file
  * Client for moreinfo update webservice
  */
-
+import fs from 'fs';
 import {promiseRequest} from '../../utils/request.util';
 import {CONFIG} from '../../utils/config.util';
 import {log} from 'dbc-node-logger';
 
-export default async function makeRequest(libraryCode, localId, binaryData) {
+/**
+ * add image to post
+ *
+ * @param libraryCode
+ * @param localId
+ * @param imagePath
+ * @returns {boolean}
+ */
+export async function uploadImage(libraryCode, localId, imagePath) {
+  const binaryData = await getBufferFromFile(imagePath);
+  const infoData = `<ns1:informationBinary>${binaryData}</ns1:informationBinary>`;
+  return makeRequest(libraryCode, localId, infoData);
+}
+
+/**
+ * Add url to post.
+ *
+ * @param libraryCode
+ * @param localId
+ * @param url
+ * @returns {boolean}
+ */
+export async function uploadUrl(libraryCode, localId, url) {
+  const infoData = `<ns1:informationUrl>${url}</ns1:informationUrl>`;
+  return makeRequest(libraryCode, localId, infoData);
+}
+
+/**
+ * Make request to moreinfo update webservice.
+ *
+ * @param libraryCode
+ * @param localId
+ * @param moreInfoData
+ * @returns {boolean}
+ */
+async function makeRequest(libraryCode, localId, moreInfoData) {
   const params = {
-    url: CONFIG.forsrights.uri,
+    url: CONFIG.moreinfo_update.uri,
     body: `
-<SOAP-ENV:Envelope xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://oss.dbc.dk/ns/moreinfoupdate">
+<SOAP-ENV:Envelope xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://oss.dbc.dk/ns/moreinfoupdate" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
    <SOAP-ENV:Header/>
    <ns0:Body>
       <ns1:moreinfoUpdate>
          <ns1:moreinfoData>
             <ns1:moreinfo>
-               <ns1:informationBinary>${binaryData}</ns1:informationBinary>
+               ${moreInfoData}
             </ns1:moreinfo>
             <ns1:moreinfoCategory>coverImage</ns1:moreinfoCategory>
             <ns1:danbibRecordId>
@@ -36,8 +71,8 @@ export default async function makeRequest(libraryCode, localId, binaryData) {
   try {
     const {body} = await promiseRequest('post', params);
     const response = JSON.parse(body).moreinfoUpdateResponse;
-    if (response.error || response.record.rejected) {
-      throw new Error('image upload faild', response.error || response.recordRejected);
+    if (response.error || response.requestAccepted.recordRejected) {
+      throw new Error('image upload failed', response.error || response.recordRejected);
     }
     return true;
   }
@@ -45,4 +80,24 @@ export default async function makeRequest(libraryCode, localId, binaryData) {
     log.error('Request to moreinfo update failed', e);
     throw new Error(e);
   }
+}
+
+/**
+ * Converts a file to base64 buffer.
+ *
+ * @param path
+ * @returns {Promise}
+ */
+function getBufferFromFile(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      else {
+        const encodedImage = new Buffer(data, 'binary').toString('base64');
+        resolve(encodedImage);
+      }
+    });
+  });
 }
