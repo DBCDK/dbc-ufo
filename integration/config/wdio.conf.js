@@ -215,4 +215,8 @@ if (process.env.TEST_ENV === 'saucelabs') {
   config = Object.assign(config, require('./sauce.conf').default);
 }
 
+if (process.env.TEST_ENV === 'jenkins') {
+  config = Object.assign(config, require('./jenkins.conf').default);
+}
+
 exports.config = config;
