@@ -10,7 +10,7 @@ class UploadElement {
   constructor(element, cb) {
     this.element = element;
     this.cb = cb;
-    this.setIdFromUrl(element.url);
+    this.setIdFromUrl(element.name);
   }
 
   setIdFromUrl(url) {
