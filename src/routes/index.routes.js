@@ -34,10 +34,11 @@ router.get('/', (ctx) => {
   `;
 });
 
-router.post('/upload', async(ctx) => {
+router.post('/upload/image', async(ctx) => {
   try {
     const {files, fields} = await asyncBusboy(ctx.req);
-    const {localIdentifier, libraryId} = splitPid(fields.id);
+    const {localIdentifier} = splitPid(fields.id);
+    const libraryId = ctx.session.credentials.agency;
     await uploadImage(libraryId, localIdentifier, files[0].path);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
