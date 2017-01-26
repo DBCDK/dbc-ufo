@@ -1,0 +1,10 @@
+#footer {
+  @extend #content;
+  padding: 1rem;
+  font-size: 1rem;
+  border-top: $header-color solid 1px;
+
+  a {
+    text-decoration: none;
+  }
+}
