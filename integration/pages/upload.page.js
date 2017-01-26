@@ -36,7 +36,7 @@ export default class UploadPage {
   rejectId(id) {
     browser.setValue('.id-input input', id);
     browser.click('.id-form button');
-    browser.waitForValue('.message.error', 5000);
+    browser.waitForValue('.message', 5000);
     return browser.element('.status');
   }
 
