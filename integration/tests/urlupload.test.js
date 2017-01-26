@@ -43,4 +43,17 @@ describe('Testing url upload component', () => {
     page.addUrls('not_unique\nnot_unique');
     assert.equal(browser.elements('.preview.error').value.length, 1);
   });
+
+  it('Should upload url', () => {
+    page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
+    page.submitId('9788792813114');
+    page.upload();
+  });
+
+  it('Should fail url upload', () => {
+    page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
+    page.submitId('06108466');
+    page.upload('.error');
+  });
+
 });
