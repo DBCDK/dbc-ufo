@@ -1,12 +1,44 @@
+.icon-wrapper {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  &.large {
+    width: 100px;
+    height: 100px;
+  }
+}
+
 .icon {
   display: block;
   width: 100%;
   height: 100%;
-  &.checkmark {
-    background: svg-inline(checkmark) no-repeat center;
+  border-radius: 50%;
+  background-color: $header-color;
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  &.spinner {
+    @include spinner();
+    background-color: transparent;
   }
-  &.cross {
-    background: svg-inline(cross) no-repeat center;
+  &.error {
+    background-image: svg-inline(cross);
+    background-color: $red;
+  }
+  &.fail {
+    background-image: svg-inline(cross);
+    background-color: $header-color;
+  }
+  &.ready {
+    background-image: svg-inline(checkmark);
+  }
+  &.done {
+    background-image: svg-inline(checkmark);
+    background-color: $green;
+  }
+  &.no-image {
+    background-image: svg-inline(noimage);
+    background-color: transparent;
   }
 }
 
