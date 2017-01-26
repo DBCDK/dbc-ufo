@@ -48,6 +48,7 @@
     "preact-compat": "3.9.4",
     "react-dropzone": "^3.8.0",
     "react-textarea-autosize": "^4.0.5",
+    "request": "^2.79.0",
     "superagent": "^3.3.2"
   },
   "devDependencies": {
