@@ -18,8 +18,7 @@ export default class PreviewContainer extends React.Component {
     return lockingStatusList.includes(this.props.element.status);
   }
 
-  renderRemoveButton() {
-    const element = this.props.element;
+  renderRemoveButton(element) {
     if (element.status === constants.DONE_ERROR) {
       return (
         <a className="remove small" onClick={() => element.setStatus(constants.READY)}>Prøv igen</a>
@@ -29,6 +28,34 @@ export default class PreviewContainer extends React.Component {
     return (
       <a className="remove small" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>fjern</a>
     );
+  }
+
+  renderMessage(element) {
+    let message = '';
+    switch (element.status) {
+      case constants.ERROR_NO_WORK:
+        message = `Der findes ikke nogen post med id ${element.id}`;
+        break;
+      case constants.READY_DOUBLE_IMAGE:
+        message = `Posten med id ${element.id} har allerede en forside`;
+        break;
+      case constants.ERROR_INVALID_ID:
+        message = `Der findes ikke nogen post id ${element.id}`;
+        break;
+      case constants.ERROR_NO_ID:
+        message = 'id mangler';
+        break;
+      default:
+        message = '';
+    }
+
+    if (message) {
+      return (
+        <div className="message notice"><span className="nb">Bemærk: </span>{message}</div>
+      );
+    }
+
+    return '';
   }
 
   render() {
@@ -41,12 +68,9 @@ export default class PreviewContainer extends React.Component {
         <div className="main">
           <div className="preview-work grow">
             <PreviewId value={element.id} onSubmit={(id) => element.setId(id)} disabled={this.isIdLocked()}/>
-            {element.work && element.work.image &&
-            <div className="message notice">Posten med id {element.id} har allerede en forside</div> || ''}
-            {element.status === constants.ERROR_NO_WORK &&
-            <div className="message error">Der findes ikke nogen post med id {element.id}</div>}
+            {this.renderMessage(element)}
             <PreviewWork {...element.work}/>
-            {this.renderRemoveButton()}
+            {this.renderRemoveButton(element)}
           </div>
         </div>
         <div className='status'>

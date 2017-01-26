@@ -5,14 +5,14 @@ import PreviewStatus from './previewStatus.component';
 export default function PreviewError({element}) {
   return (
     <div className="preview error">
-      <div className="images">
-        <div className="image">
-          <span className="icon cross"></span>
+      <div className="preview-images">
+        <div className="image icon-wrapper large">
+          <span className="icon no-image"></span>
         </div>
       </div>
       <div className="main">
-        <h4>Filnavn: {element.name}</h4>
-        <div className="message error">{element.error}</div>
+        <h4 className="mb1">Filnavn: {element.name}</h4>
+        <div className="message notice"><span className="nb">Bemærk: </span>{element.error}</div>
         <a className="remove small" onClick={() => State.remove(element)}>Fjern</a>
       </div>
       <div className="status">
