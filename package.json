@@ -12,7 +12,8 @@
     "precommit": "npm run lint && npm run test && npm run test:integration:local",
     "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
     "test:integration": ". ./test.env && npm run build && TEST_ENV=saucelabs wdio ./integration/config/wdio.conf.js",
-    "test:integration:local": ". ./env.env && . ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js"
+    "test:integration:local": "rm -rf errorShots/*.png && . ./env.env && . ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js",
+    "test:integration:jenkins": "npm run build && TEST_ENV=jenkins wdio ./integration/config/wdio.conf.js"
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,6 @@
     "koa": "^2.0.0",
     "koa-body": "^2.0.0",
     "koa-convert": "^1.2.0",
-    "koa-pug": "^3.0.0-1",
     "koa-router": "^7.0.0",
     "koa-session2": "^1.0.8",
     "koa-static": "^2.0.0",
@@ -47,6 +47,7 @@
     "preact-compat": "3.9.4",
     "react-dropzone": "^3.8.0",
     "react-textarea-autosize": "^4.0.5",
+    "request": "^2.79.0",
     "superagent": "^3.3.2"
   },
   "devDependencies": {

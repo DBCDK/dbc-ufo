@@ -13,8 +13,6 @@ env:
   - TEST_SUITE=test:integration
 services:
   - redis-server
-before_install:
-  - if [ "${TEST_SUITE}" != "test:integration" ]; then unset SAUCE_USERNAME && unset SAUCE_ACCESS_KEY; fi
 script: npm run $TEST_SUITE
 addons:
   sauce_connect: true
