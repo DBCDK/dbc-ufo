@@ -18,6 +18,19 @@ export default class PreviewContainer extends React.Component {
     return lockingStatusList.includes(this.props.element.status);
   }
 
+  renderRemoveButton() {
+    const element = this.props.element;
+    if (element.status === constants.DONE_ERROR) {
+      return (
+        <a className="remove small" onClick={() => element.setStatus(constants.READY)}>Prøv igen</a>
+      );
+    }
+
+    return (
+      <a className="remove small" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>fjern</a>
+    );
+  }
+
   render() {
     const element = this.props.element;
     return (
@@ -33,16 +46,7 @@ export default class PreviewContainer extends React.Component {
             {element.status === constants.ERROR_NO_WORK &&
             <div className="message error">Der findes ikke nogen post med id {element.id}</div>}
             <PreviewWork {...element.work}/>
-            {!element.status.includes('done') && <a className="remove small" disabled={this.isElementLocked()}
-                                                    onClick={() => State.remove(element)}>Fortryd</a>
-            || ''
-            }
-            {element.status === constants.DONE_ERROR && <a className="remove small" onClick={() => element.setStatus(constants.READY)}>Prøv igen</a>
-            || ''
-            }
-            {element.status === constants.DONE_OK && <a className="remove small" onClick={() => State.remove(element)}>fjern</a>
-            || ''
-            }
+            {this.renderRemoveButton()}
           </div>
         </div>
         <div className='status'>
