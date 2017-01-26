@@ -8,7 +8,7 @@ import asyncBusboy from 'async-busboy';
 import koabody from 'koa-body';
 import {log} from 'dbc-node-logger';
 import {authenticateUser} from '../services/forsrights/forsrights.client';
-import {uploadImage} from '../services/moreinfoUpdate/moreinfoUpdate.client';
+import {uploadImage, uploadUrl} from '../services/moreinfoUpdate/moreinfoUpdate.client';
 import {getWork, search} from '../services/serviceprovider/serviceprovider.client';
 import {validateId, splitPid} from '../utils/validateId.util';
 
@@ -45,7 +45,22 @@ router.post('/upload/image', async(ctx) => {
   }
   catch (e) {
     ctx.status = 400;
-    ctx.body = JSON.stringify({error: e});
+    ctx.body = JSON.stringify({error: true});
+  }
+});
+
+router.post('/upload/url', bodyparser, async(ctx) => {
+  try {
+    const {url, id} = ctx.request.body;
+    const {localIdentifier} = splitPid(id);
+    const libraryId = ctx.session.credentials.agency;
+    await uploadUrl(libraryId, localIdentifier, url);
+    ctx.status = 200;
+    ctx.body = JSON.stringify({result: true});
+  }
+  catch (e) {
+    ctx.status = 400;
+    ctx.body = JSON.stringify({error: true});
   }
 });
 
