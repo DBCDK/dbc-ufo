@@ -1,6 +1,16 @@
-#content {
+.main {
   width: 800px;
   margin: auto;
-  padding: gutter(2);
   background-color: $background-color;
+  &.login {
+    position: relative;
+    top: 33%;
+    min-height: 0;
+    transform: translateY(-50%);
+    width: 400px;
+  }
+}
+
+#content {
+  padding: gutter(2);
 }

@@ -25,10 +25,17 @@
     border: none;
   }
 
+  input[type="checkbox"] + span {
+    display: block;
+    padding-left: 3rem;
+    position: relative;
+  }
+
   input[type="checkbox"] + span:before {
     content: " ";
-    position: relative;
+    position: absolute;
     margin-right: 10px;
+    left: 0;
     top: 5px;
     display: inline-block;
     width: 20px;

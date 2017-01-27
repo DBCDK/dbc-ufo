@@ -1,6 +1,6 @@
 #footer {
-  @extend #content;
-  padding: 1rem;
+  width: 100%;
+  padding: gutter(0.5) gutter(2);
   font-size: 1rem;
   border-top: $header-color solid 1px;
 

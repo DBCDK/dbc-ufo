@@ -116,7 +116,7 @@ router.get('/login', async(ctx) => {
         <link rel="stylesheet" type="text/css" href="/css/index.css"/>
       </head>
       <body>
-      <div class="main">
+      <div class="main login">
           <div id="topbar"></div>
           <div id="content"></div>
           ${footer}
