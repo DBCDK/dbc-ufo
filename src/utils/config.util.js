@@ -14,13 +14,17 @@ export const CONFIG = {
   forsrights: {
     uri: process.env.FORS_RIGHTS_URI
   },
+  moreinfo_update: {
+    uri: process.env.MOREINFO_UPDATE_URI
+  },
   log: {
     level: process.env.LOG_LEVEL,
     pretty: process.env.PRETTY_LOG === '1'
   },
   mock_externals: {
     smaug: process.env.MOCK_SMAUG === '1',
-    forsrights: process.env.MOCK_FORS_RIGHTS === '1'
+    forsrights: process.env.MOCK_FORS_RIGHTS === '1',
+    moreinfo_update: process.env.MOCK_MOREINFO_UPDATE === '1'
   },
   openplatform: {
     serviceprovider: {

@@ -19,20 +19,16 @@ export default class PreviewId extends React.Component {
   }
 
   isButtonActive() {
-    if (this.state.currentValue && this.state.currentValue !== this.props.value) {
-      return true;
-    }
-
-    return false;
+    return (!this.props.disabled && this.state.currentValue && this.state.currentValue !== this.props.value);
   }
 
   render() {
-    const {value} = this.props;
+    const {value, disabled} = this.props;
     return (
       <form onSubmit={this.onSubmit} className="id-form component flex">
         <label htmlFor="id">ID</label>
         <div className="id-input grow">
-          <input className="underline" onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id"
+          <input className="underline" disabled={disabled} onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id"
                  defaultValue={value}
                  placeholder="Skriv id her"/>
         </div>
@@ -46,5 +42,6 @@ export default class PreviewId extends React.Component {
 
 PreviewId.propTypes = {
   value: React.PropTypes.string,
+  disabled: React.PropTypes.bool,
   onSubmit: React.PropTypes.func
 };

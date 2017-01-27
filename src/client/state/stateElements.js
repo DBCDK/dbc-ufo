@@ -10,7 +10,7 @@ class UploadElement {
   constructor(element, cb) {
     this.element = element;
     this.cb = cb;
-    this.setIdFromUrl(element.url);
+    this.setIdFromUrl(element.name);
   }
 
   setIdFromUrl(url) {
@@ -51,7 +51,7 @@ class UploadElement {
         matType: 'Materiale type',
         isbn: 'ISBN'
       };
-      setTimeout(() => this._setWork(work, id), 5000);
+      setTimeout(() => this._setWork(work, id), 100);
     }
     else {
       request
@@ -126,7 +126,8 @@ export class ImageElement extends UploadElement {
   upload() {
     this.setStatus(constants.UPLOAD_STARTED);
     const file = this.element.file;
-    request.post('/upload')
+    request.post('/upload/image')
+      .field('id', this.work.pid)
       .attach(file.name, file)
       .end((err, res) => {
         if (res && res.status === 200) {

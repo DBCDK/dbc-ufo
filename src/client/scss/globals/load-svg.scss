@@ -7,3 +7,6 @@
 @svg-load logo url(svg/logo.svg) {
   fill: white;
 }
+@svg-load noimage url(svg/image-cancel.svg) {
+  fill: $header-color;
+}

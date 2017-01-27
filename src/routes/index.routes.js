@@ -5,12 +5,12 @@
 
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
 import asyncBusboy from 'async-busboy';
-import fs from 'fs';
-import path from 'path';
 import koabody from 'koa-body';
+import {log} from 'dbc-node-logger';
 import {authenticateUser} from '../services/forsrights/forsrights.client';
+import {uploadImage} from '../services/moreinfoUpdate/moreinfoUpdate.client';
 import {getWork, search} from '../services/serviceprovider/serviceprovider.client';
-import {validateId} from '../utils/validateId.util';
+import {validateId, splitPid} from '../utils/validateId.util';
 
 const bodyparser = new koabody();
 const router = new Router();
@@ -45,18 +45,17 @@ router.get('/', (ctx) => {
   `;
 });
 
-router.post('/upload', async(ctx) => {
+router.post('/upload/image', async(ctx) => {
   try {
-    const {files} = await asyncBusboy(ctx.req);
-    files.forEach(async(file) => {
-      // TODO sent image to MoreInfo Update instead of public folder.
-      const newPath = path.resolve(path.join(__dirname, '../../', 'public', file.filename));
-      await fs.rename(file.path, newPath);
-    });
+    const {files, fields} = await asyncBusboy(ctx.req);
+    const {localIdentifier} = splitPid(fields.id);
+    const libraryId = ctx.session.credentials.agency;
+    await uploadImage(libraryId, localIdentifier, files[0].path);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
   }
   catch (e) {
+    ctx.status = 400;
     ctx.body = JSON.stringify({error: e});
   }
 });
@@ -76,31 +75,36 @@ router.post('/posts', bodyparser, async(ctx) => {
  * @returns {*}
  */
 async function getWorkForId(id, type) {
-  if (type === 'error') {
-    return {error: 'invalid_id'};
-  }
-  const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull'];
-  let result;
-  if (type === 'pid') {
-    result = await getWork({params: {pids: [id], fields}});
-  }
-  else {
-    result = await search({params: {q: `(nr=${id})`, fields}});
-  }
+  try {
+    if (type === 'error') {
+      return {error: 'invalid_id'};
+    }
+    const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull'];
+    let result;
+    if (type === 'pid') {
+      result = await getWork({params: {pids: [id], fields}});
+    }
+    else {
+      result = await search({params: {q: `(nr=${id})`, fields}});
+    }
 
-  if (!result.error && result.length) {
-    const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];
-    return {
-      title: dcTitleFull.join(', '),
-      creator: creator.join(', '),
-      isbn: identifierISBN.join(', '),
-      matType: typeBibDKType.join(', '),
-      image: coverUrlFull.shift(),
-      pid: pid.join(', ')
-    };
+    if (!result.error && result.length) {
+      const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];
+      return {
+        title: dcTitleFull.join(', '),
+        creator: creator.join(', '),
+        isbn: identifierISBN.join(', '),
+        matType: typeBibDKType.join(', '),
+        image: coverUrlFull && coverUrlFull.shift() || null,
+        pid: pid.join(', ')
+      };
+    }
   }
-
+  catch (e) {
+    log.error('cannot get work from openplatform', e);
+  }
   return {error: 'no_work_for_id'};
+
 }
 
 router.get('/login', async(ctx) => {
@@ -136,7 +140,8 @@ router.get('/isauthenticated', async(ctx, next) => {
 router.post('/login', bodyparser, async(ctx) => {
   const valid = validateBody(ctx.request.body);
   const body = ctx.request.body;
-  const result = await authenticateUser({agency: body.agency, user: body.user, password: body.password});
+  const credentials = {agency: body.agency, user: body.user, password: body.password};
+  const result = await authenticateUser(credentials);
 
   if (!valid) {
     ctx.session.authenticated = false;
@@ -150,6 +155,7 @@ router.post('/login', bodyparser, async(ctx) => {
   }
   else {
     ctx.session.authenticated = true;
+    ctx.session.credentials = credentials;
     ctx.body = 'success';
     ctx.status = 200;
   }
@@ -174,5 +180,6 @@ function validateBody(body) {
 
   return true;
 }
+
 
 export default router;

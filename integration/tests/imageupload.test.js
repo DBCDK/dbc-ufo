@@ -22,17 +22,22 @@ describe('Testing image upload', () => {
 
   it('Should reject small image', () => {
     page.rejectImage('horses_small.jpg');
-    assert.include(browser.element('.message.error').getText(), 'Filen har ikke en gyldig størrelse', 'error message is shown');
+    assert.include(browser.element('.message').getText(), 'Filen har ikke en gyldig størrelse', 'error message is shown');
   });
 
   it('Should reject non image', () => {
     page.rejectImage('invalid_horse.txt');
-    assert.include(browser.element('.message.error').getText(), 'Filen er ikke en gyldig type', 'error message is shown');
+    assert.include(browser.element('.message').getText(), 'Filen er ikke en gyldig type', 'error message is shown');
   });
 
   it('Should upload image', () => {
     page.addImage('horses.jpg');
     page.submitId('9788792813114');
     page.upload();
+  });
+  it('Should fail image upload', () => {
+    page.addImage('horses.jpg');
+    page.submitId('06108466');
+    page.upload('.error');
   });
 });
