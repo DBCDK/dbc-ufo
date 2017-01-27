@@ -8,6 +8,46 @@ import {promiseRequest} from '../../utils/request.util';
 import * as Smaug from '../smaug/smaug.client';
 import {log} from 'dbc-node-logger';
 
+/**
+ * Get work for id of type.
+ *
+ * @param id
+ * @param type
+ * @returns {*}
+ */
+export async function getWorkForId(id, type) {
+  try {
+    if (type === 'error') {
+      return {error: 'invalid_id'};
+    }
+    const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull'];
+    let result;
+    if (type === 'pid') {
+      result = await getWork({params: {pids: [id], fields}});
+    }
+    else {
+      result = await search({params: {q: `(nr=${id})`, fields}});
+    }
+
+    if (!result.error && result.length) {
+      const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];
+      return {
+        title: dcTitleFull.join(', '),
+        creator: creator.join(', '),
+        isbn: identifierISBN.join(', '),
+        matType: typeBibDKType.join(', '),
+        image: coverUrlFull && coverUrlFull.shift() || null,
+        pid: pid.join(', ')
+      };
+    }
+  }
+  catch (e) {
+    log.error('cannot get work from openplatform', e);
+  }
+
+  return {error: 'no_work_for_id'};
+}
+
 export async function getWork({params}) {
   return await makeRequestToServiceProvider(params, 'work');
 }

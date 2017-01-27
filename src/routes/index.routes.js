@@ -6,11 +6,11 @@
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
 import asyncBusboy from 'async-busboy';
 import koabody from 'koa-body';
-import {log} from 'dbc-node-logger';
 import {authenticateUser} from '../services/forsrights/forsrights.client';
 import {uploadImage, uploadUrl} from '../services/moreinfoUpdate/moreinfoUpdate.client';
-import {getWork, search} from '../services/serviceprovider/serviceprovider.client';
+import {getWorkForId} from '../services/serviceprovider/serviceprovider.client';
 import {validateId, splitPid} from '../utils/validateId.util';
+import validateObject from '../utils/validateObject.util';
 
 const bodyparser = new koabody();
 const router = new Router();
@@ -71,46 +71,6 @@ router.post('/posts', bodyparser, async(ctx) => {
   ctx.body = JSON.stringify(work);
 });
 
-/**
- * Get work for id of type.
- *
- * @param id
- * @param type
- * @returns {*}
- */
-async function getWorkForId(id, type) {
-  try {
-    if (type === 'error') {
-      return {error: 'invalid_id'};
-    }
-    const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull'];
-    let result;
-    if (type === 'pid') {
-      result = await getWork({params: {pids: [id], fields}});
-    }
-    else {
-      result = await search({params: {q: `(nr=${id})`, fields}});
-    }
-
-    if (!result.error && result.length) {
-      const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];
-      return {
-        title: dcTitleFull.join(', '),
-        creator: creator.join(', '),
-        isbn: identifierISBN.join(', '),
-        matType: typeBibDKType.join(', '),
-        image: coverUrlFull && coverUrlFull.shift() || null,
-        pid: pid.join(', ')
-      };
-    }
-  }
-  catch (e) {
-    log.error('cannot get work from openplatform', e);
-  }
-  return {error: 'no_work_for_id'};
-
-}
-
 router.get('/login', async(ctx) => {
   ctx.body = `
     <!DOCTYPE html>
@@ -141,7 +101,7 @@ router.get('/isauthenticated', async(ctx, next) => {
 });
 
 router.post('/login', bodyparser, async(ctx) => {
-  const valid = validateBody(ctx.request.body);
+  const valid = validateObject({agency: 'string', user: 'string', password: 'string', agreement: 'boolean'}, ctx.request.body);
   const body = ctx.request.body;
   const credentials = {agency: body.agency, user: body.user, password: body.password};
   const result = await authenticateUser(credentials);
@@ -163,26 +123,6 @@ router.post('/login', bodyparser, async(ctx) => {
     ctx.status = 200;
   }
 });
-
-function validateBody(body) {
-  if (!body.agency || typeof body.agency !== 'string') {
-    return false;
-  }
-
-  if (!body.user || typeof body.user !== 'string') {
-    return false;
-  }
-
-  if (!body.password || typeof body.password !== 'string') {
-    return false;
-  }
-
-  if (!body.agreement || typeof body.agreement !== 'boolean') {
-    return false;
-  }
-
-  return true;
-}
 
 
 export default router;
