@@ -106,9 +106,22 @@ export class UrlElement extends UploadElement {
   }
 
   upload() {
-    // TODO implement upload method for urls
+    this.setStatus(constants.UPLOAD_STARTED);
+    const url = this.element.url;
+    const id = this.work.pid;
+    request.post('/upload/url')
+      .send({url, id})
+      .end((err, res) => {
+        if (res && res.status === 200) {
+          this.setStatus(constants.DONE_OK);
+        }
+        else {
+          this.setStatus(constants.DONE_ERROR);
+        }
+      });
   }
 }
+
 
 /**
  * An uploaded file
