@@ -76,7 +76,7 @@ async function makeRequest(libraryCode, localId, moreInfoData) {
     const {body} = await promiseRequest('post', params);
     const response = JSON.parse(body).moreinfoUpdateResponse;
     if (response.error || response.requestAccepted.recordRejected) {
-      throw new Error('image upload failed', response.error || response.recordRejected);
+      throw new Error('image upload failed', response.error || response.requestAccepted.recordRejected);
     }
     return true;
   }
