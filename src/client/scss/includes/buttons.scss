@@ -1,8 +1,10 @@
 @mixin button-reset() {
+  font-weight: 700;
   background-color: white;
   border: none;
   border-radius: 3px;
   text-transform: uppercase;
+  letter-spacing: 0.6px;
   font-size: 14px;
   padding: 6px 12px;
   text-decoration: none;

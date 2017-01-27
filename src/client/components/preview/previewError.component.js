@@ -12,7 +12,7 @@ export default function PreviewError({element}) {
       </div>
       <div className="main">
         <h4 className="mb1">Filnavn: {element.name}</h4>
-        <div className="message notice"><span className="nb">Bemærk: </span>{element.error}</div>
+        <div className="message notice"><span className="nb">Fejl </span>{element.error}</div>
         <a className="remove small" onClick={() => State.remove(element)}>Fjern</a>
       </div>
       <div className="status">

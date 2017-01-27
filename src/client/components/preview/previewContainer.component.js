@@ -21,12 +21,12 @@ export default class PreviewContainer extends React.Component {
   renderRemoveButton(element) {
     if (element.status === constants.DONE_ERROR) {
       return (
-        <a className="remove small" onClick={() => element.setStatus(constants.READY)}>Prøv igen</a>
+        <a className="remove" onClick={() => element.setStatus(constants.READY)}>Prøv igen</a>
       );
     }
 
     return (
-      <a className="remove small" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>fjern</a>
+      <a className="remove" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>fjern</a>
     );
   }
 
@@ -51,7 +51,7 @@ export default class PreviewContainer extends React.Component {
 
     if (message) {
       return (
-        <div className="message notice"><span className="nb">Bemærk: </span>{message}</div>
+        <div className="message notice"><span className="nb">Bemærk </span>{message}</div>
       );
     }
 
