@@ -26,7 +26,7 @@ export default class PreviewContainer extends React.Component {
     }
 
     return (
-      <a className="remove" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>fjern</a>
+      <a className="remove" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>Fjern</a>
     );
   }
 
@@ -76,7 +76,6 @@ export default class PreviewContainer extends React.Component {
         <div className='status'>
           <PreviewStatus status={element.status}/>
         </div>
-        <div></div>
       </div>
     );
   }
