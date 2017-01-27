@@ -5,6 +5,7 @@
 import fs from 'fs';
 import {promiseRequest} from '../../utils/request.util';
 import {CONFIG} from '../../utils/config.util';
+import escapeHtml from '../../utils/escapeHtml.util';
 import {log} from 'dbc-node-logger';
 
 /**
@@ -30,7 +31,7 @@ export async function uploadImage(libraryCode, localId, imagePath) {
  * @returns {boolean}
  */
 export async function uploadUrl(libraryCode, localId, url) {
-  const infoData = `<ns1:informationUrl>${url}</ns1:informationUrl>`;
+  const infoData = `<ns1:informationUrl>${escapeHtml(url)}</ns1:informationUrl>`;
   return makeRequest(libraryCode, localId, infoData);
 }
 
