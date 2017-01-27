@@ -15,6 +15,16 @@ import validateObject from '../utils/validateObject.util';
 const bodyparser = new koabody();
 const router = new Router();
 
+const date = new Date();
+const year = date.getFullYear();
+
+
+const footer = `
+<div id="footer">
+  <span><a href="#">Om Upload af forsider</a></span>
+  <span class="right">&copy; DBC a/s ${year}</span>
+</div>`;
+
 router.get('/', (ctx) => {
   ctx.body = `
     <!DOCTYPE html>
@@ -27,6 +37,7 @@ router.get('/', (ctx) => {
         <div class="main">
           <div id="topbar"></div>
           <div id="content"></div>
+          ${footer}
           <script src="/js/index.js"></script>
         </div>
       </body>
@@ -83,6 +94,7 @@ router.get('/login', async(ctx) => {
       <div class="main">
           <div id="topbar"></div>
           <div id="content"></div>
+          ${footer}
           <script src="/js/login.js"></script>
         </div>
       </body>
