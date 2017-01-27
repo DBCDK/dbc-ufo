@@ -7,7 +7,7 @@ export default class LoginForm extends React.Component {
     this.state = {
       fields: {
         agency: '',
-        user: '',
+        user: 'netpunkt',
         password: '',
         agreement: false
       }
@@ -40,15 +40,16 @@ export default class LoginForm extends React.Component {
 
     return (
       <div className='login-form'>
+        <h2 className="login-header mb1">Indtast Netpunkt login</h2>
         <form>
-          <div className='form-group'>
-            <label>Biblioteksnummer
-              <input className='underline' type='text' id='login-input-agency' onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
-            </label>
-          </div>
           <div className='form-group'>
             <label>Brugernavn
               <input className='underline' type='text' id="login-input-user" onChange={this.onChange} name='user' value={this.state.fields.user}/>
+            </label>
+          </div>
+          <div className='form-group'>
+            <label>Biblioteksnummer
+              <input className='underline' type='text' id='login-input-agency' onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
             </label>
           </div>
           <div className='form-group'>
