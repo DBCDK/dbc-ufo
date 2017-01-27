@@ -33,6 +33,9 @@ export default class PreviewContainer extends React.Component {
   renderMessage(element) {
     let message = '';
     switch (element.status) {
+      case constants.DONE_ERROR:
+        message = `Det var ikke muligt at uploade billedet til post ${element.id}`;
+        break;
       case constants.ERROR_NO_WORK:
         message = `Der findes ikke nogen post med id ${element.id}`;
         break;
