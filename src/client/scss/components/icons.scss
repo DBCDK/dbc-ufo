@@ -17,6 +17,15 @@
   background-size: 80%;
   background-position: center;
   background-repeat: no-repeat;
+  &.icon-inline {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 3px;
+    background-size: contain;
+    border-radius: 0;
+  }
   &.spinner {
     @include spinner();
     background-color: transparent;
@@ -38,6 +47,14 @@
   }
   &.no-image {
     background-image: svg-inline(noimage);
+    background-color: transparent;
+  }
+  &.image {
+    background-image: svg-inline(image);
+    background-color: transparent;
+  }
+  &.link {
+    background-image: svg-inline(link);
     background-color: transparent;
   }
 }

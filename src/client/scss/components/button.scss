@@ -18,3 +18,28 @@ button, .button {
     padding: 3px 6px;
   }
 }
+
+.buttons{
+  @include gutter-children-margin();
+}
+.text-button {
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  padding: 2rem;
+  background-color: $header-color;
+  color: white;
+  width: 250px;
+  text-decoration: none;
+  .button-header {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: gutter(1);
+
+  }
+  .button-description {
+    color: $background-color;
+  }
+  &:hover {
+    background-color: $green;
+  }
+}
