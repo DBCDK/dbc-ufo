@@ -20,11 +20,6 @@ describe('Testing image upload', () => {
     page.addImage('horses.jpg');
   });
 
-  it('Should reject small image', () => {
-    page.rejectImage('horses_small.jpg');
-    assert.include(browser.element('.message').getText(), 'Filen har ikke en gyldig størrelse', 'error message is shown');
-  });
-
   it('Should reject non image', () => {
     page.rejectImage('invalid_horse.txt');
     assert.include(browser.element('.message').getText(), 'Filen er ikke en gyldig type', 'error message is shown');

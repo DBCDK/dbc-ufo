@@ -63,8 +63,8 @@ router.post('/upload/image', async(ctx) => {
 router.post('/upload/url', bodyparser, async(ctx) => {
   try {
     const {url, id} = ctx.request.body;
-    const {localIdentifier} = splitPid(id);
-    const libraryId = ctx.session.credentials.agency;
+    const {localIdentifier, libraryId} = splitPid(id);
+    // const libraryId = ctx.session.credentials.agency;
     await uploadUrl(libraryId, localIdentifier, url);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});

@@ -21,6 +21,7 @@ export default class PreviewList extends React.Component {
     return (
       <div className="previewlist-header">
         <h2>Preview af billeder og materialer</h2>
+        <p>Gennemse uploadede billeder. Alle billeder skal have tilknyttet et gyldigt materiale ID, som billedet skal tilknyttes</p>
         <div className="upload-button text-right mb1">
           <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}>Upload billeder</button>
         </div>

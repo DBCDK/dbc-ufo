@@ -57,5 +57,21 @@
     background-image: svg-inline(link);
     background-color: transparent;
   }
+  &.open {
+    background-image: svg-inline(open);
+    background-color: transparent;
+  }
+  &.closed {
+    background-image: svg-inline(closed);
+    background-color: transparent;
+  }
 }
 
+.with-icon {
+  position: relative;
+  .icon {
+    position: absolute;
+    right: 0;
+    top: 32px;
+  }
+}

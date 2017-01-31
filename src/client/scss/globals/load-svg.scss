@@ -16,3 +16,10 @@
 @svg-load link url(svg/link.svg) {
   fill: white;
 }
+
+@svg-load open url(svg/eye-open.svg) {
+  fill: $text-color;
+}
+@svg-load closed url(svg/eye-closed.svg) {
+  fill: $text-color;
+}

@@ -1,5 +1,6 @@
 button, .button {
   @include button-reset();
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 200ms ease-in;
   &.submit {
     background-color: $green;
@@ -12,6 +13,7 @@ button, .button {
   &:disabled{
     background-color: rgba($header-color, 0.1);
     color: rgba(white, 0.5);
+    box-shadow: none;
   }
   &.small {
     font-size: 10px;

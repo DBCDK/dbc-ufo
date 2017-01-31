@@ -11,6 +11,7 @@
   }
   .main {
     flex-grow: 1;
+    overflow: hidden;
   }
 }
 
@@ -27,4 +28,10 @@
       text-align: center;
     }
   }
+}
+
+.noverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

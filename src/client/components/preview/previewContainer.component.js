@@ -37,16 +37,16 @@ export default class PreviewContainer extends React.Component {
         message = `Det var ikke muligt at uploade billedet til post ${element.id}`;
         break;
       case constants.ERROR_NO_WORK:
-        message = `Der findes ikke nogen post med id ${element.id}`;
+        message = 'Posten findes ikke. indtast et gyldigt ID';
         break;
       case constants.READY_DOUBLE_IMAGE:
-        message = `Posten med id ${element.id} har allerede en forside`;
+        message = 'Posten har allerede en forside';
         break;
       case constants.ERROR_INVALID_ID:
-        message = `Der findes ikke nogen post id ${element.id}`;
+        message = 'Posten findes ikke. indtast et gyldigt ID';
         break;
       case constants.ERROR_NO_ID:
-        message = 'id mangler';
+        message = 'Indtast ID';
         break;
       default:
         message = '';
