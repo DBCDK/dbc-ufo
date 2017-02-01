@@ -11,6 +11,7 @@ export default class LoginForm extends React.Component {
         password: '',
         agreement: false
       },
+      error: this.props.error,
       showAgency: true,
       showPassword: false
     };
@@ -18,7 +19,13 @@ export default class LoginForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.fields);
+    if (this.state.fields.agreement) {
+      this.setState({error: null});
+      this.props.onSubmit(this.state.fields);
+    }
+    else {
+      this.setState({error: 'Du skal acceptere retningslinjerne'});
+    }
   };
 
   onChange = (e) => {
@@ -41,23 +48,24 @@ export default class LoginForm extends React.Component {
   };
 
   render() {
-    const disabled = !this.state.fields.agency || !this.state.fields.user || !this.state.fields.password || !this.state.fields.agreement;
-    const errorMsg = this.props.error ? (
-      <div className="message"><span className="nb">Fejl </span>{this.props.error}</div>) : null;
+    const errorMsg = this.state.error || this.props.error ? (
+      <div className="message"><span className="nb">Fejl </span>{this.state.error || this.props.error}</div>) : null;
 
     return (
       <div className='login-form'>
         <h1 className="login-header mb1">Indtast Netpunkt login</h1>
-        <form>
+        <form onSubmit={this.onSubmit}>
           <div className='form-group'>
             <label>Brugernavn
               <input className='underline' type='text' id="login-input-user" onChange={this.onChange} name='user'
+                     required="required"
                      value={this.state.fields.user}/>
             </label>
           </div>
           <div className='form-group'>
             <label className="with-icon">Biblioteksnummer
               <input className='underline' type={this.state.showAgency && 'text' || 'password'} id='login-input-agency'
+                     required="required"
                      onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
               <span className={`icon icon-inline ${this.state.showAgency && 'open' || 'closed'}`}
                     onClick={() => this.toggle('showAgency')}/>
@@ -66,6 +74,7 @@ export default class LoginForm extends React.Component {
           <div className='form-group'>
             <label className="with-icon">Adgangskode
               <input className='underline' type={this.state.showPassword && 'text' || 'password'}
+                     required="required"
                      id="login-input-password" onChange={this.onChange} name='password'
                      value={this.state.fields.password}/>
               <span className={`icon icon-inline ${this.state.showPassword && 'open' || 'closed'}`}
@@ -83,9 +92,7 @@ export default class LoginForm extends React.Component {
             {errorMsg}
           </div>
           <div className='login-form--submit-btn-container'>
-            <button className='submit pointer' id="login-input-submit" onClick={this.onSubmit} disabled={disabled}>LOG
-              IND
-            </button>
+            <input type="submit" className='submit pointer button' id="login-input-submit" value="LOG IND" />
           </div>
         </form>
       </div>

@@ -5,8 +5,17 @@
   background-color: $header-color;
   .logo {
     display: inline-block;
-    width: 325px;
+    width: 190px;
     height: 25px;
     background: svg-inline(logo) no-repeat;
+  }
+  span {
+    height: 25px;
+  }
+  a {
+    color: white;
+  }
+  a + a {
+    margin-left: gutter();
   }
 }

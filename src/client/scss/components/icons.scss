@@ -65,6 +65,14 @@
     background-image: svg-inline(closed);
     background-color: transparent;
   }
+  &.help {
+    background-image: svg-inline(help);
+    background-color: transparent;
+    transition: opacity 200ms;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }
 
 .with-icon {
