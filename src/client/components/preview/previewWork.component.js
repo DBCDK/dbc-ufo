@@ -6,7 +6,7 @@ export default function PreviewWork({title, creator, matType, isbn}) {
       {title && <h4 className="title bold">{title}</h4> || ''}
       {creator && <div className="creator">{creator}</div> || ''}
       {matType && <div className="type">{matType}</div> || ''}
-      {isbn && <div className="isbn">isbn {isbn}</div> || ''}
+      {isbn && <div className="isbn">Isbn {isbn}</div> || ''}
     </div>
   );
 }

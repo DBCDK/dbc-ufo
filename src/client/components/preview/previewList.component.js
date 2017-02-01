@@ -7,13 +7,13 @@ export default class PreviewList extends React.Component {
 
   renderAccepted() {
     return this.props.accepted.map(item => {
-      return (<PreviewContainer key={item.element.name} element={item} />);
+      return (<PreviewContainer key={item.element.name} element={item}/>);
     });
   }
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError key={element.name} element={element} />);
+      return (<PreviewError key={element.name} element={element}/>);
     });
   }
 
@@ -21,22 +21,35 @@ export default class PreviewList extends React.Component {
     return (
       <div className="previewlist-header">
         <h2>Preview af billeder og materialer</h2>
-        <p>Gennemse uploadede billeder. Alle billeder skal have tilknyttet et gyldigt materiale ID, som billedet skal tilknyttes</p>
+        <p>Gennemse uploadede billeder. Alle billeder skal have tilknyttet et gyldigt materiale ID, som billedet skal
+          tilknyttes</p>
         <div className="upload-button text-right mb1">
-          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}>Upload billeder</button>
+          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}>Upload billeder
+          </button>
         </div>
       </div>
     );
   }
 
+  renderErrorHeader() {
+    return (
+      <div className="previewlist-header">
+        <h2>Fejl i billeder</h2>
+        <p className="message notice"><span className="nb">Bemærk </span>Følgende billeder kan ikke benyttes</p>
+      </div>
+    );
+  }
+
+
   render() {
     return (
       <div className="previews component">
-        {(this.props.accepted.length || this.props.rejected.length) && this.renderHeader() || ''}
-        <div className="accepted">
+        <div className="accepted list">
+          {this.props.accepted.length && this.renderHeader() || ''}
           {this.renderAccepted()}
         </div>
-        <div className="rejected">
+        <div className="rejected list">
+          {this.props.rejected.length && this.renderErrorHeader() || ''}
           {this.renderRejected()}
         </div>
       </div>

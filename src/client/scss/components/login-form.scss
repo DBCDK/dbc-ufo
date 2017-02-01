@@ -1,16 +1,15 @@
 .login-form {
   .form-group {
-    margin-bottom: gutter();
+    margin-bottom: gutter(1.5);
   }
 
   label input {
-    margin-top: gutter(0.25);
+    // margin-top: gutter(0.25);
   }
 
   .submit {
     font-size: 16px;
     padding: 10px 50px;
-    float: right;
   }
 
   input[type="checkbox"] {
@@ -39,17 +38,22 @@
     position: absolute;
     margin-right: 10px;
     left: 0;
-    top: 5px;
+    top: 1px;
     display: inline-block;
     width: 20px;
     height: 20px;
     border: 2px solid;
     border-radius: 2px;
   }
+
+  .message {
+    margin-bottom: gutter(1.5);
+  }
 }
 
 .login-form--submit-btn-container {
-  margin-bottom: 50px;
+  text-align: right;
+
 }
 
 .login-header {

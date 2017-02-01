@@ -1,5 +1,10 @@
-.previews h2 {
-  margin-bottom: gutter();
+.previews {
+  .list {
+    margin-bottom: gutter(2);
+  }
+  h2 {
+    margin-bottom: gutter();
+  }
 }
 
 .preview {
@@ -7,7 +12,7 @@
   @include gutter-children-padding();
   @include spacer(80%);
   .status {
-    width: 20%;
+    width: 25%;
   }
   .main {
     flex-grow: 1;
@@ -16,7 +21,7 @@
 }
 
 .preview-images {
-  white-space:nowrap;
+  white-space: nowrap;
   @include gutter-children-margin(0.5);
   .image {
     display: inline-block;

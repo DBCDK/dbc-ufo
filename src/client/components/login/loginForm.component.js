@@ -1,5 +1,17 @@
 import React from 'react';
 
+function getMessage (error) {
+  const errorMessages = {
+    user_not_found: 'Vi kan ikke genkendelse de indtastede oplysninger. Prøv igen'
+  };
+
+  if (errorMessages[error]) {
+    return errorMessages[error];
+  }
+
+  return error;
+}
+
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +36,7 @@ export default class LoginForm extends React.Component {
       this.props.onSubmit(this.state.fields);
     }
     else {
-      this.setState({error: 'Du skal acceptere retningslinjerne'});
+      this.setState({error: 'Du skal acceptere retningslinjerne.'});
     }
   };
 
@@ -49,14 +61,13 @@ export default class LoginForm extends React.Component {
 
   render() {
     const errorMsg = this.state.error || this.props.error ? (
-      <div className="message"><span className="nb">Fejl </span>{this.state.error || this.props.error}</div>) : null;
+      <div className="message"><span className="nb">Ups </span>{getMessage(this.state.error || this.props.error)}</div>) : null;
 
     return (
       <div className='login-form'>
-        <h1 className="login-header mb1">Indtast Netpunkt login</h1>
         <form onSubmit={this.onSubmit}>
           <div className='form-group'>
-            <label>Brugernavn
+            <label>Netpunkt brugernavn
               <input className='underline' type='text' id="login-input-user" onChange={this.onChange} name='user'
                      required="required"
                      value={this.state.fields.user}/>
@@ -64,11 +75,9 @@ export default class LoginForm extends React.Component {
           </div>
           <div className='form-group'>
             <label className="with-icon">Biblioteksnummer
-              <input className='underline' type={this.state.showAgency && 'text' || 'password'} id='login-input-agency'
+              <input className='underline' type="text" id='login-input-agency'
                      required="required"
                      onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
-              <span className={`icon icon-inline ${this.state.showAgency && 'open' || 'closed'}`}
-                    onClick={() => this.toggle('showAgency')}/>
             </label>
           </div>
           <div className='form-group'>

@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone';
 export default function ImageUpload({minSize, maxSize, accept, onDrop}) {
   return (
     <div className="image-upload component">
-      <h1>Billede upload</h1>
+      <h1>Upload af billedfiler</h1>
       <Dropzone className="dropzone" activeClassName="active" {...{minSize, maxSize, accept, onDrop}} >
         <div className="content">
           <h1>Træk filer hertil for at uploade</h1>
