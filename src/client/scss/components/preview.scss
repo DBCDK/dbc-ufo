@@ -10,7 +10,7 @@
 .preview {
   display: flex;
   @include gutter-children-padding();
-  @include spacer(80%);
+  @include spacer(75%);
   .status {
     width: 25%;
   }
