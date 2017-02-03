@@ -30,7 +30,7 @@ export default class ImageUploadContainer extends React.Component {
       reason = 'Filen er ikke en gyldig type. Det skal være en png eller en jpg';
     }
     else if (rejectedFile.size < this.minSize || rejectedFile.size > this.maxSize) {
-      reason = `Filen har ikke en gyldig størrelse. Den skal være min. ${this.maxSize / 1000000}MB`;
+      reason = `Filen har ikke en gyldig størrelse. Den må være max. ${this.maxSize / 1000000}MB`;
     }
 
     rejectedFile.error = reason;
