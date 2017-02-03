@@ -79,7 +79,8 @@
   position: relative;
   .icon {
     position: absolute;
+    top: inherit; // overwrite icon-inline positioning
     right: 0;
-    top: 23px;
+    bottom: 0;
   }
 }
