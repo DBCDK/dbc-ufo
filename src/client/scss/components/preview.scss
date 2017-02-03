@@ -21,10 +21,13 @@
 }
 
 .preview-images {
+  display: flex;
   white-space: nowrap;
   @include gutter-children-margin(0.5);
   .image {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100px;
     img {
       width: 100%;
