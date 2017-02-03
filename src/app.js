@@ -53,7 +53,6 @@ export function startServer() {
   app.use(LoggerMiddleware);
   app.use(SetVersionHeader);
 
-  app.use(Session.AuthenticationCheck);
   app.use(Session.RefreshSession);
 
   app.use(router.routes());

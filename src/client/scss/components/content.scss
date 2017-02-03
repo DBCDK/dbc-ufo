@@ -1,6 +1,15 @@
-#content {
-  width: 800px;
+.main {
+  width: 1024px;
   margin: auto;
-  padding: gutter(2);
   background-color: $background-color;
+  &.login {
+    position: relative;
+    top: 5%;
+    min-height: 0;
+    width: 400px;
+  }
+}
+
+#content, .page {
+  padding: gutter(2);
 }

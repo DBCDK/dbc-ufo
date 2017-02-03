@@ -10,46 +10,22 @@ import {authenticateUser} from '../services/forsrights/forsrights.client';
 import {uploadImage, uploadUrl} from '../services/moreinfoUpdate/moreinfoUpdate.client';
 import {getWorkForId} from '../services/serviceprovider/serviceprovider.client';
 import {validateId, splitPid} from '../utils/validateId.util';
+import {AuthenticationCheck} from '../middlewares/session.middleware';
 import validateObject from '../utils/validateObject.util';
+import page from '../utils/template.util';
 
 const bodyparser = new koabody();
 const router = new Router();
 
-const date = new Date();
-const year = date.getFullYear();
-
-
-const footer = `
-<div id="footer">
-  <span><a href="#">Om Upload af forsider</a></span>
-  <span class="right">&copy; DBC a/s ${year}</span>
-</div>`;
-
-router.get('/', (ctx) => {
-  ctx.body = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Image upload</title>
-        <link rel="stylesheet" type="text/css" href="/css/index.css"/>
-      </head>
-      <body>
-        <div class="main">
-          <div id="topbar"></div>
-          <div id="content"></div>
-          ${footer}
-          <script src="/js/index.js"></script>
-        </div>
-      </body>
-    </html>
-  `;
+router.get('/', AuthenticationCheck, (ctx) => {
+  ctx.body = page();
 });
 
 router.post('/upload/image', async(ctx) => {
   try {
     const {files, fields} = await asyncBusboy(ctx.req);
-    const {localIdentifier} = splitPid(fields.id);
-    const libraryId = ctx.session.credentials.agency;
+    const {localIdentifier, libraryId} = splitPid(fields.id);
+    // const libraryId = ctx.session.credentials.agency;
     await uploadImage(libraryId, localIdentifier, files[0].path);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
@@ -63,8 +39,8 @@ router.post('/upload/image', async(ctx) => {
 router.post('/upload/url', bodyparser, async(ctx) => {
   try {
     const {url, id} = ctx.request.body;
-    const {localIdentifier} = splitPid(id);
-    const libraryId = ctx.session.credentials.agency;
+    const {localIdentifier, libraryId} = splitPid(id);
+    // const libraryId = ctx.session.credentials.agency;
     await uploadUrl(libraryId, localIdentifier, url);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
@@ -83,23 +59,7 @@ router.post('/posts', bodyparser, async(ctx) => {
 });
 
 router.get('/login', async(ctx) => {
-  ctx.body = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Log in - Image upload</title>
-        <link rel="stylesheet" type="text/css" href="/css/index.css"/>
-      </head>
-      <body>
-      <div class="main">
-          <div id="topbar"></div>
-          <div id="content"></div>
-          ${footer}
-          <script src="/js/login.js"></script>
-        </div>
-      </body>
-    </html>
-  `;
+  ctx.body = page('<div id="content"></div>', '/js/login.js', 'login');
 });
 
 router.get('/logout', (ctx) => {
@@ -134,6 +94,27 @@ router.post('/login', bodyparser, async(ctx) => {
     ctx.body = 'success';
     ctx.status = 200;
   }
+});
+
+router.get('/help', async(ctx) => {
+  ctx.body = page(`
+    <div class="page">
+        <h1>Hjælp til upload</h1>
+        <h2>Upload af billedfiler</h2>
+        <p>Træk filer eller vælg ved at klikke på knappen.</p>
+        <h2>Tilføjelse af billeder via URL'er</h2>
+        <p>Du kan skrive et eller flere ...</p>
+    </div>
+`);
+});
+
+router.get('/about', async(ctx) => {
+  ctx.body = page(`
+    <div class="page">
+        <h1>Om upload af forsider</h1>
+        <p>Upload af forsider er en service ...</p>
+    </div>
+`);
 });
 
 

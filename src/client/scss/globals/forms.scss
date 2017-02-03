@@ -1,10 +1,12 @@
 input.underline {
   color: $text-color;
+  font-size: 18px;
+  font-weight: 500;
   background-color: transparent;
   box-shadow: none;
   border: none;
   border-radius: 0;
   border-bottom: 2px solid $text-color;
-  padding-left: 0;
+  padding: 6px 12px 0px 0;
   width: 100%;
 }

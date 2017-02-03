@@ -17,6 +17,15 @@
   background-size: 80%;
   background-position: center;
   background-repeat: no-repeat;
+  &.icon-inline {
+    display: inline-block;
+    width: 25px;
+    height: 20px;
+    position: relative;
+    top: 3px;
+    background-size: contain;
+    border-radius: 0;
+  }
   &.spinner {
     @include spinner();
     background-color: transparent;
@@ -40,5 +49,37 @@
     background-image: svg-inline(noimage);
     background-color: transparent;
   }
+  &.image {
+    background-image: svg-inline(image);
+    background-color: transparent;
+  }
+  &.link {
+    background-image: svg-inline(link);
+    background-color: transparent;
+  }
+  &.open {
+    background-image: svg-inline(open);
+    background-color: transparent;
+  }
+  &.closed {
+    background-image: svg-inline(closed);
+    background-color: transparent;
+  }
+  &.help {
+    background-image: svg-inline(help);
+    background-color: transparent;
+    transition: opacity 200ms;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }
 
+.with-icon {
+  position: relative;
+  .icon {
+    position: absolute;
+    right: 0;
+    top: 23px;
+  }
+}

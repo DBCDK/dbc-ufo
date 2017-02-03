@@ -1,5 +1,17 @@
 import React from 'react';
 
+function getMessage (error) {
+  const errorMessages = {
+    user_not_found: 'Vi kan ikke genkendelse de indtastede oplysninger. Prøv igen'
+  };
+
+  if (errorMessages[error]) {
+    return errorMessages[error];
+  }
+
+  return error;
+}
+
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -7,16 +19,25 @@ export default class LoginForm extends React.Component {
     this.state = {
       fields: {
         agency: '',
-        user: '',
+        user: 'netpunkt',
         password: '',
         agreement: false
-      }
+      },
+      error: this.props.error,
+      showAgency: true,
+      showPassword: false
     };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.fields);
+    if (this.state.fields.agreement) {
+      this.setState({error: null});
+      this.props.onSubmit(this.state.fields);
+    }
+    else {
+      this.setState({error: 'Du skal acceptere retningslinjerne.'});
+    }
   };
 
   onChange = (e) => {
@@ -28,6 +49,10 @@ export default class LoginForm extends React.Component {
     }
   };
 
+  toggle = (element) => {
+    this.setState(prevState => ({[element]: !prevState[element]}));
+  };
+
   checkboxHandler = () => {
     const state = Object.assign(this.state, {});
     state.fields.agreement = !this.state.fields.agreement;
@@ -35,36 +60,48 @@ export default class LoginForm extends React.Component {
   };
 
   render() {
-    const disabled = !this.state.fields.agency || !this.state.fields.user || !this.state.fields.password || !this.state.fields.agreement;
-    const errorMsg = this.props.error ? (<div className="message error"><h2>Fejl: {this.props.error}</h2></div>) : null;
+    const errorMsg = this.state.error || this.props.error ? (
+      <div className="message"><span className="nb">Ups </span>{getMessage(this.state.error || this.props.error)}</div>) : null;
 
     return (
       <div className='login-form'>
-        {errorMsg}
-        <form>
+        <form onSubmit={this.onSubmit}>
           <div className='form-group'>
-            <label>Biblioteksnummer
-              <input type='text' id='login-input-agency' onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
+            <label>Netpunkt brugernavn
+              <input className='underline' type='text' id="login-input-user" onChange={this.onChange} name='user'
+                     required="required"
+                     value={this.state.fields.user}/>
             </label>
           </div>
           <div className='form-group'>
-            <label>Brugernavn
-              <input type='text' id="login-input-user" onChange={this.onChange} name='user' value={this.state.fields.user}/>
+            <label className="with-icon">Biblioteksnummer
+              <input className='underline' type="text" id='login-input-agency'
+                     required="required"
+                     onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
             </label>
           </div>
           <div className='form-group'>
-            <label>Adgangskode
-              <input type='password' id="login-input-password" onChange={this.onChange} name='password' value={this.state.fields.password}/>
+            <label className="with-icon">Adgangskode
+              <input className='underline' type={this.state.showPassword && 'text' || 'password'}
+                     required="required"
+                     id="login-input-password" onChange={this.onChange} name='password'
+                     value={this.state.fields.password}/>
+              <span className={`icon icon-inline ${this.state.showPassword && 'open' || 'closed'}`}
+                    onClick={() => this.toggle('showPassword')}/>
             </label>
           </div>
           <div className='form-group'>
             <label htmlFor="termas-and-conditions" className='pointer' id='login-input-tac'>
-              <input type="checkbox" id='termas-and-conditions' name="termas-and-conditions" checked={this.state.fields.agreement} onClick={this.checkboxHandler}/>
-              <span>Jeg har læst og accepteret retningslinjerne for upload af billeder til Forsideservice.</span>
+              <input type="checkbox" id='termas-and-conditions' name="termas-and-conditions"
+                     checked={this.state.fields.agreement} onClick={this.checkboxHandler}/>
+              <span>Jeg har læst og accepteret <a href="/terms" target="_blank">retningslinjerne</a> for upload af billeder til Forsideservice.</span>
             </label>
           </div>
+          <div>
+            {errorMsg}
+          </div>
           <div className='login-form--submit-btn-container'>
-            <button className='submit pointer' id="login-input-submit" onClick={this.onSubmit} disabled={disabled}>LOG IND</button>
+            <input type="submit" className='submit pointer button' id="login-input-submit" value="LOG IND" />
           </div>
         </form>
       </div>

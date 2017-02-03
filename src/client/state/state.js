@@ -18,7 +18,7 @@ class State {
     unique(urls).forEach(url => validateImage({
       url,
       onError: () => {
-        this.errors.push({name: url, error: `${url} er ikke en gyldig billed url`, status: constants.ERROR_INVALID_URL});
+        this.errors.push({name: url, error: 'Ugyldig billedurl', status: constants.ERROR_INVALID_URL});
         this.elementsUpdated();
       },
       onSuccess: () => {

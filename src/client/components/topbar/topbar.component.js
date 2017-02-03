@@ -5,7 +5,10 @@ export default class Topbar extends React.Component {
     return (
       <div className="header">
         <a href="/"><span className="logo"/></a>
-        {this.props.authenticated && <a className="button" id='logout-btn' href="/logout">Log ud</a>}
+        <div className="text-right right">
+          {this.props.authenticated && <a className="logout" id='logout-btn' href="/logout">Log ud</a>}
+          <a href="/help" target="_blank"><span className="icon icon-inline help" /></a>
+        </div>
       </div>
     );
   }

@@ -1,20 +1,59 @@
 button, .button {
   @include button-reset();
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 200ms ease-in;
+  cursor: pointer;
   &.submit {
     background-color: $green;
     color: white;
+    &:hover {
+      background-color: darken($green, 5%);
+    }
   }
   &.remove {
     background-color: $red;
     color: white;
   }
   &:disabled{
-    background-color: rgba($header-color, 0.1);
-    color: rgba(white, 0.5);
+    background-color: rgba($header-color, 0.5);
+    color: rgba(white, 0.8);
+    box-shadow: none;
+    &:hover {
+      background-color: rgba($header-color, 0.8);
+    }
   }
   &.small {
     font-size: 10px;
     padding: 3px 6px;
+  }
+}
+
+.buttons{
+  @include gutter-children-margin();
+}
+.text-button {
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  padding: 2rem;
+  background-color: $header-color;
+  color: white;
+  width: 250px;
+  text-decoration: none;
+  text-align: center;
+
+
+  .button-header {
+    font-size: 18px;
+    font-weight: 200;
+    margin-bottom: gutter(1);
+
+  }
+  .button-description {
+    color: $background-color;
+  }
+  &:hover {
+    background-color: $green;
   }
 }

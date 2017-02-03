@@ -21,12 +21,12 @@ export default class PreviewContainer extends React.Component {
   renderRemoveButton(element) {
     if (element.status === constants.DONE_ERROR) {
       return (
-        <a className="remove small" onClick={() => element.setStatus(constants.READY)}>Prøv igen</a>
+        <a className="remove" onClick={() => element.setStatus(constants.READY)}>Prøv igen</a>
       );
     }
 
     return (
-      <a className="remove small" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>fjern</a>
+      <a className="remove" disabled={this.isElementLocked()} onClick={() => State.remove(element)}>Fjern</a>
     );
   }
 
@@ -37,16 +37,16 @@ export default class PreviewContainer extends React.Component {
         message = `Det var ikke muligt at uploade billedet til post ${element.id}`;
         break;
       case constants.ERROR_NO_WORK:
-        message = `Der findes ikke nogen post med id ${element.id}`;
+        message = 'Posten findes ikke. indtast et gyldigt ID';
         break;
       case constants.READY_DOUBLE_IMAGE:
-        message = `Posten med id ${element.id} har allerede en forside`;
+        message = 'Posten har allerede en forside';
         break;
       case constants.ERROR_INVALID_ID:
-        message = `Der findes ikke nogen post id ${element.id}`;
+        message = 'Posten findes ikke. indtast et gyldigt ID';
         break;
       case constants.ERROR_NO_ID:
-        message = 'id mangler';
+        message = 'Indtast ID';
         break;
       default:
         message = '';
@@ -54,7 +54,7 @@ export default class PreviewContainer extends React.Component {
 
     if (message) {
       return (
-        <div className="message notice"><span className="nb">Bemærk: </span>{message}</div>
+        <div className="message notice"><span className="nb">Bemærk </span>{message}</div>
       );
     }
 
@@ -79,7 +79,6 @@ export default class PreviewContainer extends React.Component {
         <div className='status'>
           <PreviewStatus status={element.status}/>
         </div>
-        <div></div>
       </div>
     );
   }

@@ -1,5 +1,8 @@
 .message {
   .nb {
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.6px;
     color:$red;
     font-weight: 700;
   }
@@ -8,7 +11,7 @@
     font-weight: 700;
   }
   &.notice {
-    font-weight: 700;
+
   }
   margin-bottom: gutter(0.5);
 }
