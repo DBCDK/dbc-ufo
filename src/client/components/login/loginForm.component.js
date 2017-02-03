@@ -59,6 +59,10 @@ export default class LoginForm extends React.Component {
     this.setState(state);
   };
 
+  componentDidMount() {
+    this.agency.focus();
+  }
+
   render() {
     const errorMsg = this.state.error || this.props.error ? (
       <div className="message"><span className="nb">Ups </span>{getMessage(this.state.error || this.props.error)}</div>) : null;
@@ -76,6 +80,7 @@ export default class LoginForm extends React.Component {
           <div className='form-group'>
             <label className="with-icon">Biblioteksnummer
               <input className='underline' type="text" id='login-input-agency'
+                     ref={(agency) => this.agency = agency}
                      required="required"
                      onChange={this.onChange} name='agency' value={this.state.fields.agency}/>
             </label>
