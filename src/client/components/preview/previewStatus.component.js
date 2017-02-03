@@ -2,14 +2,14 @@ import React from 'react';
 
 function stateFromStatus(status) {
   const states = {
-    ready: {icon: 'ready', description: 'klar til upload'},
-    'ready-double-image': {icon: 'ready', description: 'klar til upload'},
-    'wait-for-work': {icon: 'spinner', description: 'henter titel'},
-    'error-no-id': {icon: 'fail', description: 'mangler ID'},
-    'error-invalid-id': {icon: 'error', description: 'ugyldigt ID'},
-    'error-invalid-image': {icon: 'error', description: 'ugyldigt billede'},
-    'error-invalid-url': {icon: 'error', description: 'ugyldig URL'},
-    'error-no-work': {icon: 'error', description: 'ugyldigt ID'},
+    ready: {icon: 'ready', description: 'Klar til upload'},
+    'ready-double-image': {icon: 'ready', description: 'Klar til upload'},
+    'wait-for-work': {icon: 'spinner', description: 'Henter titel'},
+    'error-no-id': {icon: 'fail', description: 'Mangler ID'},
+    'error-invalid-id': {icon: 'error', description: 'Ugyldigt ID'},
+    'error-invalid-image': {icon: 'error', description: 'Ugyldigt billede'},
+    'error-invalid-url': {icon: 'error', description: 'Ugyldig URL'},
+    'error-no-work': {icon: 'error', description: 'Ugyldigt ID'},
     'upload-waiting': {icon: 'pause', description: 'Venter'},
     'upload-started': {icon: 'spinner', description: 'Uploader'},
     'done-ok': {icon: 'done', description: 'Uploadet'},
