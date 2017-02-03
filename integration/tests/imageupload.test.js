@@ -22,7 +22,7 @@ describe('Testing image upload', () => {
 
   it('Should reject non image', () => {
     page.rejectImage('invalid_horse.txt');
-    assert.include(browser.element('.message').getText(), 'Filen er ikke en gyldig type', 'error message is shown');
+    assert.include(browser.element('.message').getText(), 'BEMÆRK Følgende billeder kan ikke benyttes', 'error message is shown');
   });
 
   it('Should upload image', () => {
