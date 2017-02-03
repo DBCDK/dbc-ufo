@@ -6,6 +6,9 @@
     color:$red;
     font-weight: 700;
   }
+  .message-content {
+    padding-left: 5px;
+  }
   &.error {
     color:$red;
     font-weight: 700;

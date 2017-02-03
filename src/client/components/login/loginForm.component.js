@@ -65,7 +65,7 @@ export default class LoginForm extends React.Component {
 
   render() {
     const errorMsg = this.state.error || this.props.error ? (
-      <div className="message"><span className="nb">Ups </span>{getMessage(this.state.error || this.props.error)}</div>) : null;
+      <div className="message flex"><span className="nb">Ups </span><span className="message-content">{getMessage(this.state.error || this.props.error)}</span></div>) : null;
 
     return (
       <div className='login-form'>
