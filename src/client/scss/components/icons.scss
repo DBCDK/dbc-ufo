@@ -38,10 +38,7 @@
     background-image: svg-inline(cross);
     background-color: $header-color;
   }
-  &.ready {
-    background-image: svg-inline(checkmark);
-  }
-  &.done {
+  &.done, &.ready {
     background-image: svg-inline(checkmark);
     background-color: $green;
   }
