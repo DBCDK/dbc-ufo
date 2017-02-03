@@ -1,18 +1,17 @@
+$divider: 75%;
+
 .previews {
   .list {
     margin-bottom: gutter(2);
-  }
-  h2 {
-    margin-bottom: gutter();
   }
 }
 
 .preview {
   display: flex;
   @include gutter-children-padding();
-  @include spacer(75%);
+  @include spacer($divider);
   .status {
-    width: 25%;
+    width: 100% - $divider;
   }
   .preview-form {
     flex-grow: 1;
@@ -42,4 +41,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.header-description {
+  width: $divider;
+}
+
+.upload-button {
+  margin-left: gutter(2);
 }
