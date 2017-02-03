@@ -73,6 +73,10 @@
       opacity: 0.8;
     }
   }
+  &.upload {
+    background-image: svg-inline(upload);
+    background-color: transparent;
+  }
 }
 
 .with-icon {

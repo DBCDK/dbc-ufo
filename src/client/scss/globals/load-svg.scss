@@ -1,18 +1,23 @@
 @svg-load checkmark url(svg/checkmark.svg) {
   fill: white;
 }
+
 @svg-load cross url(svg/cross.svg) {
   fill: white;
 }
+
 @svg-load logo url(svg/logo.svg) {
   fill: white;
 }
+
 @svg-load noimage url(svg/image-cancel.svg) {
   fill: $header-color;
 }
+
 @svg-load image url(svg/image.svg) {
   fill: white;
 }
+
 @svg-load link url(svg/link.svg) {
   fill: white;
 }
@@ -20,9 +25,15 @@
 @svg-load open url(svg/eye-open.svg) {
   fill: $text-color;
 }
+
 @svg-load closed url(svg/eye-closed.svg) {
   fill: $text-color;
 }
+
 @svg-load help url(svg/help.svg) {
+  fill: white;
+}
+
+@svg-load upload url(svg/upload.svg) {
   fill: white;
 }

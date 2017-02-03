@@ -26,7 +26,7 @@ export default class PreviewList extends React.Component {
             tilknyttes</p>
         </div>
         <div className="upload-button text-center grow">
-          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}>Start upload
+          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}><span className="icon icon-inline upload" /> Start upload
           </button>
         </div>
       </div>
