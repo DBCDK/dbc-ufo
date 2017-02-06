@@ -38,10 +38,7 @@
     background-image: svg-inline(cross);
     background-color: $header-color;
   }
-  &.ready {
-    background-image: svg-inline(checkmark);
-  }
-  &.done {
+  &.done, &.ready {
     background-image: svg-inline(checkmark);
     background-color: $green;
   }
@@ -73,13 +70,18 @@
       opacity: 0.8;
     }
   }
+  &.upload {
+    background-image: svg-inline(upload);
+    background-color: transparent;
+  }
 }
 
 .with-icon {
   position: relative;
   .icon {
     position: absolute;
+    top: inherit; // overwrite icon-inline positioning
     right: 0;
-    top: 23px;
+    bottom: 0;
   }
 }

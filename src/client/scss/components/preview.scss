@@ -1,30 +1,32 @@
+$divider: 75%;
+
 .previews {
   .list {
     margin-bottom: gutter(2);
-  }
-  h2 {
-    margin-bottom: gutter();
   }
 }
 
 .preview {
   display: flex;
   @include gutter-children-padding();
-  @include spacer(80%);
+  @include spacer($divider);
   .status {
-    width: 25%;
+    width: 100% - $divider;
   }
-  .main {
+  .preview-form {
     flex-grow: 1;
     overflow: hidden;
   }
 }
 
 .preview-images {
+  display: flex;
   white-space: nowrap;
   @include gutter-children-margin(0.5);
   .image {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100px;
     img {
       width: 100%;
@@ -39,4 +41,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.header-description {
+  width: $divider;
 }

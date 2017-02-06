@@ -29,8 +29,12 @@ class State {
   }
 
   addImages = (images, errors) => {
-    this.elements = this.elements.concat(images.map(url => new ImageElement(url, this.elementsUpdated)));
-    this.errors = this.errors.concat(errors.map(error => Object.assign(error, {status: constants.ERROR_INVALID_IMAGE})));
+    if (images) {
+      this.elements = this.elements.concat(images.map(url => new ImageElement(url, this.elementsUpdated)));
+    }
+    if (errors) {
+      this.errors = this.errors.concat(errors.map(error => Object.assign(error, {status: constants.ERROR_INVALID_IMAGE})));
+    }
     this.elementsUpdated();
   }
 

@@ -68,8 +68,8 @@ export default class PreviewContainer extends React.Component {
         <div className="images">
           <PreviewImage work={element.work || {}} image={element.getImageInfo()} id={element.id}/>
         </div>
-        <div className="main">
-          <div className="preview-work grow">
+        <div className="preview-form">
+          <div className="preview-work">
             <PreviewId value={element.id} onSubmit={(id) => element.setId(id)} disabled={this.isIdLocked()}/>
             {this.renderMessage(element)}
             <PreviewWork {...element.work}/>

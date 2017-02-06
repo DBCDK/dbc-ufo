@@ -1,10 +1,18 @@
 .id-form {
+  display: flex;
   margin-bottom: gutter();
+  font-size: 18px;
+  font-weight: 500;
+  input {
+    height: 21px;
+    padding-bottom: 4px;
+  }
+
   button {
     height: 22px;
     font-size: 10px;
     line-height: 1;
   }
-  @extend %flex-center;
-  @include gutter-children-margin();
+
+  @include gutter-children-margin(0.5);
 }

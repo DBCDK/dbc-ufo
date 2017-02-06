@@ -19,12 +19,15 @@ export default class PreviewList extends React.Component {
 
   renderHeader() {
     return (
-      <div className="previewlist-header">
-        <h2>Preview af billeder og materialer</h2>
-        <p>Gennemse uploadede billeder. Alle billeder skal have tilknyttet et gyldigt materiale ID, som billedet skal
-          tilknyttes</p>
-        <div className="upload-button text-right mb1">
-          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}>Upload billeder
+      <div className="previewlist-header flex mb1">
+        <div className="header-description">
+          <h2>Preview af billeder og materialer</h2>
+          <p>Gennemse uploadede billeder. Alle billeder skal have tilknyttet et gyldigt materiale ID, som billedet skal
+            tilknyttes</p>
+          {this.props.rejected.length && (<p className="message"><span className="nb">Bemærk</span> Der er fejl i listen af uploadede billeder</p>) || ''}
+        </div>
+        <div className="upload-button text-center grow">
+          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}><span className="icon icon-inline upload" /> Start upload
           </button>
         </div>
       </div>

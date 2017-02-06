@@ -6,7 +6,11 @@ button, .button {
   &.submit {
     background-color: $green;
     color: white;
-    &:hover {
+    &:focus {
+      outline: none;
+      background-color: $blue;
+    }
+    &:hover{
       background-color: darken($green, 5%);
     }
   }
@@ -53,7 +57,8 @@ button, .button {
   .button-description {
     color: $background-color;
   }
-  &:hover {
+  &:hover, &:focus {
+    outline: none;
     background-color: $green;
   }
 }
