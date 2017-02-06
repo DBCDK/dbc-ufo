@@ -6,8 +6,8 @@ export default function PreviewError({element}) {
   return (
     <div className="preview error">
       <div className="preview-images">
-        <div className="image icon-wrapper large">
-          <span className="icon no-image"></span>
+        <div className="image">
+          {element.preview && <img src={element.preview} /> || <div className="icon-wrapper large"><span className="icon no-image"></span></div> }
         </div>
       </div>
       <div className="main">

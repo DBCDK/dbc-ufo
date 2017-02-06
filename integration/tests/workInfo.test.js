@@ -22,7 +22,7 @@ describe('Testing url upload component', () => {
   it('Should show wrong ID Error', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
     const element = page.rejectId('9788792813119').getText();
-    assert.include(element, 'ugyldigt ID');
+    assert.include(element, 'Ugyldigt ID');
   });
 
   it('Should compare existing image with new image', () => {

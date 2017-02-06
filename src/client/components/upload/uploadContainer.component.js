@@ -10,8 +10,9 @@ export default class ImageUploadContainer extends React.Component {
 
   constructor() {
     super();
-    this.minSize = 100000;
+    this.minSize = 0;
     this.maxSize = 5000000;
+    this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.state = {
       accepted: [],
@@ -38,7 +39,22 @@ export default class ImageUploadContainer extends React.Component {
   };
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    State.addImages(acceptedFiles, rejectedFiles.map(this.rejectedReason));
+    if (rejectedFiles) {
+      State.addImages([], rejectedFiles.map(this.rejectedReason));
+    }
+    acceptedFiles.map(image => {
+      const img = new Image();
+      img.onload = () => {
+        if (img.naturalHeight > this.minDimensions.height && img.naturalWidth > this.minDimensions.width) {
+          State.addImages([image]);
+        }
+        else {
+          image.error = `Billedet er for lille. Skal være min. ${this.minDimensions.width}px x ${this.minDimensions.height}px`;
+          State.addImages([], [image]);
+        }
+      };
+      img.src = image.preview;
+    });
   };
 
   onTypePicked = (type) => {
