@@ -1,0 +1,20 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+  outline: 0;
+}
+.modal {
+  max-width: 500px;
+  margin: 30px auto;
+  background-color: white;
+  z-index: 11; /* 1px higher than the overlay layer */
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .3rem;
+  padding: gutter();
+}

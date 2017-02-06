@@ -3,6 +3,7 @@ import ImageUpload from './imageUpload.component';
 import UploadTypePicker from './uploadTypePicker.component';
 import UrlUpload from './urlUpload.component';
 import PreviewList from '../preview/previewList.component';
+import Overlay from '../overlay/overlay.component';
 import State from '../../state/state';
 import CONSTANTS from '../../state/constants';
 
@@ -83,6 +84,12 @@ export default class ImageUploadContainer extends React.Component {
           {uploadMethod}
         </div>
         <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}/>
+        <Overlay show={true}>
+          <div><span className="icon checkmark"/></div>
+          <h2>Upload er gennemført</h2>
+          <p>15 filer blev oploaded og tilknyttet de angivne poster</p>
+          <p className="message"><span className="nb">Bemærk</span> Der var fejl i x poster. <br /></p>
+        </Overlay>
       </div>
     );
   }
