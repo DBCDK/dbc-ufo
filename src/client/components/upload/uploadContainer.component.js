@@ -16,6 +16,7 @@ export default class ImageUploadContainer extends React.Component {
     this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.state = {
+      overlayIsOpen: false,
       accepted: [],
       rejected: [],
       selectedUploadMethod: null
@@ -62,6 +63,14 @@ export default class ImageUploadContainer extends React.Component {
     this.setState({selectedUploadMethod: type});
   };
 
+  closeOverlay = () => {
+    this.setState({overlayIsOpen: false});
+  }
+
+  openOverlay = () => {
+    this.setState({overlayIsOpen: true});
+  }
+
   getUploadMethod() {
     let uploadElement = null;
 
@@ -84,7 +93,7 @@ export default class ImageUploadContainer extends React.Component {
           {uploadMethod}
         </div>
         <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}/>
-        <Overlay show={true}>
+        <Overlay show={this.state.overlayIsOpen} close={this.closeOverlay}>
           <div><span className="icon checkmark"/></div>
           <h2>Upload er gennemført</h2>
           <p>15 filer blev oploaded og tilknyttet de angivne poster</p>
