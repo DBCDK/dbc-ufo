@@ -8,6 +8,7 @@ import constants from '../state/constants';
  */
 class State {
   listeners = [];
+  isUploading = false;
   elements = [];
   errors = [];
 
@@ -39,7 +40,11 @@ class State {
   }
 
   elementsUpdated = () => {
-    this.listeners.forEach(cb => cb(this.elements, this.errors));
+    const uploadIsDone = this.isUploading && this.elements.filter(element => element.status === constants.UPLOAD_STARTED).length === 0;
+    if (uploadIsDone) {
+      this.isUploading = false;
+    }
+    this.listeners.forEach(cb => cb(this.elements, this.errors, uploadIsDone));
   }
 
   addListener(cb) {
@@ -53,6 +58,7 @@ class State {
   }
 
   upload = () => {
+    this.isUploading = true;
     this.elements.forEach(element => element.status.includes('ready') && element.upload());
   }
 

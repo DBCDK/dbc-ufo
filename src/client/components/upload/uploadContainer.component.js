@@ -5,7 +5,7 @@ import UrlUpload from './urlUpload.component';
 import PreviewList from '../preview/previewList.component';
 import Overlay from '../overlay/overlay.component';
 import State from '../../state/state';
-import CONSTANTS from '../../state/constants';
+import constants from '../../state/constants';
 
 export default class ImageUploadContainer extends React.Component {
 
@@ -15,15 +15,15 @@ export default class ImageUploadContainer extends React.Component {
     this.maxSize = 5000000;
     this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
-    this.state = {
+    this.state = this.initState = {
       overlayIsOpen: false,
       accepted: [],
       rejected: [],
       selectedUploadMethod: null
     };
 
-    State.addListener((elements, errors) => {
-      this.setState({accepted: elements, rejected: errors});
+    State.addListener((elements, errors, uploadIsDone) => {
+      this.setState({accepted: elements, rejected: errors, overlayIsOpen: uploadIsDone});
     });
   }
 
@@ -71,13 +71,18 @@ export default class ImageUploadContainer extends React.Component {
     this.setState({overlayIsOpen: true});
   }
 
+  reset = () => {
+    this.setState(this.initState);
+  }
+
   getUploadMethod() {
     let uploadElement = null;
 
-    if (this.state.selectedUploadMethod === CONSTANTS.UPLOAD_TYPE_IMAGE) {
-      uploadElement = (<ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop}/>);
+    if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
+      uploadElement = (
+        <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop}/>);
     }
-    else if (this.state.selectedUploadMethod === CONSTANTS.UPLOAD_TYPE_URL) {
+    else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
       uploadElement = (<UrlUpload onSubmit={State.addUrls}/>);
     }
 
@@ -86,6 +91,8 @@ export default class ImageUploadContainer extends React.Component {
 
   render() {
     const uploadMethod = this.getUploadMethod();
+    const uploadSucces = this.state.accepted.filter(element => element.status === constants.DONE_OK);
+    const uploadErrors = this.state.accepted.filter(element => element.status === constants.DONE_ERROR);
     return (
       <div className="upload-form">
         <div className="container">
@@ -96,8 +103,19 @@ export default class ImageUploadContainer extends React.Component {
         <Overlay show={this.state.overlayIsOpen} close={this.closeOverlay}>
           <div><span className="icon checkmark"/></div>
           <h2>Upload er gennemført</h2>
-          <p>15 filer blev oploaded og tilknyttet de angivne poster</p>
-          <p className="message"><span className="nb">Bemærk</span> Der var fejl i x poster. <br /></p>
+          <p>{uploadSucces.length} filer blev oploaded og tilknyttet de angivne poster</p>
+          {uploadErrors.length &&
+          <div className="upload-errors">
+            <p className="message">
+              <span className="nb">Bemærk</span> Der var fejl i {uploadErrors.length} poster. <br />
+              Du kan vælge at prøve igen med de poster der fejlede
+            </p>
+            <p>
+              <a href="#" onClick={this.closeOverlay}>prøv igen med de fejlede poster</a>
+              <a href="#" onClick={this.reset}>Nulstil og start forfra</a>
+            </p>
+          </div>
+          || ''}
         </Overlay>
       </div>
     );
