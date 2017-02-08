@@ -1,0 +1,45 @@
+.overlay {
+  transition: opacity 500ms ease-out;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.7);
+  outline: 0;
+  opacity: 0;
+}
+
+.overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.overlay.transition-in {
+  visibility: visible;
+  opacity: 1;
+}
+
+.overlay.transition-out {
+  visibility: visible;
+  opacity: 0;
+}
+
+.overlay-actions {
+  @include gutter-children-margin();
+  a {
+    color: $red;
+  }
+}
+
+.modal {
+  max-width: 500px;
+  margin: gutter(2) auto;
+  background-color: $background-light;
+  z-index: 11;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: .3rem;
+  padding: gutter();
+}

@@ -30,9 +30,38 @@ describe('Testing image upload', () => {
     page.submitId('9788792813114');
     page.upload();
   });
+
+  it('Should show overlay', () => {
+    page.addImage('horses.jpg');
+    page.submitId('9788792813114');
+    page.upload();
+    const overlay = page.getOverlay();
+    assert.include(overlay.getText(), 'Upload er gennemført');
+    browser.click('.modal button');
+    assert.isTrue(page.overlayIsClosed());
+  });
+
   it('Should fail image upload', () => {
     page.addImage('horses.jpg');
     page.submitId('06108466');
     page.upload('.error');
   });
+
+  it('Should reset state', () => {
+    page.addImage('horses.jpg');
+    page.addImage('horses2.jpg');
+    assert.equal(browser.elements('.preview').value.length, 2);
+    page.submitId('9788792813114');
+    page.upload();
+    const overlay = page.getOverlay();
+    overlay.click('.overlay-reset');
+    // Make sure overlay is closed.
+    browser.pause(600);
+    assert.equal(browser.elements('.preview').value.length, 0);
+    // Upload image again to make sure old state is removed.
+    browser.selectImageUpload();
+    page.addImage('horses.jpg');
+    assert.equal(browser.elements('.preview').value.length, 1);
+  });
+
 });
