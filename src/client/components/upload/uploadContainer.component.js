@@ -6,6 +6,7 @@ import PreviewList from '../preview/previewList.component';
 import Overlay from '../overlay/overlay.component';
 import State from '../../state/state';
 import constants from '../../state/constants';
+import textFormat from '../../../utils/textFormat.util';
 
 export default class ImageUploadContainer extends React.Component {
 
@@ -99,34 +100,36 @@ export default class ImageUploadContainer extends React.Component {
 
     return (
       <div className="upload-form">
-        <div className="container">
-          {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
-          {uploadMethod}
-        </div>
+        {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
+        {uploadMethod}
         <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}/>
         <Overlay show={this.state.overlayIsOpen} close={this.closeOverlay}>
           <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
           <h2 className="text-center mb1">Upload er gennemført</h2>
-          <p>{uploadSucces} {uploadSucces === 1 && 'fil' || 'filer'} blev oploadet og tilknyttet de angivne poster</p>
+          <p>{textFormat(uploadSucces, '$ fil', '$ filer')} blev oploadet og
+            tilknyttet {textFormat(uploadSucces, 'den angivne post', 'de angivne poster')}</p>
           {uploadErrors &&
           <div className="upload-errors mb1">
             <p className="message">
-              <span className="nb">Bemærk</span> Der var fejl i {uploadErrors} {uploadErrors === 1 && 'post' || 'poster'}. <br />
-              Du kan vælge at prøve igen med {uploadErrors === 1 && 'den post' || 'de poster'} der fejlede.
+              <span className="nb">Bemærk</span> Der var fejl i {textFormat(uploadErrors, '$ fil', '$ filer')}. <br />
+              Du kan vælge at prøve igen med {textFormat(uploadErrors, 'den post', 'de poster')} der fejlede.
             </p>
             <p className="overlay-actions">
-              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>prøv igen med de fejlede poster</a>
+              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>prøv igen
+                med {textFormat(uploadErrors, 'den fejlende post', 'de fejlende poster')}</a>
               <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
             </p>
           </div>
           || (uploadMissing &&
           <div className="upload-missing mb1">
             <p className="message">
-              <span className="nb">Bemærk</span> Der er {uploadMissing} {uploadMissing === 1 && 'post' || 'poster'} som endnu ikke er oploaded. <br />
-              Du kan vælge at fortsætte med de manglende poster.
+              <span className="nb">Bemærk</span> Der er {textFormat(uploadMissing, '$ fil', '$ filer')} som endnu ikke
+              er oploadet.<br />
+              Du kan vælge at fortsætte med {textFormat(uploadMissing, 'den manglende poster', 'de manglende poster')}.
             </p>
             <p className="overlay-actions">
-              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>Forsæt med de manglende poster</a>
+              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>Forsæt
+                med {textFormat(uploadMissing, 'den manglende post', 'de manglende poster')}</a>
               <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
             </p>
           </div>
