@@ -115,8 +115,8 @@ export default class ImageUploadContainer extends React.Component {
               Du kan vælge at prøve igen med {uploadErrors === 1 && 'den post' || 'de poster'} der fejlede.
             </p>
             <p className="overlay-actions">
-              <a href="#" onClick={this.closeOverlay}>prøv igen med de fejlede poster</a>
-              <a href="#" onClick={this.reset}>Nulstil og start forfra</a>
+              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>prøv igen med de fejlede poster</a>
+              <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
             </p>
           </div>
           || (uploadMissing &&
@@ -126,8 +126,8 @@ export default class ImageUploadContainer extends React.Component {
               Du kan vælge at fortsætte med de manglende poster.
             </p>
             <p className="overlay-actions">
-              <a href="#" onClick={this.closeOverlay}>Forsæt med de manglende poster</a>
-              <a href="#" onClick={this.reset}>Nulstil og start forfra</a>
+              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>Forsæt med de manglende poster</a>
+              <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
             </p>
           </div>
           || '')}
