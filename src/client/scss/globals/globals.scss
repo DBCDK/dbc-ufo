@@ -20,6 +20,10 @@
   font-weight: 700;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .container {
   margin-bottom: gutter(3);
 }
@@ -46,5 +50,10 @@
 .mt1 { margin-top:    gutter() !important; }
 .mb0 { margin-bottom: 0   !important; }
 .mb1 { margin-bottom: gutter() !important; }
+.mb2 { margin-bottom: gutter(2) !important; }
+
+.color-light {
+  color: $header-color;
+}
 
 .pointer { cursor: pointer; }

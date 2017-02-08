@@ -37,3 +37,11 @@
 @svg-load upload url(svg/upload.svg) {
   fill: white;
 }
+
+@svg-load add-image url(svg/add-image.svg) {
+  fill: $text-color;
+}
+
+@svg-load add-image-white url(svg/add-image.svg) {
+  fill: white;
+}
