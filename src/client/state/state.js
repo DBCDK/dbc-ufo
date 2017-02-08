@@ -71,6 +71,11 @@ class State {
 
     return false;
   }
+
+  reset() {
+    this.elements = [];
+    this.errors = [];
+  }
 }
 
 export default new State();

@@ -44,4 +44,12 @@ export default class UploadPage {
     browser.click('.upload-button button');
     browser.waitForValue(waitForClass, 5000);
   }
+  getOverlay() {
+    browser.waitForVisible('.overlay.open', 5000);
+    return browser.element('.modal');
+  }
+  overlayIsClosed() {
+    browser.pause(600);
+    return browser.elements('.overlay.open').value.length === 0;
+  }
 }

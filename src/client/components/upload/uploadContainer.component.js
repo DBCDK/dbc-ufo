@@ -73,7 +73,7 @@ export default class ImageUploadContainer extends React.Component {
   }
 
   reset = () => {
-    console.log(this.initState);
+    State.reset();
     this.setState(this.initState);
   }
 

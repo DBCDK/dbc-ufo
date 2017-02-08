@@ -30,9 +30,21 @@ describe('Testing image upload', () => {
     page.submitId('9788792813114');
     page.upload();
   });
+
+  it('Should show overlay', () => {
+    page.addImage('horses.jpg');
+    page.submitId('9788792813114');
+    page.upload();
+    const overlay = page.getOverlay();
+    assert.include(overlay.getText(), 'Upload er gennemført');
+    browser.click('.modal button');
+    assert.isTrue(page.overlayIsClosed());
+  });
+
   it('Should fail image upload', () => {
     page.addImage('horses.jpg');
     page.submitId('06108466');
     page.upload('.error');
   });
+
 });
