@@ -28,6 +28,10 @@
 .is-invisible { visibility: hidden !important; }
 
 .block        { display: block        !important; }
+.block-center {
+  display: block        !important;
+  margin: auto;
+}
 .inline       { display: inline       !important; }
 .inline-block { display: inline-block !important; }
 

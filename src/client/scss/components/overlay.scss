@@ -27,10 +27,17 @@
   opacity: 0;
 }
 
+.overlay-actions {
+  @include gutter-children-margin();
+  a {
+    color: $red;
+  }
+}
+
 .modal {
   max-width: 500px;
-  margin: 30px auto;
-  background-color: white;
+  margin: gutter(2) auto;
+  background-color: $background-light;
   z-index: 11;
   border: 1px solid rgba(0, 0, 0, .2);
   border-radius: .3rem;

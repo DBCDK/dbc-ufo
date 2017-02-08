@@ -15,12 +15,13 @@ export default class ImageUploadContainer extends React.Component {
     this.maxSize = 5000000;
     this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
-    this.state = this.initState = {
+    this.initState = {
       overlayIsOpen: false,
       accepted: [],
       rejected: [],
       selectedUploadMethod: null
     };
+    this.state = Object.assign({}, this.initState);
 
     State.addListener((elements, errors, uploadIsDone) => {
       this.setState({accepted: elements, rejected: errors, overlayIsOpen: uploadIsDone});
@@ -72,6 +73,7 @@ export default class ImageUploadContainer extends React.Component {
   }
 
   reset = () => {
+    console.log(this.initState);
     this.setState(this.initState);
   }
 
@@ -91,8 +93,10 @@ export default class ImageUploadContainer extends React.Component {
 
   render() {
     const uploadMethod = this.getUploadMethod();
-    const uploadSucces = this.state.accepted.filter(element => element.status === constants.DONE_OK);
-    const uploadErrors = this.state.accepted.filter(element => element.status === constants.DONE_ERROR);
+    const uploadSucces = this.state.accepted.filter(element => element.status === constants.DONE_OK).length;
+    const uploadErrors = this.state.accepted.filter(element => element.status === constants.DONE_ERROR).length;
+    const uploadMissing = this.state.accepted.length - uploadSucces - uploadErrors;
+
     return (
       <div className="upload-form">
         <div className="container">
@@ -101,21 +105,32 @@ export default class ImageUploadContainer extends React.Component {
         </div>
         <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}/>
         <Overlay show={this.state.overlayIsOpen} close={this.closeOverlay}>
-          <div><span className="icon checkmark"/></div>
-          <h2>Upload er gennemført</h2>
-          <p>{uploadSucces.length} filer blev oploaded og tilknyttet de angivne poster</p>
-          {uploadErrors.length &&
-          <div className="upload-errors">
+          <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
+          <h2 className="text-center mb1">Upload er gennemført</h2>
+          <p>{uploadSucces} {uploadSucces === 1 && 'fil' || 'filer'} blev oploadet og tilknyttet de angivne poster</p>
+          {uploadErrors &&
+          <div className="upload-errors mb1">
             <p className="message">
-              <span className="nb">Bemærk</span> Der var fejl i {uploadErrors.length} poster. <br />
-              Du kan vælge at prøve igen med de poster der fejlede
+              <span className="nb">Bemærk</span> Der var fejl i {uploadErrors} {uploadErrors === 1 && 'post' || 'poster'}. <br />
+              Du kan vælge at prøve igen med {uploadErrors === 1 && 'den post' || 'de poster'} der fejlede.
             </p>
-            <p>
+            <p className="overlay-actions">
               <a href="#" onClick={this.closeOverlay}>prøv igen med de fejlede poster</a>
               <a href="#" onClick={this.reset}>Nulstil og start forfra</a>
             </p>
           </div>
-          || ''}
+          || (uploadMissing &&
+          <div className="upload-missing mb1">
+            <p className="message">
+              <span className="nb">Bemærk</span> Der er {uploadMissing} {uploadMissing === 1 && 'post' || 'poster'} som endnu ikke er oploaded. <br />
+              Du kan vælge at fortsætte med de manglende poster.
+            </p>
+            <p className="overlay-actions">
+              <a href="#" onClick={this.closeOverlay}>Forsæt med de manglende poster</a>
+              <a href="#" onClick={this.reset}>Nulstil og start forfra</a>
+            </p>
+          </div>
+          || '')}
         </Overlay>
       </div>
     );

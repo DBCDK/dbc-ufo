@@ -32,7 +32,7 @@ export default class Overlay extends React.Component {
 }
 
 Overlay.propTypes = {
-  show: React.PropTypes.string,
+  show: React.PropTypes.bool,
   children: React.PropTypes.any,
   close: React.PropTypes.func
 };

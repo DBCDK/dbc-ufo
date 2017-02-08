@@ -3,6 +3,7 @@ button, .button {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 200ms ease-in;
   cursor: pointer;
+  min-width: 100px;
   &.submit {
     background-color: $green;
     color: white;
@@ -27,6 +28,7 @@ button, .button {
     }
   }
   &.small {
+    min-width: inherit;
     font-size: 10px;
     padding: 3px 6px;
   }
