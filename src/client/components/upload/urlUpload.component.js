@@ -5,7 +5,8 @@ import TextareaAutosize from 'react-textarea-autosize';
 export default class UrlUpload extends React.Component {
 
   propTypes = {
-    onSubmit: React.PropTypes.onSubmit
+    onSubmit: React.PropTypes.onSubmit,
+    back: React.PropTypes.func
   }
 
   constructor(props) {
@@ -25,7 +26,7 @@ export default class UrlUpload extends React.Component {
   }
 
   render() {
-    return UrlUploadDisplay({value: this.state.value, onChange: this.onChange, onSubmit: this.onSubmit});
+    return UrlUploadDisplay({value: this.state.value, onChange: this.onChange, onSubmit: this.onSubmit, back: this.props.back});
   }
 }
 
