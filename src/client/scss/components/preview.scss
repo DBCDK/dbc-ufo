@@ -1,11 +1,5 @@
 $divider: 75%;
 
-.previews {
-  .list {
-    margin-bottom: gutter(2);
-  }
-}
-
 .preview {
   display: flex;
   @include gutter-children-padding();
