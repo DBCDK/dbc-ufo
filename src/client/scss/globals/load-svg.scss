@@ -19,7 +19,7 @@
 }
 
 @svg-load link url(svg/link.svg) {
-  fill: white;
+  fill: $text-color;
 }
 
 @svg-load open url(svg/eye-open.svg) {

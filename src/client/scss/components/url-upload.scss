@@ -1,8 +1,7 @@
 .url-upload {
   textarea {
     width: 100%;
-    background-color: inherit;
-    border: 2px solid;
+    background-color: $background-light;
     padding: 2rem;
     margin-bottom: gutter();
   }

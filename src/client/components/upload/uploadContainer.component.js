@@ -86,7 +86,7 @@ export default class ImageUploadContainer extends React.Component {
         <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} back={this.reset} />);
     }
     else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
-      uploadElement = (<UrlUpload onSubmit={State.addUrls}/>);
+      uploadElement = (<UrlUpload onSubmit={State.addUrls} back={this.reset} />);
     }
 
     return uploadElement;

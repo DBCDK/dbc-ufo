@@ -43,8 +43,7 @@ button, .button {
   transition: all 200ms ease-in;
   cursor: pointer;
   padding: 2rem;
-  background-color: $header-color;
-  color: white;
+  background-color: $background-light;
   width: 250px;
   text-decoration: none;
   text-align: center;
@@ -52,12 +51,8 @@ button, .button {
 
   .button-header {
     font-size: 18px;
-    font-weight: 200;
+    font-weight: 400;
     margin-bottom: gutter(1);
-
-  }
-  .button-description {
-    color: $background-color;
   }
   &:hover, &:focus {
     outline: none;

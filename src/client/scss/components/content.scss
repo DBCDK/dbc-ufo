@@ -10,6 +10,17 @@
   }
 }
 
+.medium {
+  width: 600px;
+  margin: auto;
+}
+
+.large {
+  width: 800px;
+  margin: auto;
+}
+
+
 #content, .page {
   padding: gutter(2);
 }
