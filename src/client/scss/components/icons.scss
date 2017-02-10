@@ -74,6 +74,23 @@
     background-image: svg-inline(upload);
     background-color: transparent;
   }
+  &.add-image {
+    background-image: svg-inline(add-image);
+    background-color: transparent;
+  }
+  &.add-image-white {
+    background-image: svg-inline(add-image-white);
+    background-color: transparent;
+  }
+
+  &.large {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+  }
+  &.square {
+    border-radius: 0;
+  }
 }
 
 .with-icon {

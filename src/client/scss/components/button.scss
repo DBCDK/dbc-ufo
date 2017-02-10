@@ -43,21 +43,16 @@ button, .button {
   transition: all 200ms ease-in;
   cursor: pointer;
   padding: 2rem;
-  background-color: $header-color;
-  color: white;
-  width: 250px;
+  background-color: $background-light;
+  width: 50%;
   text-decoration: none;
   text-align: center;
 
 
   .button-header {
     font-size: 18px;
-    font-weight: 200;
+    font-weight: 400;
     margin-bottom: gutter(1);
-
-  }
-  .button-description {
-    color: $background-color;
   }
   &:hover, &:focus {
     outline: none;

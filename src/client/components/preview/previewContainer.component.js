@@ -13,6 +13,10 @@ export default class PreviewContainer extends React.Component {
     return this.isElementLocked() || lockingStatusList.includes(this.props.element.status);
   }
 
+  isDone() {
+    return this.props.element.status === constants.DONE_OK;
+  }
+
   isElementLocked() {
     const lockingStatusList = [constants.UPLOAD_STARTED, constants.UPLOAD_WAITING, constants.WAIT_FOR_WORK];
     return lockingStatusList.includes(this.props.element.status);
@@ -64,14 +68,18 @@ export default class PreviewContainer extends React.Component {
   render() {
     const element = this.props.element;
     return (
-      <div className="preview accepted component">
+      <div className={`preview accepted component ${this.isDone() && 'done' || ''}`}>
         <div className="images">
           <PreviewImage work={element.work || {}} image={element.getImageInfo()} id={element.id}/>
         </div>
         <div className="preview-form">
           <div className="preview-work">
-            <PreviewId value={element.id} onSubmit={(id) => element.setId(id)} disabled={this.isIdLocked()}/>
-            {this.renderMessage(element)}
+            {this.isDone() &&
+              <div className="id-form flex"><span className="id-label">ID</span><span className="id-content">{element.id}</span></div>
+            ||
+              <PreviewId value={element.id} onSubmit={(id) => element.setId(id)} disabled={this.isIdLocked()}/>
+            }
+            {!this.isDone() && this.renderMessage(element) || ''}
             <PreviewWork {...element.work}/>
             {this.renderRemoveButton(element)}
           </div>

@@ -5,7 +5,8 @@ import TextareaAutosize from 'react-textarea-autosize';
 export default class UrlUpload extends React.Component {
 
   propTypes = {
-    onSubmit: React.PropTypes.onSubmit
+    onSubmit: React.PropTypes.onSubmit,
+    back: React.PropTypes.func
   }
 
   constructor(props) {
@@ -25,13 +26,17 @@ export default class UrlUpload extends React.Component {
   }
 
   render() {
-    return UrlUploadDisplay({value: this.state.value, onChange: this.onChange, onSubmit: this.onSubmit});
+    return UrlUploadDisplay({value: this.state.value, onChange: this.onChange, onSubmit: this.onSubmit, back: this.props.back});
   }
 }
 
-function UrlUploadDisplay({value, onSubmit, onChange}) {
+function UrlUploadDisplay({value, onSubmit, onChange, back}) {
   return (
-    <div className="url-upload">
+    <div className="url-upload large">
+      <div className="url-upload-header flex baseline">
+        <h1 className="grow">Upload af URL'er</h1>
+        <a href="#" onClick={back}>Vil du uploade filer?</a>
+      </div>
       <TextareaAutosize
         rows={8}
         placeholder="Skriv en URL pr. linie"
@@ -56,5 +61,6 @@ function UrlUploadDisplay({value, onSubmit, onChange}) {
 UrlUploadDisplay.propTypes = {
   value: React.PropTypes.string,
   onChange: React.PropTypes.func,
-  onSubmit: React.PropTypes.func
+  onSubmit: React.PropTypes.func,
+  back: React.PropTypes.func
 };

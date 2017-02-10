@@ -59,7 +59,7 @@ router.post('/posts', bodyparser, async(ctx) => {
 });
 
 router.get('/login', async(ctx) => {
-  ctx.body = page('<div id="content"></div>', '/js/login.js', 'login');
+  ctx.body = page('<div id="content"></div>', 'login', '/js/login.js');
 });
 
 router.get('/logout', (ctx) => {
@@ -105,7 +105,7 @@ router.get('/help', async(ctx) => {
         <h2>Tilføjelse af billeder via URL'er</h2>
         <p>Du kan skrive et eller flere ...</p>
     </div>
-`);
+`, 'medium');
 });
 
 router.get('/about', async(ctx) => {
@@ -114,7 +114,7 @@ router.get('/about', async(ctx) => {
         <h1>Om upload af forsider</h1>
         <p>Upload af forsider er en service ...</p>
     </div>
-`);
+`, 'medium');
 });
 
 
