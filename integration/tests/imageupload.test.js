@@ -44,7 +44,7 @@ describe('Testing image upload', () => {
   it('Should fail image upload', () => {
     page.addImage('horses.jpg');
     page.submitId('06108466');
-    page.upload('.error');
+    page.upload('.upload-errors');
   });
 
   it('Should reset state', () => {
