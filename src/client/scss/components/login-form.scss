@@ -3,6 +3,10 @@
     margin-bottom: gutter(1.5);
   }
 
+  label {
+    display: block;
+  }
+
   label input {
     margin-top: gutter(0.5);
     font-size: 18px;
