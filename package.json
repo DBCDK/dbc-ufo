@@ -68,7 +68,7 @@
     "nodemon": "^1.11.0",
     "postcss-inline-svg": "^2.3.0",
     "postcss-loader": "^1.2.1",
-    "sass-loader": "^5.0.0",
+    "sass-loader": "^6.0.0",
     "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "wdio-junit-reporter": "^0.2.0",
