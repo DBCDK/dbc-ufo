@@ -16,6 +16,7 @@ export default class ImageUploadContainer extends React.Component {
     this.maxSize = 5000000;
     this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
+    this.dropzone = {};
     this.initState = {
       overlayIsOpen: false,
       accepted: [],
@@ -78,12 +79,20 @@ export default class ImageUploadContainer extends React.Component {
     this.setState(this.initState);
   }
 
+  handleError = (e, element) => {
+    e.preventDefault();
+    State.remove(element);
+    if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
+      this.dropzone.open();
+    }
+  };
+
   getUploadMethod() {
     let uploadElement = null;
 
     if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
       uploadElement = (
-        <ImageUpload accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} back={this.reset} />);
+        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} back={this.reset} />);
     }
     else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
       uploadElement = (<UrlUpload onSubmit={State.addUrls} back={this.reset} />);
@@ -102,7 +111,7 @@ export default class ImageUploadContainer extends React.Component {
       <div className="upload-form">
         {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
         {uploadMethod}
-        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}/>
+        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected} handleError={this.handleError} />
         <Overlay show={this.state.overlayIsOpen} close={this.closeOverlay}>
           <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
           <h2 className="text-center mb1">Upload er gennemført</h2>

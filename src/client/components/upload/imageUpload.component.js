@@ -1,14 +1,14 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 
-export default function ImageUpload({minSize, maxSize, accept, onDrop, back}) {
+export default function ImageUpload({minSize, maxSize, accept, onDrop, back, setDropzoneRef}) {
   return (
     <div className="image-upload component medium mb4">
       <div className="image-upload-header flex baseline">
         <h1 className="grow">Upload af billedfiler</h1>
         <a href="#" onClick={back}>Vil du uploade vha. URL'er</a>
       </div>
-      <Dropzone className="dropzone mb2" activeClassName="active" {...{minSize, maxSize, accept, onDrop}} >
+      <Dropzone ref={setDropzoneRef} className="dropzone mb2" activeClassName="active" {...{minSize, maxSize, accept, onDrop}} >
         <div className="content">
           <div className="text-center mb1"><span className="icon large square add-image"/></div>
           <h1>Træk filer hertil for at uploade</h1>
@@ -27,5 +27,6 @@ ImageUpload.propTypes = {
   accept: React.PropTypes.string,
   maxSize: React.PropTypes.number,
   minSize: React.PropTypes.number,
-  back: React.PropTypes.func
+  back: React.PropTypes.func,
+  setDropzoneRef: React.PropTypes.func
 };

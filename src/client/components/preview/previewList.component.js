@@ -13,7 +13,7 @@ export default class PreviewList extends React.Component {
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError key={element.name} element={element}/>);
+      return (<PreviewError key={element.name} element={element} onClick={this.props.handleError} />);
     });
   }
 
@@ -63,7 +63,8 @@ export default class PreviewList extends React.Component {
 PreviewList.propTypes = {
   type: React.PropTypes.string,
   accepted: React.PropTypes.array,
-  rejected: React.PropTypes.array
+  rejected: React.PropTypes.array,
+  handleError: React.PropTypes.func
 };
 
 
