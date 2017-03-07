@@ -1,7 +1,5 @@
 import React from 'react';
-import State from '../../state/state';
 import PreviewStatus from './previewStatus.component';
-import constants from '../../state/constants';
 
 export default function PreviewError({element, onClick}) {
   return (
