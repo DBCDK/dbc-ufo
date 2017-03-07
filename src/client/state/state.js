@@ -63,13 +63,8 @@ class State {
   }
 
   readyForUpload() {
-    const waiting = this.elements.filter(element => element.status.includes('wait'));
-    const ready = this.elements.filter(element => element.status.includes('ready'));
-    if (ready.length > 0 && waiting.length === 0) {
-      return true;
-    }
-
-    return false;
+    const notReadyForUpload = this.elements.filter(element => !element.status.includes('ready'));
+    return notReadyForUpload.length === 0;
   }
 
   reset() {
