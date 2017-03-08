@@ -30,7 +30,7 @@ export default class UploadPage {
     const preview = browser.elementByIndex('.preview', index);
     preview.setValue('.id-input input', id);
     preview.click('.id-form button');
-    preview.waitForValue('.work .title', 5000);
+    browser.pause(1000);
     return preview.element('.work');
   }
 
