@@ -77,6 +77,11 @@ class State {
     this.elements.forEach(element => element.status.includes('ready') && element.upload());
   }
 
+  retryUpload = () => {
+    this.isUploading = true;
+    this.elements.filter(element => element.status === constants.DONE_ERROR).forEach(element => element.upload());
+  }
+
   readyForUpload() {
     const notReadyForUpload = this.elements.filter(element => !element.status.includes('ready'));
     return notReadyForUpload.length === 0;

@@ -68,7 +68,8 @@ export default class ImageUploadContainer extends React.Component {
     this.setState(Object.assign({}, this.initState, {selectedUploadMethod: type}));
   };
 
-  closeOverlay = () => {
+  closeOverlay = (e = {preventDefault: () => {}}) => {
+    e.preventDefault();
     this.setState({overlayIsOpen: false});
   }
 
@@ -76,10 +77,16 @@ export default class ImageUploadContainer extends React.Component {
     this.setState({overlayIsOpen: true});
   }
 
+  retryFailed = (e) => {
+    e.preventDefault();
+    this.closeOverlay();
+    State.retryUpload();
+  };
+
   reset = () => {
     State.reset();
     this.setState(this.initState);
-  }
+  };
 
   handleError = (e, element) => {
     e.preventDefault();
@@ -130,7 +137,7 @@ export default class ImageUploadContainer extends React.Component {
               Du kan vælge at prøve igen med {textFormat(uploadErrors, 'den post', 'de poster')} der fejlede.
             </p>
             <p className="overlay-actions">
-              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>prøv igen
+              <a href="#" className="overlay-retry" onClick={this.retryFailed}>prøv igen
                 med {textFormat(uploadErrors, 'den fejlende post', 'de fejlende poster')}</a>
               <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
             </p>
@@ -148,7 +155,14 @@ export default class ImageUploadContainer extends React.Component {
               <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
             </p>
           </div>
-          || '')}
+          ||
+            <p className="overlay-actions">
+              <a href="#" className="overlay-retry" onClick={this.reset}>Upload Flere billeder</a>
+              <div className="modal-close text-right">
+                <button className="submit" onClick={this.closeOverlay}>Luk</button>
+              </div>
+            </p>
+          )}
         </Overlay>
       </div>
     );
