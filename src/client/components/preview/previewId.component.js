@@ -23,13 +23,15 @@ export default class PreviewId extends React.Component {
   }
 
   render() {
-    const {value, disabled} = this.props;
+    const {disabled} = this.props;
+    const {currentValue} = this.state;
     return (
       <form onSubmit={this.onSubmit} className="id-form component flex">
         <label htmlFor="id">ID</label>
         <div className="id-input grow">
           <input className="underline" disabled={disabled} onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id"
-                 defaultValue={value}
+                 value={currentValue}
+                 autoComplete="off"
                  placeholder="Skriv id her"/>
         </div>
         <button disabled={!this.isButtonActive() && 'disabled' || ''} className="submit small" onClick={this.onSubmit}>

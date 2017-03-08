@@ -2,7 +2,7 @@ import {UrlElement, ImageElement} from './stateElements';
 import unique from '../../utils/unique.util';
 import validateImage from '../../utils/validateImage.util';
 import constants from '../state/constants';
-
+import splitString from '../../utils/splitString.util';
 /**
  * Simple State management for image and URL upload.
  */
@@ -16,17 +16,28 @@ class State {
     this.elements = [];
     this.errors = [];
     this.elementsUpdated();
-    unique(urls).forEach(url => validateImage({
-      url,
-      onError: () => {
-        this.errors.push({name: url, error: 'Ugyldig billedurl', status: constants.ERROR_INVALID_URL});
-        this.elementsUpdated();
-      },
-      onSuccess: () => {
-        this.elements.push(new UrlElement(url, this.elementsUpdated));
-        this.elementsUpdated();
+    unique(urls).forEach(row => {
+      if (!row.trim()) {
+        return;
       }
-    }));
+      const {url, id} = splitString(row.trim());
+      if (url) {
+        validateImage({
+          url,
+          onError: () => {
+            this.errors.push({name: url, error: 'Ugyldig billedurl', status: constants.ERROR_INVALID_URL});
+            this.elementsUpdated();
+          },
+          onSuccess: () => {
+            this.elements.push(new UrlElement(url, id, this.elementsUpdated));
+            this.elementsUpdated();
+          }
+        });
+      }
+      else {
+        this.errors.push({name: row, error: 'Ugyldig billedurl', status: constants.ERROR_INVALID_URL});
+      }
+    });
   }
 
   addImages = (images, errors) => {
@@ -63,13 +74,8 @@ class State {
   }
 
   readyForUpload() {
-    const waiting = this.elements.filter(element => element.status.includes('wait'));
-    const ready = this.elements.filter(element => element.status.includes('ready'));
-    if (ready.length > 0 && waiting.length === 0) {
-      return true;
-    }
-
-    return false;
+    const notReadyForUpload = this.elements.filter(element => !element.status.includes('ready'));
+    return notReadyForUpload.length === 0;
   }
 
   reset() {

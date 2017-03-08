@@ -11,7 +11,7 @@ export default class UploadTypePicker extends React.Component {
             <div className="text-center mb1"><span className="icon large square add-image"/></div>
             <h2>Upload billeder</h2>
             <div className="button-description">
-              Her kan du uploade billeder til Forsideservice. Du kan uploade flere billeder af gangen. Der skal kobles
+              Her kan du uploade billeder til Forsideservice. Du kan uploade flere billeder ad gangen. Der skal kobles
               et materiale til hvert billede
             </div>
           </div>
@@ -19,7 +19,7 @@ export default class UploadTypePicker extends React.Component {
             <div className="text-center mb1"><span className="icon large square link"/></div>
             <h2>Indsæt URL'er</h2>
             <div className="button-description">
-              Her kan du vedhæfte billede url'er Forsideservice. Du har ansvar for at rettigheder og adgang til url'er er i orden
+              Her kan du vedhæfte billede url'er til Forsideservice. Du har ansvar for at rettigheder og adgang til url'er er i orden
             </div>
           </div>
         </div>

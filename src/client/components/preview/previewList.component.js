@@ -13,7 +13,7 @@ export default class PreviewList extends React.Component {
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError key={element.name} element={element}/>);
+      return (<PreviewError key={element.name} element={element} onClick={this.props.handleError} />);
     });
   }
 
@@ -27,7 +27,7 @@ export default class PreviewList extends React.Component {
           {this.props.rejected.length && (<p className="message"><span className="nb">Bemærk</span> Der er fejl i listen af uploadede billeder. Se længere nede.</p>) || ''}
         </div>
         <div className="upload-button text-center grow">
-          <button className="submit large" disabled={!State.readyForUpload()} onClick={State.upload}><span className="icon icon-inline upload" /> Start upload
+          <button className="submit" disabled={!State.readyForUpload()} onClick={State.upload}><span className="icon icon-inline upload" /> Start upload
           </button>
         </div>
       </div>
@@ -63,7 +63,8 @@ export default class PreviewList extends React.Component {
 PreviewList.propTypes = {
   type: React.PropTypes.string,
   accepted: React.PropTypes.array,
-  rejected: React.PropTypes.array
+  rejected: React.PropTypes.array,
+  handleError: React.PropTypes.func
 };
 
 

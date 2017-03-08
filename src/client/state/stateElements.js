@@ -7,10 +7,15 @@ import {getIdFromUrl, validateId} from '../../utils/validateId.util';
  * Parent Upload element. A wrapper around an uploaded file or URL
  */
 class UploadElement {
-  constructor(element, cb) {
+  constructor(element, id, cb) {
     this.element = element;
     this.cb = cb;
-    this.setIdFromUrl(element.name);
+    if (id) {
+      this.setId(id);
+    }
+    else {
+      this.setIdFromUrl(element.name);
+    }
   }
 
   setIdFromUrl(url) {
@@ -97,12 +102,12 @@ class UploadElement {
  * An uploaded URL
  */
 export class UrlElement extends UploadElement {
-  constructor(url, cb) {
+  constructor(url, id, cb) {
     const element = {
       url: url,
       name: url
     };
-    super(element, cb);
+    super(element, id, cb);
   }
 
   upload() {
@@ -133,7 +138,7 @@ export class ImageElement extends UploadElement {
       name: file.name,
       file: file
     };
-    super(element, cb);
+    super(element, null, cb);
   }
 
   upload() {
