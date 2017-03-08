@@ -26,11 +26,12 @@ export default class UploadPage {
     assert.include(browser.element('.rejected').getText(), image);
   }
 
-  submitId(id) {
-    browser.setValue('.id-input input', id);
-    browser.click('.id-form button');
-    browser.waitForValue('.work .title', 5000);
-    return browser.element('.work');
+  submitId(id, index = 0) {
+    const preview = browser.elementByIndex('.preview', index);
+    preview.setValue('.id-input input', id);
+    preview.click('.id-form button');
+    preview.waitForValue('.work .title', 5000);
+    return preview.element('.work');
   }
 
   rejectId(id) {
@@ -41,6 +42,7 @@ export default class UploadPage {
   }
 
   upload(waitForClass = '.done') {
+    browser.pause(1000);
     browser.click('.upload-button button');
     browser.waitForValue(waitForClass, 5000);
   }

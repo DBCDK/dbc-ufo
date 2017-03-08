@@ -30,3 +30,7 @@ browser.selectUrlUpload = () => {
   browser.click('#select-url-upload');
   browser.waitForVisible('#select-url-upload', 1000, true);
 };
+
+browser.elementByIndex = (selector, index) => {
+  return browser.elements(selector).value[index];
+};

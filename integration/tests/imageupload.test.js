@@ -47,21 +47,15 @@ describe('Testing image upload', () => {
     page.upload('.upload-errors');
   });
 
-  it('Should reset state', () => {
+  it('Should activate submit button when all images are ready', () => {
     page.addImage('horses.jpg');
     page.addImage('horses2.jpg');
     assert.equal(browser.elements('.preview').value.length, 2);
-    page.submitId('9788792813114');
+    page.submitId('9788792813114', 0);
+    page.submitId('9788792813114', 1);
     page.upload();
     const overlay = page.getOverlay();
-    overlay.click('.overlay-reset');
-    // Make sure overlay is closed.
-    browser.pause(600);
-    assert.equal(browser.elements('.preview').value.length, 0);
-    // Upload image again to make sure old state is removed.
-    browser.selectImageUpload();
-    page.addImage('horses.jpg');
-    assert.equal(browser.elements('.preview').value.length, 1);
+    assert.include(overlay.getText(), 'Upload er gennemført');
+    overlay.click('button');
   });
-
 });
