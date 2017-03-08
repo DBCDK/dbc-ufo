@@ -44,6 +44,7 @@ export default class ImageUploadContainer extends React.Component {
   };
 
   onDrop = (acceptedFiles, rejectedFiles) => {
+    State.removeUploadedElements();
     if (rejectedFiles) {
       State.addImages([], rejectedFiles.map(this.rejectedReason));
     }

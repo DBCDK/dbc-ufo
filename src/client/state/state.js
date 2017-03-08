@@ -62,10 +62,14 @@ class State {
     this.listeners.push(cb);
   }
 
-  remove(element) {
+  remove = (element) => {
     this.elements = this.elements.filter(file => file !== element);
     this.errors = this.errors.filter(file => file !== element);
     this.elementsUpdated();
+  };
+
+  removeUploadedElements() {
+    this.elements.filter(element => element.status.includes('done')).forEach(this.remove);
   }
 
   upload = () => {
