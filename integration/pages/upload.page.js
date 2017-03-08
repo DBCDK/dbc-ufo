@@ -44,7 +44,7 @@ export default class UploadPage {
   upload(waitForClass = '.done') {
     browser.pause(1000);
     browser.click('.upload-button button');
-    browser.waitForValue(waitForClass, 5000);
+    browser.waitForValue(waitForClass, 10000);
   }
   getOverlay() {
     browser.waitForVisible('.overlay.open', 5000);

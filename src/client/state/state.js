@@ -62,15 +62,24 @@ class State {
     this.listeners.push(cb);
   }
 
-  remove(element) {
+  remove = (element) => {
     this.elements = this.elements.filter(file => file !== element);
     this.errors = this.errors.filter(file => file !== element);
     this.elementsUpdated();
+  };
+
+  removeUploadedElements() {
+    this.elements.filter(element => element.status.includes('done')).forEach(this.remove);
   }
 
   upload = () => {
     this.isUploading = true;
     this.elements.forEach(element => element.status.includes('ready') && element.upload());
+  }
+
+  retryUpload = () => {
+    this.isUploading = true;
+    this.elements.filter(element => element.status === constants.DONE_ERROR).forEach(element => element.upload());
   }
 
   readyForUpload() {
