@@ -13,6 +13,15 @@ $divider: 75%;
   }
 }
 
+.preview.error {
+  .actions {
+    @include gutter-children-margin();
+    a {
+      color: $red;
+    }
+  }
+}
+
 .preview-images {
   display: flex;
   white-space: nowrap;

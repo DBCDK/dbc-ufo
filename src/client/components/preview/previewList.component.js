@@ -13,7 +13,7 @@ export default class PreviewList extends React.Component {
 
   renderRejected() {
     return this.props.rejected.map(element => {
-      return (<PreviewError key={element.name} element={element} onClick={this.props.handleError} />);
+      return (<PreviewError key={element.name} element={element} remove={() => State.remove(element)} retry={this.props.handleError} />);
     });
   }
 

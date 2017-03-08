@@ -93,10 +93,13 @@ export default class ImageUploadContainer extends React.Component {
 
     if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
       uploadElement = (
-        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} back={() => this.onTypePicked(constants.UPLOAD_TYPE_URL)} />);
+        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize}
+                     maxSize={this.maxSize} onDrop={this.onDrop}
+                     back={() => this.onTypePicked(constants.UPLOAD_TYPE_URL)}/>);
     }
     else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
-      uploadElement = (<UrlUpload onSubmit={State.addUrls} back={() => this.onTypePicked(constants.UPLOAD_TYPE_IMAGE)} />);
+      uploadElement = (
+        <UrlUpload onSubmit={State.addUrls} back={() => this.onTypePicked(constants.UPLOAD_TYPE_IMAGE)}/>);
     }
 
     return uploadElement;
@@ -112,8 +115,9 @@ export default class ImageUploadContainer extends React.Component {
       <div className="upload-form">
         {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
         {uploadMethod}
-        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected} handleError={this.handleError} />
-        <Overlay show={this.state.overlayIsOpen} close={this.closeOverlay}>
+        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}
+                     handleError={this.handleError}/>
+        <Overlay show={this.state.overlayIsOpen}>
           <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
           <h2 className="text-center mb1">Upload er gennemført</h2>
           <p>{textFormat(uploadSucces, '$ fil', '$ filer')} blev oploadet og
