@@ -32,7 +32,7 @@ export default class PreviewId extends React.Component {
           <input className="underline" disabled={disabled} onChange={this.onChange} ref={(input) => this.input = input} id="id" type="text" name="id"
                  value={currentValue}
                  autoComplete="off"
-                 placeholder="Skriv id her"/>
+                 placeholder="Skriv ISBN, faustnr. eller pid"/>
         </div>
         <button disabled={!this.isButtonActive() && 'disabled' || ''} className="submit small" onClick={this.onSubmit}>
           Opdater
