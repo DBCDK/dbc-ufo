@@ -35,7 +35,7 @@ function UrlUploadDisplay({value, onSubmit, onChange, back}) {
     <div className="url-upload mb2">
       <div className="url-upload-header flex baseline">
         <h1 className="grow">Upload af URL'er</h1>
-        <a href="#" onClick={back}>Vil du uploade filer?</a>
+        <a href="#image" onClick={back}>Vil du uploade filer?</a>
       </div>
       <TextareaAutosize
         rows={8}

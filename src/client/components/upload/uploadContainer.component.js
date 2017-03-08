@@ -63,8 +63,17 @@ export default class ImageUploadContainer extends React.Component {
   };
 
   onTypePicked = (type) => {
-    State.reset();
-    this.setState(Object.assign({}, this.initState, {selectedUploadMethod: type}));
+    if (this.state.accepted.length) {
+      if (confirm('Du har billeder som ikke er uploadet. Er du sikker på du vil fortsætte')) {
+        State.reset();
+        this.setState(Object.assign({}, this.initState, {selectedUploadMethod: type}));
+      }
+    }
+    else {
+      State.reset();
+      this.setState(Object.assign({}, this.initState, {selectedUploadMethod: type}));
+    }
+
   };
 
   closeOverlay = () => {
@@ -93,13 +102,25 @@ export default class ImageUploadContainer extends React.Component {
 
     if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
       uploadElement = (
-        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} back={() => this.onTypePicked(constants.UPLOAD_TYPE_URL)} />);
+        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize}
+                     maxSize={this.maxSize} onDrop={this.onDrop}
+                     back={() => this.onTypePicked(constants.UPLOAD_TYPE_URL)}/>);
     }
     else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
-      uploadElement = (<UrlUpload onSubmit={State.addUrls} back={() => this.onTypePicked(constants.UPLOAD_TYPE_IMAGE)} />);
+      uploadElement = (
+        <UrlUpload onSubmit={State.addUrls} back={() => this.onTypePicked(constants.UPLOAD_TYPE_IMAGE)}/>);
     }
 
     return uploadElement;
+  }
+
+  componentDidMount() {
+    window.onbeforeunload = () => {
+      if (this.state.accepted.length > 0) {
+        return true;
+      }
+      return null;
+    };
   }
 
   render() {
@@ -112,7 +133,8 @@ export default class ImageUploadContainer extends React.Component {
       <div className="upload-form">
         {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
         {uploadMethod}
-        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected} handleError={this.handleError} />
+        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}
+                     handleError={this.handleError}/>
         <Overlay show={this.state.overlayIsOpen} close={this.closeOverlay}>
           <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
           <h2 className="text-center mb1">Upload er gennemført</h2>
