@@ -30,6 +30,6 @@ describe('Testing url upload component', () => {
     page.submitId('9788792813114');
     const previewImage = browser.element('.preview-images').getText();
     assert.include(previewImage, 'NY');
-    assert.include(previewImage, 'Eksisterende');
+    assert.include(previewImage, 'EKSISTERENDE');
   });
 });
