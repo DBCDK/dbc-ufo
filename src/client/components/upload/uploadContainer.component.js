@@ -63,7 +63,8 @@ export default class ImageUploadContainer extends React.Component {
   };
 
   onTypePicked = (type) => {
-    this.setState({selectedUploadMethod: type});
+    State.reset();
+    this.setState(Object.assign({}, this.initState, {selectedUploadMethod: type}));
   };
 
   closeOverlay = () => {
@@ -92,10 +93,10 @@ export default class ImageUploadContainer extends React.Component {
 
     if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
       uploadElement = (
-        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} back={this.reset} />);
+        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize} maxSize={this.maxSize} onDrop={this.onDrop} back={() => this.onTypePicked(constants.UPLOAD_TYPE_URL)} />);
     }
     else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
-      uploadElement = (<UrlUpload onSubmit={State.addUrls} back={this.reset} />);
+      uploadElement = (<UrlUpload onSubmit={State.addUrls} back={() => this.onTypePicked(constants.UPLOAD_TYPE_IMAGE)} />);
     }
 
     return uploadElement;
