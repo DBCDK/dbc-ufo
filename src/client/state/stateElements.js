@@ -2,7 +2,6 @@ import request from 'superagent';
 import constants from './constants';
 import {getIdFromUrl, validateId} from '../../utils/validateId.util';
 
-
 /**
  * Parent Upload element. A wrapper around an uploaded file or URL
  */
@@ -47,7 +46,7 @@ class UploadElement {
   }
 
   _fetchWork = (id) => {
-    if (id === '12345678') {
+    if (id === '11111111') {
       const work = {
         pid: id,
         image: 'http://t0.gstatic.com/images?q=tbn:ANd9GcSKL5_5TfA5_e9SJSXKKyhQmLA7vD-kGqvsFheQaPo9PckwNVuV',
@@ -111,6 +110,10 @@ export class UrlElement extends UploadElement {
   }
 
   upload() {
+    if (this.work.pid === '11111111') {
+      setTimeout(() => this.setStatus(constants.DONE_ERROR), 100);
+      return;
+    }
     this.setStatus(constants.UPLOAD_STARTED);
     const url = this.element.url;
     const id = this.work.pid;
@@ -127,7 +130,6 @@ export class UrlElement extends UploadElement {
   }
 }
 
-
 /**
  * An uploaded file
  */
@@ -142,6 +144,11 @@ export class ImageElement extends UploadElement {
   }
 
   upload() {
+    if (this.work.pid === '11111111') {
+      setTimeout(() => this.setStatus(constants.DONE_ERROR), 100);
+      return;
+    }
+
     this.setStatus(constants.UPLOAD_STARTED);
     const file = this.element.file;
     request.post('/upload/image')
