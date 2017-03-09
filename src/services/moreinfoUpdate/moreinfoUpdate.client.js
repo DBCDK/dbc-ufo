@@ -114,7 +114,7 @@ function getBufferFromFile(path) {
  * @returns {boolean}
  */
 function mockRequest(libraryCode, localId) {
-  if (localId === '06108466') {
+  if (localId === '11111111') {
     throw new Error('Mock request throws error');
   }
   return true;

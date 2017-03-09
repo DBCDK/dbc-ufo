@@ -43,7 +43,7 @@ describe('Testing image upload', () => {
 
   it('Should fail image upload', () => {
     page.addImage('horses.jpg');
-    page.submitId('06108466');
+    page.submitId('11111111');
     page.upload('.upload-errors');
   });
 

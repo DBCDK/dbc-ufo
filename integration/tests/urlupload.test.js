@@ -52,7 +52,7 @@ describe('Testing url upload component', () => {
 
   it('Should fail url upload', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
-    page.submitId('06108466');
+    page.submitId('11111111');
     page.upload('.error');
   });
 
