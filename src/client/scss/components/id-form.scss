@@ -3,15 +3,14 @@
   margin-bottom: gutter();
   font-size: 18px;
   font-weight: 500;
-  input {
-    height: 21px;
-    padding-bottom: 4px;
+  label, input {
+    line-height: 25px;
   }
 
   button {
-    height: 22px;
+    height: 25px;
     font-size: 10px;
-    line-height: 1;
+    line-height: 21px;
   }
 
   @include gutter-children-margin(0.5);
