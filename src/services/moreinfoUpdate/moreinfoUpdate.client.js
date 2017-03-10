@@ -74,15 +74,18 @@ async function makeRequest(libraryCode, localId, moreInfoData) {
   };
 
   try {
-    const {body} = await promiseRequest('post', params);
+    const {body, statusCode} = await promiseRequest('post', params);
+    if (statusCode !== 200) {
+      throw new Error('MoreinfoUpdate not responding');
+    }
     const response = JSON.parse(body).moreinfoUpdateResponse;
     if (response.error || response.requestAccepted.recordRejected) {
-      throw new Error('image upload failed', response.error || response.requestAccepted.recordRejected);
+      throw new Error(JSON.stringify(response));
     }
     return true;
   }
   catch (e) {
-    log.error('Request to moreinfo update failed', e);
+    log.error('Request to moreinfo update failed', {error: e.message, stack: e.stack, url: params.url});
     throw new Error(e);
   }
 }

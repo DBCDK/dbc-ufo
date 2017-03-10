@@ -9,11 +9,11 @@ export default function PreviewError({element, retry, remove}) {
           {element.preview && <img src={element.preview} /> || <div className="icon-wrapper large"><span className="icon no-image"></span></div> }
         </div>
       </div>
-      <div className="main">
+      <div className="preview-error--content">
         <h4 className="mb1 noverflow">Filnavn: {element.name}</h4>
         <div className="message notice noverflow"><span className="nb">Fejl </span>{element.error}</div>
         <div className="actions">
-          <a className="retry" onClick={(e) => retry(e, element)}>Upload nyt billede</a>
+          {retry && <a className="retry" onClick={(e) => retry(e, element)}>Upload nyt billede</a> || ''}
           <a className="remove" onClick={(e) => remove(e, element)}>Fjern billede</a>
         </div>
       </div>

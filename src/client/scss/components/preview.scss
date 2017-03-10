@@ -21,6 +21,10 @@ $divider: 75%;
     }
   }
 }
+.preview-error--content {
+  width: 50%;
+  flex-grow: 1;
+}
 
 .preview-images {
   display: flex;
