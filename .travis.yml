@@ -8,6 +8,7 @@ cache:
 branches:
   only:
   - master
+  - /^greenkeeper/.*$/
 env:
   - TEST_SUITE=test
   - TEST_SUITE=test:integration
