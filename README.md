@@ -1,4 +1,6 @@
 # dbc-ufo
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/DBCDK/dbc-ufo.svg)](https://greenkeeper.io/)
 Grænseflade til upload af billeder til DBC's Forsideservice
 
 [![Build Status](https://travis-ci.org/DBCDK/dbc-ufo.svg?branch=master)](https://travis-ci.org/DBCDK/dbc-ufo)
