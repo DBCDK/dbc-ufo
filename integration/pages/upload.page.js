@@ -30,7 +30,7 @@ export default class UploadPage {
     const preview = browser.elementByIndex('.preview', index);
     preview.setValue('.id-input input', id);
     preview.click('.id-form button');
-    browser.pause(1000);
+    browser.pause(2000);
     return preview.element('.work');
   }
 
@@ -44,7 +44,7 @@ export default class UploadPage {
   upload(waitForClass = '.done') {
     browser.pause(1000);
     browser.click('.upload-button button');
-    browser.waitForValue(waitForClass, 5000);
+    browser.waitForValue(waitForClass, 10000);
   }
   getOverlay() {
     browser.waitForVisible('.overlay.open', 5000);
