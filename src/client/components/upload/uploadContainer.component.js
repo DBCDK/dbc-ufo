@@ -124,7 +124,7 @@ export default class ImageUploadContainer extends React.Component {
         {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
         {uploadMethod}
         <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}
-                     handleError={this.handleError}/>
+                     handleError={this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE && this.handleError || null} />
         <Overlay show={this.state.overlayIsOpen}>
           <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
           <h2 className="text-center mb1">Upload er gennemført</h2>
