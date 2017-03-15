@@ -63,21 +63,10 @@ export default class ImageUploadContainer extends React.Component {
     });
   };
 
-  onTypePicked = (type) => {
-    if (this.state.accepted.length) {
-      if (confirm('Du har billeder som ikke er uploadet. Er du sikker på du vil fortsætte')) {
-        State.reset();
-        this.setState(Object.assign({}, this.initState, {selectedUploadMethod: type}));
-      }
+  closeOverlay = (e = {
+    preventDefault: () => {
     }
-    else {
-      State.reset();
-      this.setState(Object.assign({}, this.initState, {selectedUploadMethod: type}));
-    }
-
-  };
-
-  closeOverlay = (e = {preventDefault: () => {}}) => {
+  }) => {
     e.preventDefault();
     this.setState({overlayIsOpen: false});
   }
@@ -111,20 +100,28 @@ export default class ImageUploadContainer extends React.Component {
     if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
       uploadElement = (
         <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize}
-                     maxSize={this.maxSize} onDrop={this.onDrop}
-                     back={() => this.onTypePicked(constants.UPLOAD_TYPE_URL)}/>);
+                     maxSize={this.maxSize} onDrop={this.onDrop}/>);
     }
     else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
       uploadElement = (
-        <UrlUpload onSubmit={State.addUrls} back={() => this.onTypePicked(constants.UPLOAD_TYPE_IMAGE)}/>);
+        <UrlUpload onSubmit={State.addUrls}/>);
     }
 
     return uploadElement;
   }
 
   componentDidMount() {
+    const path = window.location.pathname;
+    if (path === '/image') {
+      this.setState(Object.assign({}, this.initState, {selectedUploadMethod: constants.UPLOAD_TYPE_IMAGE}));
+    }
+    else if (path === '/url') {
+      this.setState(Object.assign({}, this.initState, {selectedUploadMethod: constants.UPLOAD_TYPE_URL}));
+    }
+
     window.onbeforeunload = () => {
-      if (this.state.accepted.length > 0) {
+      const uploadMissing = this.state.accepted.filter(element => element.status !== constants.DONE_OK).length;
+      if (uploadMissing > 0) {
         return true;
       }
       return null;
@@ -139,10 +136,10 @@ export default class ImageUploadContainer extends React.Component {
 
     return (
       <div className="upload-form">
-        {!this.state.selectedUploadMethod && <UploadTypePicker onClick={this.onTypePicked}/>}
+        {!this.state.selectedUploadMethod && <UploadTypePicker/>}
         {uploadMethod}
         <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}
-                     handleError={this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE && this.handleError || null} />
+                     handleError={this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE && this.handleError || null}/>
         <Overlay show={this.state.overlayIsOpen}>
           <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
           <h2 className="text-center mb1">Upload er gennemført</h2>
@@ -161,19 +158,19 @@ export default class ImageUploadContainer extends React.Component {
             </p>
           </div>
           || (uploadMissing &&
-          <div className="upload-missing mb1">
-            <p className="message">
-              <span className="nb">Bemærk</span> Der er {textFormat(uploadMissing, '$ fil', '$ filer')} som endnu ikke
-              er oploadet.<br />
-              Du kan vælge at fortsætte med {textFormat(uploadMissing, 'den manglende poster', 'de manglende poster')}.
-            </p>
-            <p className="overlay-actions">
-              <a href="#" className="overlay-retry" onClick={this.closeOverlay}>Forsæt
-                med {textFormat(uploadMissing, 'den manglende post', 'de manglende poster')}</a>
-              <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
-            </p>
-          </div>
-          ||
+            <div className="upload-missing mb1">
+              <p className="message">
+                <span className="nb">Bemærk</span> Der er {textFormat(uploadMissing, '$ fil', '$ filer')} som endnu ikke
+                er oploadet.<br />
+                Du kan vælge at fortsætte med {textFormat(uploadMissing, 'den manglende poster', 'de manglende poster')}.
+              </p>
+              <p className="overlay-actions">
+                <a href="#" className="overlay-retry" onClick={this.closeOverlay}>Forsæt
+                  med {textFormat(uploadMissing, 'den manglende post', 'de manglende poster')}</a>
+                <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
+              </p>
+            </div>
+            ||
             <p className="overlay-actions">
               <a href="#" className="overlay-retry" onClick={this.reset}>Upload Flere billeder</a>
               <div className="modal-close text-right">

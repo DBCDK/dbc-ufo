@@ -30,12 +30,12 @@ export default class UrlUpload extends React.Component {
   }
 }
 
-function UrlUploadDisplay({value, onSubmit, onChange, back}) {
+function UrlUploadDisplay({value, onSubmit, onChange}) {
   return (
     <div className="url-upload mb2">
       <div className="url-upload-header flex baseline">
         <h1 className="grow">Upload af URL'er</h1>
-        <a href="#image" onClick={back}>Vil du uploade filer?</a>
+        <a href="/image">Vil du uploade filer?</a>
       </div>
       <TextareaAutosize
         rows={8}
@@ -61,6 +61,5 @@ function UrlUploadDisplay({value, onSubmit, onChange, back}) {
 UrlUploadDisplay.propTypes = {
   value: React.PropTypes.string,
   onChange: React.PropTypes.func,
-  onSubmit: React.PropTypes.func,
-  back: React.PropTypes.func
+  onSubmit: React.PropTypes.func
 };
