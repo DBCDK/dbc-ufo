@@ -49,7 +49,6 @@ describe('Testing url upload component', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
     page.submitId('9788792813114');
     page.upload();
-    page.clearAlert();
   });
 
   it('Should fail url upload', () => {
