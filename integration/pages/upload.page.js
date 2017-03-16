@@ -54,4 +54,9 @@ export default class UploadPage {
     browser.pause(600);
     return browser.elements('.overlay.open').value.length === 0;
   }
+
+  clearAlert() {
+    browser.url('/');
+    browser.alertAccept();
+  }
 }

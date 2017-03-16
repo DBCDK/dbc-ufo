@@ -9,6 +9,9 @@ describe('Testing url upload component', () => {
     browser.selectUrlUpload();
   });
 
+  afterEach(() => {
+    page.clearAlert();
+  });
 
   it('Should show work information', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');

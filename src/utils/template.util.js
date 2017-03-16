@@ -5,7 +5,7 @@
  * @param year
  * @returns {string}
  */
-export default function page(content = '<div id="content"></div>', className='', script = '/js/index.js', year = (new Date()).getFullYear()) {
+export default function page({content = '<div id="content"></div>', className='', script = '/js/index.js', year = (new Date()).getFullYear()} = {}) {
   return `
     <!DOCTYPE html>
     <html>

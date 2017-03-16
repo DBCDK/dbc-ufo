@@ -17,7 +17,7 @@ import page from '../utils/template.util';
 const bodyparser = new koabody();
 const router = new Router();
 
-router.get('/', AuthenticationCheck, (ctx) => {
+router.get(/(\/$|url|image)/, AuthenticationCheck, (ctx) => {
   ctx.body = page();
 });
 
@@ -59,7 +59,7 @@ router.post('/posts', bodyparser, async(ctx) => {
 });
 
 router.get('/login', async(ctx) => {
-  ctx.body = page('<div id="content"></div>', 'login', '/js/login.js');
+  ctx.body = page({className: 'login', script: '/js/login.js'});
 });
 
 router.get('/logout', (ctx) => {
@@ -102,7 +102,7 @@ router.post('/login', bodyparser, async(ctx) => {
 });
 
 router.get('/help', async(ctx) => {
-  ctx.body = page(`
+  ctx.body = page({content: `
     <div class="page">
         <h1>Hjælp til upload</h1>
         <h2>Upload af billedfiler</h2>
@@ -110,12 +110,12 @@ router.get('/help', async(ctx) => {
         <h2>Tilføjelse af billeder via URL'er</h2>
         <p>Du kan skrive et eller flere ...</p>
     </div>
-`, 'medium');
+`, className: 'medium'});
 });
 
 /* eslint-disable*/
 router.get('/terms', async(ctx) => {
-  ctx.body = page(`
+  ctx.body = page({content: `
     <div class="page">
         <h1>Retningslinjer for upload af forsider</h1>
         <p>DBC har etableret en service, som gør det muligt for biblioteker at uploade forsideillustrationer til Forsideservice / MoreInfo.</p>
@@ -129,17 +129,17 @@ router.get('/terms', async(ctx) => {
         <p>For aktivering af servicen på ufo.dbc.dk anvendes bibliotekets login til Netpunkt.</p>
         <p>Læs i øvrigt selve brugervejledningen efter indlogning.</p>
     </div>
-`, 'medium');
+`, className: 'medium'});
 });
 /* eslint-enable*/
 
 router.get('/about', async(ctx) => {
-  ctx.body = page(`
+  ctx.body = page({content: `
     <div class="page">
         <h1>Om upload af forsider</h1>
         <p>Upload af forsider er en service ...</p>
     </div>
-`, 'medium');
+`, className: 'medium'});
 });
 
 export default router;
