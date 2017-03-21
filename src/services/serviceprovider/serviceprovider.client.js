@@ -32,10 +32,10 @@ export async function getWorkForId(id, type) {
     if (!result.error && result.length) {
       const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];
       return {
-        title: dcTitleFull.join(', '),
-        creator: creator.join(', '),
-        isbn: identifierISBN.join(', '),
-        matType: typeBibDKType.join(', '),
+        title: dcTitleFull && dcTitleFull.join(', '),
+        creator: creator && creator.join(', '),
+        isbn: identifierISBN && identifierISBN.join(', '),
+        matType: typeBibDKType && typeBibDKType.join(', '),
         image: coverUrlFull && coverUrlFull.shift() || null,
         pid: pid.join(', ')
       };
