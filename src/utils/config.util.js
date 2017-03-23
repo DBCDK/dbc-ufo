@@ -37,7 +37,9 @@ export const CONFIG = {
     }
   },
   session: {
-    key: process.env.SESSION_REDIS_KEY
+    key: process.env.SESSION_REDIS_KEY,
+    port: process.env.SESSION_REDIS_PORT || '6379',
+    host: process.env.SESSION_REDIS_HOST || '127.0.0.1'
   }
 };
 
