@@ -59,6 +59,10 @@ export default class ImageUploadContainer extends React.Component {
           State.addImages([], [image]);
         }
       };
+      img.onerror = () => {
+        image.error = 'Filen indeholder ikke et gyldigt billede';
+        State.addImages([], [image]);
+      };
       img.src = image.preview;
     });
   };
@@ -186,4 +190,4 @@ export default class ImageUploadContainer extends React.Component {
 
 ImageUploadContainer.propTypes = {
   maxFileSize: React.PropTypes.number
-}
+};
