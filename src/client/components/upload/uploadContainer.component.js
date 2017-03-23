@@ -13,7 +13,7 @@ export default class ImageUploadContainer extends React.Component {
   constructor() {
     super();
     this.minSize = 0;
-    this.maxSize = 5000000;
+    this.maxSize = 50000000;
     this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.dropzone = {};
