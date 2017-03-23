@@ -69,11 +69,17 @@ Forsrights test user password
 - `SESSION_REDIS_KEY` : `session_key_`  
 Key for the session store
 
+- `SESSION_REDIS_PORT` : `6379`  
+redis port (Defaults: `6379`)
+
+- `SESSION_REDIS_HOST` : `127.0.0.1`  
+Redis host (Defaults: `127.0.0.1`)
+
 ### Mocks ###
 - `MOCK_SMAUG` : `0|1`  
 - `MOCK_FORS_RIGHTS` : `0|1`  
 - `MOCK_MOREINFO_UPDATE` : `0|1`  
-Mock webservices
+Mock webservices (optional)
 
 ## Architecture ##
 [Overview of application structure](/docs/architecture.pdf)

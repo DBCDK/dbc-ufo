@@ -9,7 +9,10 @@ import {CONFIG} from '../utils/config.util';
 export default class Sessiontore extends Store {
   constructor() {
     super();
-    this.redis = new Redis();
+    this.redis = new Redis({
+      port: CONFIG.session.port,
+      host: CONFIG.session.host
+    });
   }
 
   async get(sid) {
