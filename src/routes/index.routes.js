@@ -13,19 +13,19 @@ import {validateId, splitPid} from '../utils/validateId.util';
 import {AuthenticationCheck} from '../middlewares/session.middleware';
 import validateObject from '../utils/validateObject.util';
 import page from '../utils/template.util';
+import {CONFIG} from '../utils/config.util';
 
 const bodyparser = new koabody();
 const router = new Router();
 
 router.get(/(\/$|url|image)/, AuthenticationCheck, (ctx) => {
-  ctx.body = page();
+  ctx.body = page({settings: {maxFileSize: CONFIG.upload.max_file_size}});
 });
 
 router.post('/upload/image', async(ctx) => {
   try {
     const {files, fields} = await asyncBusboy(ctx.req);
     const {localIdentifier, libraryId} = splitPid(fields.id);
-    // const libraryId = ctx.session.credentials.agency;
     await uploadImage(libraryId, localIdentifier, files[0].path);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});

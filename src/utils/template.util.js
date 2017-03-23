@@ -5,7 +5,7 @@
  * @param year
  * @returns {string}
  */
-export default function page({content = '<div id="content"></div>', className='', script = '/js/index.js', year = (new Date()).getFullYear()} = {}) {
+export default function page({content = '<div id="content"></div>', className='', script = '/js/index.js', year = (new Date()).getFullYear(), settings = {}} = {}) {
   return `
     <!DOCTYPE html>
     <html>
@@ -21,6 +21,7 @@ export default function page({content = '<div id="content"></div>', className=''
             <span><a href="/about">Om Upload af forsider</a></span>
             <span class="right">&copy; DBC a/s ${year}</span>
           </div>
+          <script id="appSettings" type="application/json">${JSON.stringify(settings)}</script>
           <script src="${script}"></script>
         </div>
       </body>

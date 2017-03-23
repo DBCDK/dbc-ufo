@@ -10,10 +10,10 @@ import textFormat from '../../../utils/textFormat.util';
 
 export default class ImageUploadContainer extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.minSize = 0;
-    this.maxSize = 50000000;
+    this.maxSize = props.maxFileSize;
     this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.dropzone = {};
@@ -58,6 +58,10 @@ export default class ImageUploadContainer extends React.Component {
           image.error = `Billedet er for lille. Skal være min. ${this.minDimensions.width}px x ${this.minDimensions.height}px`;
           State.addImages([], [image]);
         }
+      };
+      img.onerror = () => {
+        image.error = 'Filen indeholder ikke et gyldigt billede';
+        State.addImages([], [image]);
       };
       img.src = image.preview;
     });
@@ -184,3 +188,6 @@ export default class ImageUploadContainer extends React.Component {
   }
 }
 
+ImageUploadContainer.propTypes = {
+  maxFileSize: React.PropTypes.number
+};

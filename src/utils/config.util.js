@@ -40,6 +40,9 @@ export const CONFIG = {
     key: process.env.SESSION_REDIS_KEY,
     port: process.env.SESSION_REDIS_PORT || '6379',
     host: process.env.SESSION_REDIS_HOST || '127.0.0.1'
+  },
+  upload: {
+    max_file_size: process.env.MAX_FILE_SIZE || 50000000
   }
 };
 
