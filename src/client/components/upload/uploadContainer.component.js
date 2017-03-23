@@ -10,10 +10,10 @@ import textFormat from '../../../utils/textFormat.util';
 
 export default class ImageUploadContainer extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.minSize = 0;
-    this.maxSize = 50000000;
+    this.maxSize = props.maxFileSize;
     this.minDimensions = {width: 500, height: 500};
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.dropzone = {};
@@ -184,3 +184,6 @@ export default class ImageUploadContainer extends React.Component {
   }
 }
 
+ImageUploadContainer.propTypes = {
+  maxFileSize: React.PropTypes.number
+}
