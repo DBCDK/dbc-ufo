@@ -54,9 +54,9 @@ export default class LoginForm extends React.Component {
   };
 
   checkboxHandler = () => {
-    const state = Object.assign(this.state, {});
-    state.fields.agreement = !this.state.fields.agreement;
-    this.setState(state);
+    const fields = this.state.fields;
+    fields.agreement = !fields.agreement;
+    this.setState({fields});
   };
 
   componentDidMount() {
