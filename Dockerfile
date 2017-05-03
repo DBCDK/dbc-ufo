@@ -9,6 +9,7 @@ RUN npm install
 COPY . /usr/src/app
 
 RUN npm run build
+RUN npm prune --production
 
 expose 8000
 
