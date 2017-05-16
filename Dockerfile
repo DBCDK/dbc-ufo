@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:6.9
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -9,6 +9,7 @@ RUN npm install
 COPY . /usr/src/app
 
 RUN npm run build
+RUN npm prune --production
 
 expose 8000
 
