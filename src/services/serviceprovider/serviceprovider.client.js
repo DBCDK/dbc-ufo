@@ -20,13 +20,16 @@ export async function getWorkForId(id, type) {
     if (type === 'error') {
       return {error: 'invalid_id'};
     }
-    const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull'];
+    const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull', 'identifier', 'acIdentifier'];
     let result;
     if (type === 'pid') {
       result = await getWork({params: {pids: [id], fields}});
     }
+    else if (type === 'isbn') {
+      result = await search({params: {q: `(${id})`, fields}});
+    }
     else {
-      result = await search({params: {q: `(nr=${id})`, fields}});
+      result = await search({params: {q: `(rec.id=${id})`, fields}});
     }
 
     if (!result.error && result.length) {
