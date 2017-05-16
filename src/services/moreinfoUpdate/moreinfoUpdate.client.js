@@ -16,10 +16,10 @@ import {log} from 'dbc-node-logger';
  * @param imagePath
  * @returns {boolean}
  */
-export async function uploadImage(libraryCode, localId, imagePath) {
+export async function uploadImage(owner, libraryCode, localId, imagePath) {
   const binaryData = await getBufferFromFile(imagePath);
   const infoData = `<ns1:informationBinary>${binaryData}</ns1:informationBinary>`;
-  return makeRequest(libraryCode, localId, infoData);
+  return makeRequest(owner, libraryCode, localId, infoData);
 }
 
 /**
@@ -30,9 +30,9 @@ export async function uploadImage(libraryCode, localId, imagePath) {
  * @param url
  * @returns {boolean}
  */
-export async function uploadUrl(libraryCode, localId, url) {
+export async function uploadUrl(owner, libraryCode, localId, url) {
   const infoData = `<ns1:informationUrl>${escapeHtml(url)}</ns1:informationUrl>`;
-  return makeRequest(libraryCode, localId, infoData);
+  return makeRequest(owner, libraryCode, localId, infoData);
 }
 
 /**
@@ -43,7 +43,7 @@ export async function uploadUrl(libraryCode, localId, url) {
  * @param moreInfoData
  * @returns {boolean}
  */
-async function makeRequest(libraryCode, localId, moreInfoData) {
+async function makeRequest(owner, libraryCode, localId, moreInfoData) {
   if (CONFIG.mock_externals.moreinfo_update) {
     return mockRequest(libraryCode, localId);
   }
@@ -65,7 +65,7 @@ async function makeRequest(libraryCode, localId, moreInfoData) {
                <ns1:libraryCode>${libraryCode}</ns1:libraryCode>
             </ns1:danbibRecordId>
          </ns1:moreinfoData>
-         <ns1:source>100200</ns1:source>
+         <ns1:source>${owner}</ns1:source>
         <ns1:outputType>json</ns1:outputType>
       </ns1:moreinfoUpdate>
    </ns0:Body>

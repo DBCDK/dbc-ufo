@@ -26,7 +26,8 @@ router.post('/upload/image', async(ctx) => {
   try {
     const {files, fields} = await asyncBusboy(ctx.req);
     const {localIdentifier, libraryId} = splitPid(fields.id);
-    await uploadImage(libraryId, localIdentifier, files[0].path);
+    const owner = ctx.session.credentials.agency;
+    await uploadImage(owner, libraryId, localIdentifier, files[0].path);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
   }
@@ -40,8 +41,8 @@ router.post('/upload/url', bodyparser, async(ctx) => {
   try {
     const {url, id} = ctx.request.body;
     const {localIdentifier, libraryId} = splitPid(id);
-    // const libraryId = ctx.session.credentials.agency;
-    await uploadUrl(libraryId, localIdentifier, url);
+    const owner = ctx.session.credentials.agency;
+    await uploadUrl(owner, libraryId, localIdentifier, url);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
   }
