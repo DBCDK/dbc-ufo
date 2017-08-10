@@ -7,14 +7,15 @@ Webapplication for uploading images to Moreinfo webservice.
 [![bitHound Dev Dependencies](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/devDependencies.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo/dbc-ufo-1-mmj/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/code.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo)
 
-##Start
-###Development
+## Start
+
+### Development
 After cloning the repository, run `npm install` to install dependencies. Copy env.test to env.env and set the environment variables (see below) to you need/liking. The application is started with `npm run dev`, which include [nodemon](https://www.npmjs.com/package/nodemon) in order to restart the application, when the code is changed.
 
-###Production
+### Production
 You can start the application with `node src/main.js` from the project root after setting the environment variables.
 
-##Environment variables
+## Environment variables
 The variables are specified at the form `name : internal config object`. References in the log from the startup, will use the internal config object.
 
 ### Application ###
