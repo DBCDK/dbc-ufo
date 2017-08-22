@@ -46,6 +46,8 @@
     "koa-router": "^7.0.0",
     "koa-session2": "^1.0.8",
     "koa-static": "^3.0.0",
+    "preact": "^7.1.0",
+    "preact-compat": "3.14.0",
     "react-dropzone": "^3.8.0",
     "react-textarea-autosize": "^4.0.5",
     "request": "^2.79.0",
