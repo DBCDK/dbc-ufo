@@ -46,8 +46,8 @@
     "koa-router": "^7.0.0",
     "koa-session2": "^1.0.8",
     "koa-static": "^3.0.0",
-    "preact": "^7.1.0",
-    "preact-compat": "3.14.0",
+    "preact": "^8.0.0",
+    "preact-compat": "^3.14.0",
     "react-dropzone": "^3.8.0",
     "react-textarea-autosize": "^4.0.5",
     "request": "^2.79.0",
@@ -77,6 +77,6 @@
     "wdio-sauce-service": "^0.3.1",
     "wdio-selenium-standalone-service": "0.0.8",
     "webdriverio": "^4.6.1",
-    "webpack": "^1.14.0"
+    "webpack": "^1.15.0"
   }
 }
