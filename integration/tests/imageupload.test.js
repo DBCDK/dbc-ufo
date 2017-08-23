@@ -18,7 +18,6 @@ describe('Testing image upload', () => {
 
   it('Should show preview of image', () => {
     page.addImage('horses.jpg');
-    // page.clearAlert();
   });
 
   it('Should reject non image', () => {
