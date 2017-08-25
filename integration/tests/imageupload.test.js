@@ -30,7 +30,6 @@ describe('Testing image upload', () => {
     page.addImage('horses.jpg');
     page.submitId('9788792813114');
     page.upload();
-    page.clearAlert();
   });
 
   it('Should show overlay', () => {
@@ -41,7 +40,6 @@ describe('Testing image upload', () => {
     assert.include(overlay.getText(), 'Upload er gennemført');
     browser.click('.modal button');
     assert.isTrue(page.overlayIsClosed());
-    page.clearAlert();
   });
 
   it('Should fail image upload', () => {
@@ -61,6 +59,5 @@ describe('Testing image upload', () => {
     const overlay = page.getOverlay();
     assert.include(overlay.getText(), 'Upload er gennemført');
     overlay.click('button');
-    page.clearAlert();
   });
 });
