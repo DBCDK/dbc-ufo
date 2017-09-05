@@ -30,6 +30,7 @@ describe('Testing image upload ', () => {
     page.addImage('horses.jpg');
     page.submitId('9788792813114');
     page.upload();
+    page.clearAlert();
   });
 
   it('Should show overlay', () => {
