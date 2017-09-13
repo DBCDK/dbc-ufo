@@ -31,6 +31,7 @@ describe('Testing url upload component', () => {
   it('Should compare existing image with new image', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
     page.submitId('9788792813114');
+    browser.pause(200);
     const previewImage = browser.element('.preview-images').getText();
     assert.include(previewImage, 'NY');
     assert.include(previewImage, 'EKSISTERENDE');
