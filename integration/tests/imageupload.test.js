@@ -2,7 +2,7 @@
 import {assert} from 'chai';
 import UploadPage from '../pages/upload.page';
 
-describe('Testing image upload ', () => {
+describe('Testing image upload', () => {
   const page = new UploadPage();
 
   beforeEach(() => {
