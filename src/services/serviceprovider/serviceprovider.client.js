@@ -30,7 +30,16 @@ export async function getWorkForId(id, type) {
     }
 
     if (!result.error && result.length) {
-      const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[0];
+      let recPos = 0;
+      if (result.length > 1) {
+        for (let idx = 0; idx < result.length; idx++) {
+          if ((result[idx].pid && result[idx].pid[0].indexOf(id) !== -1) ||
+              (result[idx].identifierISBN && result[idx].identifierISBN.indexOf(id) !== -1)) {
+            recPos = idx;
+          }
+        }
+      }
+      const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[recPos];
       return {
         title: dcTitleFull && dcTitleFull.join(', '),
         creator: creator && creator.join(', '),
