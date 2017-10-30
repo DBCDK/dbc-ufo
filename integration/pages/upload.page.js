@@ -60,6 +60,6 @@ export default class UploadPage {
       browser.url('/');
       browser.alertAccept();
     }
-    catch (error) {}
+    catch (error) {} // eslint-disable-line no-empty
   }
 }

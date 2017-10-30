@@ -6,7 +6,7 @@ describe('Testing url upload component', () => {
   const page = new UploadPage();
 
   beforeEach(() => {
-    page.clearAlert();    
+    page.clearAlert();
     page.open();
     browser.selectUrlUpload();
   });
