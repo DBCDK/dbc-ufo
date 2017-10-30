@@ -6,8 +6,10 @@ describe('Testing image upload', () => {
   const page = new UploadPage();
 
   beforeEach(() => {
+    page.clearAlert();
     browser.signIn();
     browser.selectImageUpload();
+
   });
 
   it('Should render component', () => {
@@ -18,8 +20,6 @@ describe('Testing image upload', () => {
 
   it('Should show preview of image', () => {
     page.addImage('horses.jpg');
-    browser.pause(2000);
-    page.clearAlert();
   });
 
   it('Should reject non image', () => {

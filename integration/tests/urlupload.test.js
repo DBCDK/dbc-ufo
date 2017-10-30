@@ -6,6 +6,7 @@ describe('Testing url upload component', () => {
   const page = new UploadPage();
 
   beforeEach(() => {
+    page.clearAlert();
     page.open();
     browser.selectUrlUpload();
   });
@@ -19,7 +20,6 @@ describe('Testing url upload component', () => {
   it('Should show preview of image from url', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
     assert.include(browser.getAttribute('.preview-images img', 'alt'), 'horses-grazing-on-ranch.jpg');
-    page.clearAlert();
   });
 
   it('Should reject non image', () => {
@@ -55,7 +55,6 @@ describe('Testing url upload component', () => {
     page.addUrls('https://www.colourbox.dk/preview/2582621-white-horses-grazing-on-ranch.jpg');
     page.submitId('11111111');
     page.upload('.error');
-    page.clearAlert();
   });
 
 });
