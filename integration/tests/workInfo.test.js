@@ -5,6 +5,7 @@ import UpladPage from '../pages/upload.page';
 describe('Testing url upload component', () => {
   const page = new UpladPage();
   beforeEach(() => {
+    page.clearAlert();
     page.open();
     browser.selectUrlUpload();
   });

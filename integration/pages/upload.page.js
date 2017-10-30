@@ -56,12 +56,10 @@ export default class UploadPage {
   }
 
   clearAlert() {
-    browser.url('/');
     try {
+      browser.url('/');
       browser.alertAccept();
     }
-    catch (e) {
-      // ignore
-    }
+    catch (error) {}
   }
 }
