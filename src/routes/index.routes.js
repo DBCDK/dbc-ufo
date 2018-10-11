@@ -165,8 +165,11 @@ router.get('/help', async(ctx) => {
       <p><b>TIP:</b> Du kan skrive postens ID efter billedets URL’en i tekstfeltet øverst, så vil postens data automatisk
           blive hentet og vist i preview. Der skal være et mellemrum eller et tabulatortegn imellem URL og ID.</p>
 
+      <h2>Synlighed</h2>
+      <p>De uploadede forsider er IKKE synlige med det samme i biblioteksgrænsefladerne. Der kan gå op til 24 timer før dette sker - generelt er de tilgængelige næste dag.</p>
+
       <h2>Fejl i billeder</h2>
-      <p>Hvis et billede er mindre end minimumsstørrelsen enten i pixels (500 x 500) eller i antal MB, vil det ikke kunne
+      <p>Hvis et billede er mindre end minimumsstørrelsen enten i pixels (501 x 501) eller i antal MB, vil det ikke kunne
           uploades. Hvis der er noget galt med billedfilen, kan billedet heller ikke uploades.</p>
       <p>Billeder med fejl vil blive vist i en separat liste under preview, hvor det er muligt at erstatte billederne
           enkeltvis med billeder i fx højere pixelopløsning.</p>
@@ -192,7 +195,7 @@ router.get('/terms', async(ctx) => {
 <p>Som alternativ til upload af billedfiler er det muligt at uploade URL’er til billeder hos en ekstern leverandør, og her påhviler det brugeren at sikre, at pågældende host / database har givet rettigheder til fremvisning af forsiderne.</p>
 <p>BEMÆRK: De skannede forsider må ikke være forsynet med labels eller andre markeringer, som anvendes i nogle biblioteker til fx placeringsangivelse o.l.</p>
 <p>Hvis DBC modtager indsigelser i relation til anvendelse af forsider, vil disse blive fjernet fra basen. Det er muligt ved gentagne henvendelser vedr. forsider fra samme bibliotek, at dette vil blive kontaktet for præcisering af retningslinjerne.</p>
-<p>Billedfiler uploades i .JPG format, og der er sat en minimumsopløsning på 500 * 500 pixels. DBC sørger i det videre flow af billederne til basen for, at der skaleres til den ifølge COPY-DAN aftalerne p.t. gældende tilladte opløsning. Forsiderne kan forventes at blive synlige fra Forsideservice dagen efter upload.</p>
+<p>Billedfiler uploades i .JPG format, og der er sat en minimumsopløsning på 501 * 501 pixels. DBC sørger i det videre flow af billederne til basen for, at der skaleres til den ifølge COPY-DAN aftalerne p.t. gældende tilladte opløsning. Forsiderne kan forventes at blive synlige fra Forsideservice dagen efter upload.</p>
 <p>For aktivering af servicen på ufo.dbc.dk anvendes bibliotekets login til Netpunkt.</p>
 <p><a href="/help">Læs i øvrigt selve brugervejledningen efter indlogning</a>.</p>
     </div>
