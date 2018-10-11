@@ -166,7 +166,7 @@ router.get('/help', async(ctx) => {
           blive hentet og vist i preview. Der skal være et mellemrum eller et tabulatortegn imellem URL og ID.</p>
 
       <h2>Synlighed</h2>
-      <p>De uploadede forsider er IKKE synlige med det samme i biblioteksgrænsefladerne. Der kan gå op til 24 timer før dette sker - generelt er de tilgængelige næste dag.</p>
+      <p>De uploadede forsider er IKKE synlige med det samme i biblioteksgrænsefladerne. Generelt er de tilgængelige næste dag, men der kan gå op til 24 timer.</p>
 
       <h2>Fejl i billeder</h2>
       <p>Hvis et billede er mindre end minimumsstørrelsen enten i pixels (501 x 501) eller i antal MB, vil det ikke kunne
