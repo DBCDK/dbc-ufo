@@ -51,7 +51,7 @@ export default class ImageUploadContainer extends React.Component {
     acceptedFiles.map(image => {
       const img = new Image();
       img.onload = () => {
-        if (img.naturalHeight > this.minDimensions.height && img.naturalWidth > this.minDimensions.width) {
+        if (img.naturalHeight >= this.minDimensions.height && img.naturalWidth >= this.minDimensions.width) {
           State.addImages([image]);
         }
         else {
