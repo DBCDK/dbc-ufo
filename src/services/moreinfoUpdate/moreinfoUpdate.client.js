@@ -105,6 +105,9 @@ function getBufferFromFile(path) {
       else {
         const encodedImage = new Buffer(data, 'binary').toString('base64');
         resolve(encodedImage);
+        fs.unlink(path, (error) => {
+          log.warn('Could not delete file from /tmp', error);
+        });
       }
     });
   });
