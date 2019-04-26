@@ -14,7 +14,7 @@ export default class ImageUploadContainer extends React.Component {
     super(props);
     this.minSize = 0;
     this.maxSize = props.maxFileSize;
-    this.minDimensions = {width: 500, height: 500};
+    this.minDimensions = {width: 501, height: 501};
     this.accepts = 'image/jpeg, image/jpg, image/png';
     this.dropzone = {};
     this.initState = {
@@ -51,7 +51,7 @@ export default class ImageUploadContainer extends React.Component {
     acceptedFiles.map(image => {
       const img = new Image();
       img.onload = () => {
-        if (img.naturalHeight > this.minDimensions.height && img.naturalWidth > this.minDimensions.width) {
+        if (img.naturalHeight >= this.minDimensions.height && img.naturalWidth >= this.minDimensions.width) {
           State.addImages([image]);
         }
         else {
@@ -73,11 +73,11 @@ export default class ImageUploadContainer extends React.Component {
   }) => {
     e.preventDefault();
     this.setState({overlayIsOpen: false});
-  }
+  };
 
   openOverlay = () => {
     this.setState({overlayIsOpen: true});
-  }
+  };
 
   retryFailed = (e) => {
     e.preventDefault();
