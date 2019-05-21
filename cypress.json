@@ -1,0 +1,5 @@
+{
+  "baseUrl": "http://localhost:8030",
+  "chromeWebSecurity": false,
+  "defaultCommandTimeout":6000
+}

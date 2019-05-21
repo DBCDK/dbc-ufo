@@ -13,7 +13,9 @@
     "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
     "test:integration": ". ./test.env && npm run build && TEST_ENV=saucelabs wdio ./integration/config/wdio.conf.js",
     "test:integration:local": "rm -rf errorShots/*.png && . ./env.env && . ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js",
-    "test:integration:jenkins": "npm run build && TEST_ENV=jenkins wdio ./integration/config/wdio.conf.js"
+    "test:integration:jenkins": "npm run build && TEST_ENV=jenkins wdio ./integration/config/wdio.conf.js",
+    "cy:run": "cypress run --browser chrome",
+    "cy:open": ". ./env.env && . ./cypress.env && cypress open"
   },
   "repository": {
     "type": "git",
@@ -61,6 +63,8 @@
     "chai": "^3.5.0",
     "css-loader": "^0.28.5",
     "cssnano": "^3.10.0",
+    "cypress": "^3.2.0",
+    "cypress-file-upload": "^3.1.1",
     "eslint": "^3.13.0",
     "eslint-plugin-react": "^6.9.0",
     "extract-text-webpack-plugin": "^1.0.1",
