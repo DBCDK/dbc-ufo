@@ -23,6 +23,7 @@ static/*.css
 # ==========
 *.env
 !test.env
+!cypress.env
 
 # ==========
 # SELENIUM #
