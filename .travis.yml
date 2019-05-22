@@ -2,7 +2,7 @@ language: node_js
 sudo: false
 dist: trusty
 install:
-  - npm ci
+  - npm i
   - npm i cypress
 cache:
   bundler: true
