@@ -16,7 +16,7 @@
     "test:integration": ". ./test.env && npm run build && TEST_ENV=saucelabs wdio ./integration/config/wdio.conf.js",
     "test:integration:local": "rm -rf errorShots/*.png && . ./env.env && . ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js",
     "test:integration:jenkins": "npm run build && TEST_ENV=jenkins wdio ./integration/config/wdio.conf.js",
-    "cy:run": ". ./cypress.env && cypress run --browser chrome",
+    "cy:run": "env && . ./cypress.env && cypress run --browser chrome",
     "cy:open": ". ./cypress.env && cypress open"
   },
   "repository": {
