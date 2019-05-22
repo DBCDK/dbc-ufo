@@ -42,6 +42,6 @@ Cypress.Commands.add('addImage', (fileName) => {
 
 Cypress.Commands.add('uploadItem', (waitForClass = '.done') => {
   cy.get('.upload-button button').click();
-  cy.get(waitForClass, {timeout: 10000}).should('exist');
+  cy.get(waitForClass, {timeout: 30000}).should('exist');
 });
 
