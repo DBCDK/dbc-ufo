@@ -8,7 +8,6 @@ Cypress.Commands.add('signIn', () => {
   cy.get('#login-input-tac').click();
   cy.get('#login-input-submit').click();
   cy.get('#content .upload-select', {timeout:2000}).should('contain', 'Hvordan du vil');
-  cy.wait(500);
 });
 
 Cypress.Commands.add('selectImageUpload', () => {
