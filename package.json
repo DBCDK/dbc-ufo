@@ -6,17 +6,16 @@
   "scripts": {
     "dev": "npm run build:dev & . ./env.env && npm run serve",
     "dev:test": "npm run build & . ./test.env && npm run serve",
-    "lint": "eslint ./src ./integration/ --cache",
+    "lint": "eslint ./src ./cypress/integration --cache",
     "serve": "nodemon --exec node --no-stdin src/main.js",
     "build": "webpack --define process.env.NODE_ENV='\"production\"' --progress --colors -p",
     "build:dev": "webpack --progress --colors --watch -d",
-    "precommit": "npm run lint && npm run test && npm run test:integration:local",
+    "precommit": "npm run lint && npm run test && npm run test:cy:local",
     "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
-    "test:cy": "npm run dev:test & . ./test.env && wait-on http://localhost:8030 && npm run cy:run",
-    "test:integration": ". ./test.env && npm run build && TEST_ENV=saucelabs wdio ./integration/config/wdio.conf.js",
-    "test:integration:local": "rm -rf errorShots/*.png && . ./env.env && . ./test.env && TEST_ENV=local wdio ./integration/config/wdio.conf.js",
-    "test:integration:jenkins": "npm run build && TEST_ENV=jenkins wdio ./integration/config/wdio.conf.js",
-    "cy:run": ". ./cypress.env && env && cypress run --browser chrome",
+    "test:integration": "npm run dev:test & . ./test.env && wait-on http://localhost:8030 && npm run cy:run",
+    "test:integration:local": "npm run dev & . ./env.env && . ./test.env && wait-on http://localhost:8030 && npm run cy:run",
+    "test:integration:jenkins": "npm run build & npm run serve & npm run cy:run",
+    "cy:run": ". ./cypress.env && cypress run --browser chrome",
     "cy:open": ". ./cypress.env && cypress open"
   },
   "repository": {
