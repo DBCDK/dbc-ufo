@@ -10,7 +10,7 @@
     "serve": "nodemon --exec node --no-stdin src/main.js",
     "build": "webpack --define process.env.NODE_ENV='\"production\"' --progress --colors -p",
     "build:dev": "webpack --progress --colors --watch -d",
-    "precommit": "npm run lint && npm run test && npm run test:cy:local",
+    "precommit": "npm run lint && npm run test && npm run test:integration:local",
     "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
     "test:integration": "npm run dev:test & . ./test.env && wait-on http://localhost:8030 && npm run cy:run",
     "test:integration:local": "npm run dev & . ./env.env && . ./test.env && wait-on http://localhost:8030 && npm run cy:run",
