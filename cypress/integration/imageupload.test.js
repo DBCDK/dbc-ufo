@@ -82,6 +82,7 @@ context('Testing image upload', () => {
     cy.get('.preview-status .description').eq(0).should('contain', 'Klar til upload');
     cy.submitId('9788792813114', 1);
     cy.get('.preview-status .description').eq(1).should('contain', 'Klar til upload');
+    cy.wait(500);
     cy.uploadItem();
     cy.get('.modal').should('contain', 'Upload er gennemført');
     cy.get('.modal').should('contain', '2 filer blev oploadet');

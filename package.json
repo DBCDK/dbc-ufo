@@ -4,7 +4,7 @@
   "description": "Grænseflade til upload af billeder til DBC's Forsideservice",
   "main": "src/main.js",
   "scripts": {
-    "dev": "npm run build:dev & . ./env.env && npm run serve",
+    "dev": "npm run build:dev & . ./test.env && . ./env.env && npm run serve",
     "dev:test": "npm run build & . ./test.env && npm run serve",
     "lint": "eslint ./src ./cypress/integration --cache",
     "serve": "nodemon --exec node --no-stdin src/main.js",
@@ -13,7 +13,7 @@
     "precommit": "npm run lint && npm run test && npm run test:integration:local",
     "test": ". ./test.env && mocha --recursive ./src/**/*.test.js --compilers js:babel-register",
     "test:integration": "npm run dev:test & . ./test.env && wait-on http://localhost:8030 && npm run cy:run",
-    "test:integration:local": "npm run dev & . ./env.env && . ./test.env && wait-on http://localhost:8030 && npm run cy:run",
+    "test:integration:local": "npm run dev & . ./test.env && . ./env.env && wait-on http://localhost:8030 && npm run cy:run",
     "test:integration:jenkins": "npm run build & npm run serve & npm run cy:run",
     "cy:run": ". ./cypress.env && cypress run --browser chrome",
     "cy:open": ". ./cypress.env && cypress open"
@@ -78,11 +78,6 @@
     "sinon": "^1.17.7",
     "style-loader": "^0.18.2",
     "wait-on": "^3.2.0",
-    "wdio-junit-reporter": "^0.3.1",
-    "wdio-mocha-framework": "^0.5.8",
-    "wdio-sauce-service": "0.4.0",
-    "wdio-selenium-standalone-service": "0.0.8",
-    "webdriverio": "^4.6.1",
     "webpack": "^1.15.0"
   }
 }

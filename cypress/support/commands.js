@@ -10,6 +10,7 @@ Cypress.Commands.add('signIn', () => {
   cy.get('#content .upload-select').should('contain', 'Hvordan du vil');
   cy.get('.upload-form #select-image-upload').should('exist');
   cy.get('.upload-form #select-url-upload').should('exist');
+  cy.wait(500);
 });
 
 Cypress.Commands.add('selectImageUpload', () => {
