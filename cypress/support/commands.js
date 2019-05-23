@@ -7,7 +7,9 @@ Cypress.Commands.add('signIn', () => {
   cy.get('#login-input-password').clear().type(Cypress.env('FORS_RIGHTS_URI_TEST_PASSWORD'));
   cy.get('#login-input-tac').click();
   cy.get('#login-input-submit').click();
-  cy.get('#content .upload-select', {timeout:2000}).should('contain', 'Hvordan du vil');
+  cy.get('#content .upload-select').should('contain', 'Hvordan du vil');
+  cy.get('.upload-form #select-image-upload').should('exist');
+  cy.get('.upload-form #select-url-upload').should('exist');
 });
 
 Cypress.Commands.add('selectImageUpload', () => {
