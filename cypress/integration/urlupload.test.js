@@ -27,21 +27,21 @@ context('Testing url upload component', () => {
 
   it('Should reject non image', () => {
     cy.addUrl('https://not-an-image.dk');
-    cy.get('.preview.error .preview-error--content .message', {timeout:30000}).should('contain', 'Fejl');
+    cy.get('.preview.error .preview-error--content .message', {timeout: 30000}).should('contain', 'Fejl');
     cy.get('.preview.error .preview-error--content .message').should('contain', 'Ugyldig billedurl');
   });
 
   it('Remove rejected from list', () => {
     cy.get('.preview.error').should('have.length', 0);
     cy.addUrl('not_an_image');
-    cy.get('.preview.error', {timeout:20000}).should('have.length', 1);
+    cy.get('.preview.error', {timeout: 20000}).should('have.length', 1);
     cy.get('.remove').click();
     cy.get('.preview.error').should('have.length', 0);
   });
 
   it('Only unique elements are parsed', () => {
     cy.addUrl('not_unique\nnot_unique');
-    cy.get('.preview.error', {timeout:20000}).should('have.length', 1);
+    cy.get('.preview.error', {timeout: 20000}).should('have.length', 1);
   });
 
   it('Should upload url', () => {

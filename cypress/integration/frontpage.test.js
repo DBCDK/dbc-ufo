@@ -1,3 +1,5 @@
+/* eslint no-undef: 0 */
+
 context('Testing frontpage', () => {
   beforeEach(() => {
     cy.signIn();

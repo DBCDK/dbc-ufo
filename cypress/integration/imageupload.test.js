@@ -1,3 +1,5 @@
+/* eslint no-undef: 0 */
+
 context('Testing image upload', () => {
   beforeEach(() => {
     cy.signIn();
@@ -19,7 +21,9 @@ context('Testing image upload', () => {
     const image = 'invalid_horse.txt';
     cy.addImage(image);
     cy.get('.rejected').should('contain', image);
-    cy.get('.message').then(($msg) => { expect($msg.text().toUpperCase()).to.contain('BEMÆRK')});
+    cy.get('.message').then(($msg) => {
+      expect($msg.text().toUpperCase()).to.contain('BEMÆRK');
+    });
     cy.get('.message').should('contain', 'Følgende billeder kan ikke benyttes');
   });
 
@@ -27,7 +31,9 @@ context('Testing image upload', () => {
     const image = 'horses_500x500.jpg';
     cy.addImage(image);
     cy.get('.rejected').should('contain', image);
-    cy.get('.message').then(($msg) => { expect($msg.text().toUpperCase()).to.contain('BEMÆRK')});
+    cy.get('.message').then(($msg) => {
+      expect($msg.text().toUpperCase()).to.contain('BEMÆRK');
+    });
     cy.get('.message').should('contain', 'Følgende billeder kan ikke benyttes');
     cy.get('.preview.error .message').should('contain', 'Billedet er for lille');
   });
@@ -60,7 +66,9 @@ context('Testing image upload', () => {
     cy.addImage('horses.jpg');
     cy.submitId('11111111');
     cy.uploadItem('.upload-errors');
-    cy.get('.modal .message').then(($msg) => { expect($msg.text().toUpperCase()).to.contain('BEMÆRK')});
+    cy.get('.modal .message').then(($msg) => {
+      expect($msg.text().toUpperCase()).to.contain('BEMÆRK');
+    });
     cy.get('.modal .message').should('contain', 'Der var fejl i 1 fil.');
   });
 

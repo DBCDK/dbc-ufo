@@ -1,3 +1,5 @@
+/* eslint no-undef: 0 */
+
 context('Testing login/-out functionalty', () => {
   it('Should login and redirect to /', () => {
     cy.signIn();
@@ -23,6 +25,6 @@ context('Testing login/-out functionalty', () => {
     cy.get('.upload-form').contains('Hvordan du vil');
     cy.request('/isauthenticated').then((response) => {
       expect(response.body).to.eq(true);
-    })
+    });
   });
 });
