@@ -42,7 +42,7 @@ describe('Unittesting methods in config.util.js', () => {
       validateConfig(CONFIG);
     };
 
-    assert.throws(result, 'app.port: expected NaN to be a number. See https://github.com/DBCDK/hejmdal#environment-variabler');
+    assert.throws(result, 'app.port: expected NaN to be a number. See https://github.com/DBCDK/dbc-ufo#environment-variabler');
   });
 
   it('Should throw when a value is undefined', () => {
@@ -52,6 +52,6 @@ describe('Unittesting methods in config.util.js', () => {
       validateConfig(CONFIG);
     };
 
-    assert.throws(result, 'host was not specified in config. See https://github.com/DBCDK/hejmdal#environment-variabler');
+    assert.throws(result, 'host was not specified in config. See https://github.com/DBCDK/dbc-ufo#environment-variabler');
   });
 });
