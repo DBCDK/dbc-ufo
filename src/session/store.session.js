@@ -7,12 +7,9 @@ import {Store} from 'koa-session2';
 import {CONFIG} from '../utils/config.util';
 
 export default class Sessiontore extends Store {
-  constructor() {
+  constructor(connection) {
     super();
-    this.redis = new Redis({
-      port: CONFIG.session.port,
-      host: CONFIG.session.host
-    });
+    this.redis = new Redis(connection);
   }
 
   async get(sid) {
@@ -24,7 +21,10 @@ export default class Sessiontore extends Store {
     if (!opts.sid) {
       opts.sid = this.getID(24);
     }
-    await this.redis.set(`${CONFIG.session.key}:${opts.sid}`, JSON.stringify(session));
+    await this.redis.set(
+      `${CONFIG.session.key}:${opts.sid}`,
+      JSON.stringify(session)
+    );
     return opts.sid;
   }
 

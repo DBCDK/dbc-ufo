@@ -43,11 +43,14 @@ export function startServer() {
   // trust ip-addresses from X-Forwarded-By header, and log requests
   app.proxy = true;
 
-  app.use(session({
-    key: CONFIG.session.key,
-    store: new SessionStore(),
-    maxAge: 2592000000 // 30 days (miliseconds)
-  }));
+  const sessionConfig = CONFIG.session.redis
+    ? {
+        key: CONFIG.session.key,
+        store: new SessionStore(CONFIG.session.redis),
+        maxAge: 2592000000 // 30 days (miliseconds)
+      }
+    : {key: CONFIG.session.key};
+  app.use(session(sessionConfig));
 
   app.use(convert(serve('./public')));
   app.use(LoggerMiddleware);
@@ -59,7 +62,7 @@ export function startServer() {
 
   app.use(errorMiddleware);
 
-  app.on('error', (err) => {
+  app.on('error', err => {
     Logger.log.error('Server error', {error: err.message, stack: err.stack});
   });
 
