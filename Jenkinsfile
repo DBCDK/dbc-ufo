@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                        docker run --env-file docker-test.env -p 8030:8030 --name=$CONTAINER_NAME $DOCKER_NAME &
+                        docker run --env-file test.env -p 8030:8030 --name=$CONTAINER_NAME $DOCKER_NAME &
                         # Wait for 10 seconds for the container to be set up correct before the test
                         sleep 10
                     """
