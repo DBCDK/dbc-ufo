@@ -4,7 +4,6 @@
  * A validateConfig method that validates the values found in the CONFIG object and throws an Error upon invalid values.
  */
 
-
 export const CONFIG = {
   app: {
     env: process.env.NODE_ENV,
@@ -37,9 +36,8 @@ export const CONFIG = {
     }
   },
   session: {
-    key: process.env.SESSION_REDIS_KEY,
-    port: process.env.SESSION_REDIS_PORT || '6379',
-    host: process.env.SESSION_REDIS_HOST || '127.0.0.1'
+    key: process.env.SESSION_KEY,
+    redis: process.env.REDIS_CONNECTION_STRING || ''
   },
   upload: {
     max_file_size: process.env.MAX_FILE_SIZE || 50000000
@@ -57,13 +55,17 @@ export function validateConfig(config = CONFIG, k = '') {
   for (const key in config) {
     if (typeof config[key] === 'object') {
       validateConfig(config[key], `${k}${key}.`);
-    }
-    else {
-      if (config[key] === undefined) { // eslint-disable-line no-undefined
-        throw Error(`${k}${key} was not specified in config. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`); // eslint-disable-line max-len
+    } else {
+      if (config[key] === undefined) {
+        // eslint-disable-line no-undefined
+        throw Error(
+          `${k}${key} was not specified in config. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`
+        ); // eslint-disable-line max-len
       }
       if (typeof config[key] === 'number' && Number.isNaN(config[key])) {
-        throw Error(`${k}${key}: expected NaN to be a number. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`); // eslint-disable-line max-len
+        throw Error(
+          `${k}${key}: expected NaN to be a number. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`
+        ); // eslint-disable-line max-len
       }
     }
   }

@@ -1,5 +1,6 @@
 # dbc-ufo
-Webapplication for uploading images to Moreinfo webservice. 
+
+Webapplication for uploading images to Moreinfo webservice.
 
 [![Build Status](https://travis-ci.org/DBCDK/dbc-ufo.svg?branch=master)](https://travis-ci.org/DBCDK/dbc-ufo)
 [![bitHound Overall Score](https://www.bithound.io/github/DBCDK/dbc-ufo/badges/score.svg)](https://www.bithound.io/github/DBCDK/dbc-ufo)
@@ -17,69 +18,74 @@ You can start the application with `node src/main.js` from the project root afte
 ##Environment variables
 The variables are specified at the form `name : internal config object`. References in the log from the startup, will use the internal config object.
 
-### Application ###
+### Application
+
 - `PORT` : `app.port`  
-Specifies the port to expose the application. Default: `3010`
+  Specifies the port to expose the application. Default: `3010`
 
 - `NODE_ENV` : `app.env`  
-Specifies the development for the application. Default: `default`
+  Specifies the development for the application. Default: `default`
 
 - `APP_NAME` : `app.name`  
-Used to identify the app in i.e. logs. Default': `no name`
+  Used to identify the app in i.e. logs. Default': `no name`
 
-### Log ###
+### Log
+
 - `LOG_LEVEL` : `log.level`  
-Specifies the log level used by the application. Defaults to `INFO`
-Log level constants supported:: `OFF` (0), `ERROR` (1), `WARN` (2), `WARNING` (2), `INFO` (3), `DEBUG` (4), `TRACE` (5)
+  Specifies the log level used by the application. Defaults to `INFO`
+  Log level constants supported:: `OFF` (0), `ERROR` (1), `WARN` (2), `WARNING` (2), `INFO` (3), `DEBUG` (4), `TRACE` (5)
 
 - `PRETTY_LOG` : `log.pretty`  
-Set to `1` (`PRETTY_LOG=1`) for pretty printed log statements. Any other setting, will result in one-line log statements.
+  Set to `1` (`PRETTY_LOG=1`) for pretty printed log statements. Any other setting, will result in one-line log statements.
 
-### Moreinfo update ###
+### Moreinfo update
+
 - `MOREINFO_UPDATE_URI` : `http://moreinfoupate_uri`  
-The url to the moreinfo update service
+  The url to the moreinfo update service
 
-### Open platform ###
+### Open platform
+
 - `SMAUG_CLIENT_ID` : `smaug.client_id`  
-The Smaug client ID for this application
+  The Smaug client ID for this application
 
 - `SMAUG_CLIENT_SECRET` : `smaug.client_secret`  
-The Smaug client secret for this application
+  The Smaug client secret for this application
 
 - `SMAUG_URI` : `smaug.uri`  
-The address of the Smaug service
+  The address of the Smaug service
 
 - `SERVICE_PROVIDER_URI` : `https://openplatform_uri_`  
-The url to the openplatform service
+  The url to the openplatform service
 
-### Forsrights ###
+### Forsrights
+
 - `FORS_RIGHTS_URI` : `http://forsrights_uri_`  
-The url to the forsrights service
+  The url to the forsrights service
 
 - `FORS_RIGHTS_URI_TEST_USER` : `username`  
-Forsrights test user name
+  Forsrights test user name
 
 - `FORS_RIGHTS_URI_TEST_AGENCY` : `agency_id`  
-Forsrights test agency ID
+  Forsrights test agency ID
 
 - `FORS_RIGHTS_URI_TEST_PASSWORD` : `password`  
-Forsrights test user password
+  Forsrights test user password
 
-### Session ###
-- `SESSION_REDIS_KEY` : `session_key_`  
-Key for the session store
+### Session
 
-- `SESSION_REDIS_PORT` : `6379`  
-redis port (Defaults: `6379`)
+- `SESSION_KEY` : `session_key_`  
+  Key for the session store
 
-- `SESSION_REDIS_HOST` : `127.0.0.1`  
-Redis host (Defaults: `127.0.0.1`)
+- `REDIS_CONNECTION_STRING` : `redis://127.0.0.1:6379`  
+  Redis connection for sessions. If not specified, default is memory-storage for sessions
 
-### Mocks ###
-- `MOCK_SMAUG` : `0|1`  
-- `MOCK_FORS_RIGHTS` : `0|1`  
+### Mocks
+
+- `MOCK_SMAUG` : `0|1`
+- `MOCK_FORS_RIGHTS` : `0|1`
 - `MOCK_MOREINFO_UPDATE` : `0|1`  
-Mock webservices (optional)
+  Mock webservices (optional)
 
-## Architecture ##
+## Architecture
+
 [Overview of application structure](/docs/architecture.pdf)

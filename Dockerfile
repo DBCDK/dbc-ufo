@@ -1,17 +1,37 @@
-FROM node:6.9
+ARG NODE_BASEIMAGE=docker.dbc.dk/node10:latest
+# ---- Base Node ----
+FROM  $NODE_BASEIMAGE AS build
+# set working directory
+WORKDIR /home/node/app
+# copy project file
+COPY . .
+COPY .babelrc .
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+ENV CI=true
 
-COPY package.json /usr/src/app
-RUN npm install
+# install node packages
+RUN npm set progress=false && npm config set depth 0 && \
+    npm install --only=production && \
+    mkdir prod_build && \
+    cp -R --preserve=links node_modules prod_build/node_modules && \
+    npm install
 
-COPY . /usr/src/app
+# build statics
+RUN npm run build && \
+    cp -R public prod_build/public && \
+    cp -R --preserve=links src prod_build/src && \
+    cp -R package.json prod_build/package.json && \
+    cp -R .babelrc prod_build/.babelrc
 
-RUN npm run build
-RUN npm prune --production
+# run test @see package.json
+RUN npm run test
 
-expose 8000
+#
+# ---- Release ----
+FROM $NODE_BASEIMAGE AS release
+WORKDIR /home/node/app
+COPY --chown=node:node --from=build /home/node/app/prod_build ./
+EXPOSE 8080
+USER node
+CMD node src/main.js
 
-ENTRYPOINT ["npm", "run"]
-CMD ["serve"]
