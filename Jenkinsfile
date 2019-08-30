@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     DOCKER_STATUS = sh (
-                        script: "docker exec $CONTAINER_NAME /bin/bash -c \"curl -I http://localhost:8030 | grep HTTP | cut -d ' ' -f2\"",
+                        script: "docker exec $CONTAINER_NAME /bin/bash -c \"curl -I http://localhost:8030/login | grep HTTP | cut -d ' ' -f2\"",
                         returnStdout: true
                     ).trim()
                     // If DOCKER_STATUS == 200, then there is a working webpage and all is well
