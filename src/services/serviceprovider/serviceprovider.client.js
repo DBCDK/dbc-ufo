@@ -92,7 +92,6 @@ async function makeRequestToServiceProvider(params, endpoint) {
   const response = await promiseRequest('post', req);
   try {
     const result = JSON.parse(response.body);
-    console.log(result);
 
     if (result.statusCode !== 200) {
       log.error('An error occurred while retrieveing data from openplatform', {
