@@ -9,7 +9,6 @@ import constants from '../../state/constants';
 import textFormat from '../../../utils/textFormat.util';
 
 export default class ImageUploadContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.minSize = 0;
@@ -21,22 +20,30 @@ export default class ImageUploadContainer extends React.Component {
       overlayIsOpen: false,
       accepted: [],
       rejected: [],
-      selectedUploadMethod: null
+      selectedUploadMethod: constants.UPLOAD_TYPE_IMAGE
     };
     this.state = Object.assign({}, this.initState);
 
     State.addListener((elements, errors, uploadIsDone) => {
-      this.setState({accepted: elements, rejected: errors, overlayIsOpen: uploadIsDone});
+      this.setState({
+        accepted: elements,
+        rejected: errors,
+        overlayIsOpen: uploadIsDone
+      });
     });
   }
 
-  rejectedReason = (rejectedFile) => {
+  rejectedReason = rejectedFile => {
     let reason = 'Filen er ugyldig';
     if (!rejectedFile.type || !this.accepts.includes(rejectedFile.type)) {
-      reason = 'Filen er ikke en gyldig type. Det skal være en png eller en jpg';
-    }
-    else if (rejectedFile.size < this.minSize || rejectedFile.size > this.maxSize) {
-      reason = `Filen har ikke en gyldig størrelse. Den må være max. ${this.maxSize / 1000000}MB`;
+      reason =
+        'Filen er ikke en gyldig type. Det skal være en png eller en jpg';
+    } else if (
+      rejectedFile.size < this.minSize ||
+      rejectedFile.size > this.maxSize
+    ) {
+      reason = `Filen har ikke en gyldig størrelse. Den må være max. ${this
+        .maxSize / 1000000}MB`;
     }
 
     rejectedFile.error = reason;
@@ -51,11 +58,15 @@ export default class ImageUploadContainer extends React.Component {
     acceptedFiles.map(image => {
       const img = new Image();
       img.onload = () => {
-        if (img.naturalHeight >= this.minDimensions.height && img.naturalWidth >= this.minDimensions.width) {
+        if (
+          img.naturalHeight >= this.minDimensions.height &&
+          img.naturalWidth >= this.minDimensions.width
+        ) {
           State.addImages([image]);
-        }
-        else {
-          image.error = `Billedet er for lille. Skal være min. ${this.minDimensions.width}px x ${this.minDimensions.height}px`;
+        } else {
+          image.error = `Billedet er for lille. Skal være min. ${
+            this.minDimensions.width
+          }px x ${this.minDimensions.height}px`;
           State.addImages([], [image]);
         }
       };
@@ -67,10 +78,11 @@ export default class ImageUploadContainer extends React.Component {
     });
   };
 
-  closeOverlay = (e = {
-    preventDefault: () => {
+  closeOverlay = (
+    e = {
+      preventDefault: () => {}
     }
-  }) => {
+  ) => {
     e.preventDefault();
     this.setState({overlayIsOpen: false});
   };
@@ -79,7 +91,7 @@ export default class ImageUploadContainer extends React.Component {
     this.setState({overlayIsOpen: true});
   };
 
-  retryFailed = (e) => {
+  retryFailed = e => {
     e.preventDefault();
     this.closeOverlay();
     State.retryUpload();
@@ -103,12 +115,16 @@ export default class ImageUploadContainer extends React.Component {
 
     if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE) {
       uploadElement = (
-        <ImageUpload setDropzoneRef={node => this.dropzone = node} accept={this.accepts} minSize={this.minSize}
-                     maxSize={this.maxSize} onDrop={this.onDrop}/>);
-    }
-    else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
-      uploadElement = (
-        <UrlUpload onSubmit={State.addUrls}/>);
+        <ImageUpload
+          setDropzoneRef={node => (this.dropzone = node)}
+          accept={this.accepts}
+          minSize={this.minSize}
+          maxSize={this.maxSize}
+          onDrop={this.onDrop}
+        />
+      );
+    } else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
+      uploadElement = <UrlUpload onSubmit={State.addUrls} />;
     }
 
     return uploadElement;
@@ -117,14 +133,23 @@ export default class ImageUploadContainer extends React.Component {
   componentDidMount() {
     const path = window.location.pathname;
     if (path === '/image') {
-      this.setState(Object.assign({}, this.initState, {selectedUploadMethod: constants.UPLOAD_TYPE_IMAGE}));
-    }
-    else if (path === '/url') {
-      this.setState(Object.assign({}, this.initState, {selectedUploadMethod: constants.UPLOAD_TYPE_URL}));
+      this.setState(
+        Object.assign({}, this.initState, {
+          selectedUploadMethod: constants.UPLOAD_TYPE_IMAGE
+        })
+      );
+    } else if (path === '/url') {
+      this.setState(
+        Object.assign({}, this.initState, {
+          selectedUploadMethod: constants.UPLOAD_TYPE_URL
+        })
+      );
     }
 
     window.onbeforeunload = () => {
-      const uploadMissing = this.state.accepted.filter(element => element.status !== constants.DONE_OK).length;
+      const uploadMissing = this.state.accepted.filter(
+        element => element.status !== constants.DONE_OK
+      ).length;
       if (uploadMissing > 0) {
         return true;
       }
@@ -134,54 +159,111 @@ export default class ImageUploadContainer extends React.Component {
 
   render() {
     const uploadMethod = this.getUploadMethod();
-    const uploadSucces = this.state.accepted.filter(element => element.status === constants.DONE_OK).length;
-    const uploadErrors = this.state.accepted.filter(element => element.status === constants.DONE_ERROR).length;
-    const uploadMissing = this.state.accepted.length - uploadSucces - uploadErrors;
+    const uploadSucces = this.state.accepted.filter(
+      element => element.status === constants.DONE_OK
+    ).length;
+    const uploadErrors = this.state.accepted.filter(
+      element => element.status === constants.DONE_ERROR
+    ).length;
+    const uploadMissing =
+      this.state.accepted.length - uploadSucces - uploadErrors;
 
     return (
       <div className="upload-form">
-        {!this.state.selectedUploadMethod && <UploadTypePicker/>}
+        {!this.state.selectedUploadMethod && <UploadTypePicker />}
         {uploadMethod}
-        <PreviewList type="url" accepted={this.state.accepted} rejected={this.state.rejected}
-                     handleError={this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE && this.handleError || null}/>
+        <PreviewList
+          type="url"
+          accepted={this.state.accepted}
+          rejected={this.state.rejected}
+          handleError={
+            (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_IMAGE &&
+              this.handleError) ||
+            null
+          }
+        />
         <Overlay show={this.state.overlayIsOpen}>
-          <div className="icon-wrapper block-center mb1"><span className="icon done"/></div>
-          <h2 className="text-center mb1">Upload er gennemført</h2>
-          <p>{textFormat(uploadSucces, '$ fil', '$ filer')} blev oploadet og
-            tilknyttet {textFormat(uploadSucces, 'den angivne post', 'de angivne poster')}</p>
-          {uploadErrors &&
-          <div className="upload-errors mb1">
-            <p className="message">
-              <span className="nb">Bemærk</span> Der var fejl i {textFormat(uploadErrors, '$ fil', '$ filer')}. <br />
-              Du kan vælge at prøve igen med {textFormat(uploadErrors, 'den post', 'de poster')} der fejlede.
-            </p>
-            <p className="overlay-actions">
-              <a href="#" className="overlay-retry" onClick={this.retryFailed}>prøv igen
-                med {textFormat(uploadErrors, 'den fejlende post', 'de fejlende poster')}</a>
-              <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
-            </p>
+          <div className="icon-wrapper block-center mb1">
+            <span className="icon done" />
           </div>
-          || (uploadMissing &&
-            <div className="upload-missing mb1">
+          <h2 className="text-center mb1">Upload er gennemført</h2>
+          <p>
+            {textFormat(uploadSucces, '$ fil', '$ filer')} blev oploadet og
+            tilknyttet{' '}
+            {textFormat(uploadSucces, 'den angivne post', 'de angivne poster')}
+          </p>
+          {(uploadErrors && (
+            <div className="upload-errors mb1">
               <p className="message">
-                <span className="nb">Bemærk</span> Der er {textFormat(uploadMissing, '$ fil', '$ filer')} som endnu ikke
-                er oploadet.<br />
-                Du kan vælge at fortsætte med {textFormat(uploadMissing, 'den manglende poster', 'de manglende poster')}.
+                <span className="nb">Bemærk</span> Der var fejl i{' '}
+                {textFormat(uploadErrors, '$ fil', '$ filer')}. <br />
+                Du kan vælge at prøve igen med{' '}
+                {textFormat(uploadErrors, 'den post', 'de poster')} der fejlede.
               </p>
               <p className="overlay-actions">
-                <a href="#" className="overlay-retry" onClick={this.closeOverlay}>Forsæt
-                  med {textFormat(uploadMissing, 'den manglende post', 'de manglende poster')}</a>
-                <a href="#" className="overlay-reset" onClick={this.reset}>Nulstil og start forfra</a>
+                <a
+                  href="#"
+                  className="overlay-retry"
+                  onClick={this.retryFailed}
+                >
+                  prøv igen med{' '}
+                  {textFormat(
+                    uploadErrors,
+                    'den fejlende post',
+                    'de fejlende poster'
+                  )}
+                </a>
+                <a href="#" className="overlay-reset" onClick={this.reset}>
+                  Nulstil og start forfra
+                </a>
               </p>
             </div>
-            ||
-            <p className="overlay-actions">
-              <a href="#" className="overlay-retry" onClick={this.reset}>Upload Flere billeder</a>
-              <div className="modal-close text-right">
-                <button className="submit" onClick={this.closeOverlay}>Luk</button>
+          )) ||
+            ((uploadMissing && (
+              <div className="upload-missing mb1">
+                <p className="message">
+                  <span className="nb">Bemærk</span> Der er{' '}
+                  {textFormat(uploadMissing, '$ fil', '$ filer')} som endnu ikke
+                  er oploadet.
+                  <br />
+                  Du kan vælge at fortsætte med{' '}
+                  {textFormat(
+                    uploadMissing,
+                    'den manglende poster',
+                    'de manglende poster'
+                  )}
+                  .
+                </p>
+                <p className="overlay-actions">
+                  <a
+                    href="#"
+                    className="overlay-retry"
+                    onClick={this.closeOverlay}
+                  >
+                    Forsæt med{' '}
+                    {textFormat(
+                      uploadMissing,
+                      'den manglende post',
+                      'de manglende poster'
+                    )}
+                  </a>
+                  <a href="#" className="overlay-reset" onClick={this.reset}>
+                    Nulstil og start forfra
+                  </a>
+                </p>
               </div>
-            </p>
-          )}
+            )) || (
+              <p className="overlay-actions">
+                <a href="#" className="overlay-retry" onClick={this.reset}>
+                  Upload Flere billeder
+                </a>
+                <div className="modal-close text-right">
+                  <button className="submit" onClick={this.closeOverlay}>
+                    Luk
+                  </button>
+                </div>
+              </p>
+            ))}
         </Overlay>
       </div>
     );

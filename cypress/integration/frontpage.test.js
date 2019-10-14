@@ -3,7 +3,6 @@
 context('Testing frontpage', () => {
   beforeEach(() => {
     cy.signIn();
-    cy.selectImageUpload();
   });
 
   it('Should render frontpage', () => {
