@@ -9,7 +9,7 @@ import {CONFIG} from '../utils/config.util';
 export default class Sessiontore extends Store {
   constructor(connection) {
     super();
-    this.redis = new Redis(connection);
+    this.redis = new Redis.Cluster([connection]);
   }
 
   async get(sid) {

@@ -36,14 +36,19 @@ export const CONFIG = {
     }
   },
   session: {
-    key: process.env.SESSION_KEY,
-    redis: process.env.REDIS_CONNECTION_STRING || ''
+    key: process.env.SESSION_KEY
   },
   upload: {
     max_file_size: process.env.MAX_FILE_SIZE || 50000000
   }
 };
 
+if (process.env.REDIS_CLUSTER_HOST) {
+  CONFIG.session.redis = {
+    host: process.env.REDIS_CLUSTER_HOST,
+    port: process.env.REDIS_PORT || 6379
+  };
+}
 /**
  * Recursive functon that validates that all params in the above CONFIG object is set.
  * Number are validated to be non-NaN numbers.
