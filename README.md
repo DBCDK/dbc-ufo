@@ -76,8 +76,11 @@ The variables are specified at the form `name : internal config object`. Referen
 - `SESSION_KEY` : `session_key_`  
   Key for the session store
 
-- `REDIS_CONNECTION_STRING` : `redis://127.0.0.1:6379`  
-  Redis connection for sessions. If not specified, default is memory-storage for sessions
+- `REDIS_CLUSTER_HOST` : `ufo-staging-redis-cluster.platform-redis.svc.cloud.dbc.dk`  
+  Redis cluster connection for sessions. If not specified, default is memory-storage for sessions. Note that only a redis cluster is supported
+
+- `REDIS_PORT` : `6379`  
+  Redis port, defaults to 6379
 
 ### Mocks
 
