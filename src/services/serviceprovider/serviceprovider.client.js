@@ -32,13 +32,20 @@ export async function getWorkForId(id, type) {
     if (type === 'pid') {
       result = await getWork({params: {pids: [id], fields}});
     } else {
-      result = await search({params: {q: `(nr=${id})`, fields}});
+      // openplatform only returns one record from each work
+      // so lets try to find the primary record only using a match for the record identifier (faust)
+      result = await search({params: {q: `(id=${id})`, fields}});
+      if (result.error || !result.length) {
+        // Lets try with a broader search, for isbn and other number systems
+        result = await search({params: {q: `(nr=${id})`, fields}});
+      }
     }
 
     if (!result.error && result.length) {
       let recPos = 0;
       if (result.length > 1) {
         for (let idx = 0; idx < result.length; idx++) {
+
           if (
             (result[idx].pid && result[idx].pid[0].indexOf(id) !== -1) ||
             (result[idx].identifierISBN &&
@@ -49,12 +56,7 @@ export async function getWorkForId(id, type) {
         }
       }
       const {
-        dcTitleFull,
-        creator,
-        identifierISBN,
-        typeBibDKType,
-        coverUrlFull,
-        pid
+        dcTitleFull,creator,identifierISBN,typeBibDKType,coverUrlFull,pid
       } = result[recPos];
       return {
         title: dcTitleFull && dcTitleFull.join(', '),
