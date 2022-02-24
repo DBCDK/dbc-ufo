@@ -7,7 +7,7 @@ context('Testing url upload component', () => {
   });
 
   it('Should render component', () => {
-    cy.get('.url-upload-header').should('contain', "Upload af URL'er");
+    cy.get('.url-upload-header').should('contain', 'Upload af URL\'er');
     cy.get('.url-upload').should('contain', 'Hent preview af billeder');
     cy.get('.url-upload textarea').should(
       'have.attr',

@@ -44,12 +44,12 @@ export function startServer() {
   app.proxy = true;
 
   const sessionConfig = CONFIG.session.redis
-    ? {
+      ? {
         key: CONFIG.session.key,
         store: new SessionStore(CONFIG.session.redis),
         maxAge: 2592000000 // 30 days (miliseconds)
       }
-    : {key: CONFIG.session.key};
+      : {key: CONFIG.session.key};
   app.use(session(sessionConfig));
 
   app.use(convert(serve('./public')));

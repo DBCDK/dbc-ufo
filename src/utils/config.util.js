@@ -60,17 +60,17 @@ export function validateConfig(config = CONFIG, k = '') {
   for (const key in config) {
     if (typeof config[key] === 'object') {
       validateConfig(config[key], `${k}${key}.`);
-    } else {
-      if (config[key] === undefined) {
-        // eslint-disable-line no-undefined
+    }
+    else {
+      if (config[key] === undefined) { // eslint-disable-line no-undefined
         throw Error(
-          `${k}${key} was not specified in config. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`
-        ); // eslint-disable-line max-len
+          `${k}${key} was not specified in config. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped` // eslint-disable-line max-len
+        );
       }
       if (typeof config[key] === 'number' && Number.isNaN(config[key])) {
         throw Error(
-          `${k}${key}: expected NaN to be a number. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`
-        ); // eslint-disable-line max-len
+          `${k}${key}: expected NaN to be a number. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped` // eslint-disable-line max-len
+        );
       }
     }
   }

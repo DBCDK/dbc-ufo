@@ -38,7 +38,8 @@ export default class ImageUploadContainer extends React.Component {
     if (!rejectedFile.type || !this.accepts.includes(rejectedFile.type)) {
       reason =
         'Filen er ikke en gyldig type. Det skal være en png eller en jpg';
-    } else if (
+    }
+    else if (
       rejectedFile.size < this.minSize ||
       rejectedFile.size > this.maxSize
     ) {
@@ -63,7 +64,8 @@ export default class ImageUploadContainer extends React.Component {
           img.naturalWidth >= this.minDimensions.width
         ) {
           State.addImages([image]);
-        } else {
+        }
+        else {
           image.error = `Billedet er for lille. Skal være min. ${
             this.minDimensions.width
           }px x ${this.minDimensions.height}px`;
@@ -123,7 +125,8 @@ export default class ImageUploadContainer extends React.Component {
           onDrop={this.onDrop}
         />
       );
-    } else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
+    }
+    else if (this.state.selectedUploadMethod === constants.UPLOAD_TYPE_URL) {
       uploadElement = <UrlUpload onSubmit={State.addUrls} />;
     }
 
@@ -138,7 +141,8 @@ export default class ImageUploadContainer extends React.Component {
           selectedUploadMethod: constants.UPLOAD_TYPE_IMAGE
         })
       );
-    } else if (path === '/url') {
+    }
+    else if (path === '/url') {
       this.setState(
         Object.assign({}, this.initState, {
           selectedUploadMethod: constants.UPLOAD_TYPE_URL

@@ -31,7 +31,8 @@ export async function getWorkForId(id, type) {
     let result;
     if (type === 'pid') {
       result = await getWork({params: {pids: [id], fields}});
-    } else {
+    }
+    else {
       // openplatform only returns one record from each work
       // so lets try to find the primary record only using a match for the record identifier (faust)
       result = await search({params: {q: `(id=${id})`, fields}});
@@ -56,7 +57,7 @@ export async function getWorkForId(id, type) {
         }
       }
       const {
-        dcTitleFull,creator,identifierISBN,typeBibDKType,coverUrlFull,pid
+        dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid
       } = result[recPos];
       return {
         title: dcTitleFull && dcTitleFull.join(', '),
@@ -67,7 +68,8 @@ export async function getWorkForId(id, type) {
         pid: pid.join(', ')
       };
     }
-  } catch (e) {
+  }
+  catch (e) {
     log.error('cannot get work from openplatform', e);
   }
 
@@ -110,7 +112,8 @@ async function makeRequestToServiceProvider(params, endpoint) {
     }
 
     return [];
-  } catch (e) {
+  }
+  catch (e) {
     log.error('Error while parsing response from openplatform', {
       error: e.message,
       stack: e.stack
