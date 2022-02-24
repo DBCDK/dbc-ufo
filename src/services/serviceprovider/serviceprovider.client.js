@@ -32,7 +32,10 @@ export async function getWorkForId(id, type) {
     if (type === 'pid') {
       result = await getWork({params: {pids: [id], fields}});
     } else {
-      result = await search({params: {q: `(nr=${id})`, fields}});
+      result = await search({params: {q: `(id=${id})`, fields}});
+      if (result.error || !result.length) {
+        result = await search({params: {q: `(nr=${id})`, fields}});
+      }
     }
 
     if (!result.error && result.length) {
@@ -49,12 +52,7 @@ export async function getWorkForId(id, type) {
         }
       }
       const {
-        dcTitleFull,
-        creator,
-        identifierISBN,
-        typeBibDKType,
-        coverUrlFull,
-        pid
+        dcTitleFull,creator,identifierISBN,typeBibDKType,coverUrlFull,pid
       } = result[recPos];
       return {
         title: dcTitleFull && dcTitleFull.join(', '),
