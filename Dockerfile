@@ -14,7 +14,8 @@ RUN npm set progress=false && npm config set depth 0 && \
     npm install --only=production && \
     mkdir prod_build && \
     cp -R --preserve=links node_modules prod_build/node_modules && \
-    npm install
+    npm install \
+    npm rebuild node-sass
 
 # build statics
 RUN npm run build && \
