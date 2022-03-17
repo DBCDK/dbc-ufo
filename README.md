@@ -57,19 +57,19 @@ The variables are specified at the form `name : internal config object`. Referen
 - `SERVICE_PROVIDER_URI` : `https://openplatform_uri_`  
   The url to the openplatform service
 
-### Forsrights
+### DbcIdp
 
-- `FORS_RIGHTS_URI` : `http://forsrights_uri_`  
-  The url to the forsrights service
+- `DBC_IDP_URI` : `http://DbcIp_url_`  
+  The url to the DbcIdp service
 
-- `FORS_RIGHTS_URI_TEST_USER` : `username`  
-  Forsrights test user name
+- `DBC_IDP_URI_TEST_USER` : `username`  
+  DbcIdp test user name
 
-- `FORS_RIGHTS_URI_TEST_AGENCY` : `agency_id`  
-  Forsrights test agency ID
+- `DBC_IDP_URI_TEST_AGENCY` : `agency_id`  
+  DbcIdp test agency ID
 
-- `FORS_RIGHTS_URI_TEST_PASSWORD` : `password`  
-  Forsrights test user password
+- `DBC_IDP_URI_TEST_PASSWORD` : `password`  
+  DbcIdp test user password
 
 ### Session
 
