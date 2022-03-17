@@ -10,8 +10,8 @@ export const CONFIG = {
     port: Number(process.env.PORT),
     name: process.env.APP_NAME || 'no name'
   },
-  forsrights: {
-    uri: process.env.FORS_RIGHTS_URI
+  dbcidp: {
+    uri: process.env.DBC_IDP_URI
   },
   moreinfo_update: {
     uri: process.env.MOREINFO_UPDATE_URI
@@ -22,7 +22,7 @@ export const CONFIG = {
   },
   mock_externals: {
     smaug: process.env.MOCK_SMAUG === '1',
-    forsrights: process.env.MOCK_FORS_RIGHTS === '1',
+    dbcidp: process.env.MOCK_DBC_IDP === '1',
     moreinfo_update: process.env.MOCK_MOREINFO_UPDATE === '1'
   },
   openplatform: {
