@@ -1,7 +1,7 @@
 /* eslint-disable */
 /**
  * @file
- * Mocked responses from ForsRights
+ * Mocked responses from Dbc Idp
  */
 
 export const MOCKED_POSITIVE_RESPONSE = {

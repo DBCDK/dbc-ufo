@@ -85,7 +85,7 @@ The variables are specified at the form `name : internal config object`. Referen
 ### Mocks
 
 - `MOCK_SMAUG` : `0|1`
-- `MOCK_FORS_RIGHTS` : `0|1`
+- `MOCK_DBC_IDP` : `0|1`
 - `MOCK_MOREINFO_UPDATE` : `0|1`  
   Mock webservices (optional)
 
