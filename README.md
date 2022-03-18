@@ -59,7 +59,7 @@ The variables are specified at the form `name : internal config object`. Referen
 
 ### DbcIdp
 
-- `DBC_IDP_URI` : `http://DbcIp_url_`  
+- `DBC_IDP_URI` : `http://DbcIdp_url_`  
   The url to the DbcIdp service
 
 - `DBC_IDP_URI_TEST_USER` : `username`  
