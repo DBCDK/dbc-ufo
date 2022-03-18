@@ -11,12 +11,14 @@ import {log} from 'dbc-node-logger';
 /**
  * add image to post
  *
+ * @param owner
  * @param libraryCode
  * @param localId
  * @param imagePath
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function uploadImage(owner, libraryCode, localId, imagePath) {
+  log.debug('uploadImage', {owner, libraryCode, localId, imagePath});
   const binaryData = await getBufferFromFile(imagePath);
   const infoData = `<ns1:informationBinary>${binaryData}</ns1:informationBinary>`;
   return makeRequest(owner, libraryCode, localId, infoData);
@@ -25,6 +27,7 @@ export async function uploadImage(owner, libraryCode, localId, imagePath) {
 /**
  * Add url to post.
  *
+ * @param owner
  * @param libraryCode
  * @param localId
  * @param url
@@ -38,6 +41,7 @@ export async function uploadUrl(owner, libraryCode, localId, url) {
 /**
  * Make request to moreinfo update webservice.
  *
+ * @param owner
  * @param libraryCode
  * @param localId
  * @param moreInfoData
@@ -74,11 +78,13 @@ async function makeRequest(owner, libraryCode, localId, moreInfoData) {
   };
 
   try {
+    log.debug('moreinfoUpdate request', params);
     const {body, statusCode} = await promiseRequest('post', params);
     if (statusCode !== 200) {
       throw new Error('MoreinfoUpdate not responding');
     }
     const response = JSON.parse(body).moreinfoUpdateResponse;
+    log.debug('moreinfoUpdate response', response);
     if (response.error || response.requestAccepted.recordRejected) {
       throw new Error(JSON.stringify(response));
     }
@@ -106,7 +112,9 @@ function getBufferFromFile(path) {
         const encodedImage = new Buffer(data, 'binary').toString('base64');
         resolve(encodedImage);
         fs.unlink(path, (error) => {
-          log.warn('Could not delete file from /tmp', error);
+          if (error) {
+            log.warn('Could not delete file ' + path, error);
+          }
         });
       }
     });

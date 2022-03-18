@@ -4,13 +4,13 @@ Cypress.Commands.add('signIn', () => {
   cy.visit('/login');
   cy.get('#login-input-user')
     .clear()
-    .type(Cypress.env('FORS_RIGHTS_URI_TEST_USER'));
+    .type(Cypress.env('DBC_IDP_URI_TEST_USER'));
   cy.get('#login-input-agency')
     .clear()
-    .type(Cypress.env('FORS_RIGHTS_URI_TEST_AGENCY'));
+    .type(Cypress.env('DBC_IDP_URI_TEST_AGENCY'));
   cy.get('#login-input-password')
     .clear()
-    .type(Cypress.env('FORS_RIGHTS_URI_TEST_PASSWORD'));
+    .type(Cypress.env('DBC_IDP_URI_TEST_PASSWORD'));
   cy.get('#login-input-tac').click();
   cy.get('#login-input-submit').click();
   cy.get('#content .image-upload-header').should('exist');

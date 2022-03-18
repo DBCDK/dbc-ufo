@@ -6,7 +6,8 @@
 import Router from 'koa-router'; // @see https://github.com/alexmingoia/koa-router
 import asyncBusboy from 'async-busboy';
 import koabody from 'koa-body';
-import {authenticateUser} from '../services/forsrights/forsrights.client';
+import {log} from 'dbc-node-logger';
+import {authenticateUserDbcIdp} from '../services/dbcidp/dbcidp.client';
 import {uploadImage, uploadUrl} from '../services/moreinfoUpdate/moreinfoUpdate.client';
 import {getWorkForId} from '../services/serviceprovider/serviceprovider.client';
 import {validateId, splitPid} from '../utils/validateId.util';
@@ -26,12 +27,16 @@ router.post('/upload/image', async(ctx) => {
   try {
     const {files, fields} = await asyncBusboy(ctx.req);
     const {localIdentifier, libraryId} = splitPid(fields.id);
-    const owner = ctx.session.credentials.agency;
+    if (typeof(ctx.session.credentials) === 'undefined') {
+      throw new Error('/upload/image is called without credentials');
+    }
+    const owner = ctx.session.credentials.agencyId;
     await uploadImage(owner, libraryId, localIdentifier, files[0].path);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
   }
   catch (e) {
+    log.error(e.message);
     ctx.status = 400;
     ctx.body = JSON.stringify({error: true});
   }
@@ -41,7 +46,10 @@ router.post('/upload/url', bodyparser, async(ctx) => {
   try {
     const {url, id} = ctx.request.body;
     const {localIdentifier, libraryId} = splitPid(id);
-    const owner = ctx.session.credentials.agency;
+    if (typeof(ctx.session.credentials) === 'undefined') {
+      throw new Error('/upload/url is called without credentials');
+    }
+    const owner = ctx.session.credentials.agencyId;
     await uploadUrl(owner, libraryId, localIdentifier, url);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
@@ -81,8 +89,8 @@ router.post('/login', bodyparser, async(ctx) => {
     agreement: 'boolean'
   }, ctx.request.body);
   const body = ctx.request.body;
-  const credentials = {agency: body.agency, user: body.user, password: body.password};
-  const result = await authenticateUser(credentials);
+  const credentials = {agencyId: body.agency, userIdAut: body.user, passwordAut: body.password};
+  const result = await authenticateUserDbcIdp(credentials);
 
   if (!valid) {
     ctx.session.authenticated = false;
