@@ -25,7 +25,9 @@ router.get(/(\/$|url|image)/, AuthenticationCheck, (ctx) => {
 
 router.post('/upload/image', async(ctx) => {
   try {
+    log.debug('Start upload/image', {header: ctx.req.headers});
     const {files, fields} = await asyncBusboy(ctx.req);
+    log.debug('End upload/image', {file: files[0].filename, fields: fields});
     const {localIdentifier, libraryId} = splitPid(fields.id);
     if (typeof(ctx.session.credentials) === 'undefined') {
       throw new Error('/upload/image is called without credentials');

@@ -78,13 +78,13 @@ async function makeRequest(owner, libraryCode, localId, moreInfoData) {
   };
 
   try {
-    log.debug('moreinfoUpdate request', params);
+    log.debug('moreinfoUpdate makeRequest', {owner, libraryCode, localId});
     const {body, statusCode} = await promiseRequest('post', params);
     if (statusCode !== 200) {
       throw new Error('MoreinfoUpdate not responding');
     }
     const response = JSON.parse(body).moreinfoUpdateResponse;
-    log.debug('moreinfoUpdate response', response);
+    log.debug('moreinfoUpdate makeRequest response', response);
     if (response.error || response.requestAccepted.recordRejected) {
       throw new Error(JSON.stringify(response));
     }
