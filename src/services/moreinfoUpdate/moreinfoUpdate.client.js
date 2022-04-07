@@ -51,20 +51,21 @@ async function makeRequest(credentials, libraryCode, localId, dataType, data) {
     return mockRequest(libraryCode, localId);
   }
 
-  const form = new FormData();
   const attachmentInfo = {
-    "authentication":{
-      "groupId": credentials.agencyId,
-      "password": credentials.passwordAut,
-      "userId": credentials.userIdAut
+    authentication:{
+      groupId: credentials.agencyId,
+      password: credentials.passwordAut,
+      userId: credentials.userIdAut
     },
-    "dataType": dataType,
-    "category" : "coverImage",
-    "recordId": localId,
-    "agencyId": credentials.agencyId,
-    "sourceId": libraryCode,
-    "recordSize": data.length
+    dataType: dataType,  // binary or url
+    category : "coverImage",
+    recordId: localId,  // id of the record
+    agencyId: libraryCode,  // agency of the record
+    sourceId: credentials.agencyId,  // owner (agency) of the image
+    recordSize: data.length
   };
+
+  const form = new FormData();
   form.append('attachmentInfo', JSON.stringify(attachmentInfo), {contentType: 'application/json'});
   form.append('data', data);
   const params = {
@@ -72,10 +73,11 @@ async function makeRequest(credentials, libraryCode, localId, dataType, data) {
     headers: form.getHeaders(),
     body: form
   }
+
   try {
     const {body, statusCode} = await promiseRequest('post', params);
     if (statusCode !== 200) {
-      throw new Error('MoreinfoUpdate not responding, statusCode: ' + statusCode.toString());
+      throw new Error('MoreinfoUpdate failed with statusCode: ' + statusCode.toString());
     }
     const response = JSON.parse(body);
     if (response.error || response.result !== 'ok') {
