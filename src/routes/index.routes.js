@@ -32,8 +32,7 @@ router.post('/upload/image', async(ctx) => {
     if (typeof(ctx.session.credentials) === 'undefined') {
       throw new Error('/upload/image is called without credentials');
     }
-    const owner = ctx.session.credentials.agencyId;
-    await uploadImage(owner, libraryId, localIdentifier, files[0].path);
+    await uploadImage(ctx.session.credentials, libraryId, localIdentifier, files[0].path);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
   }
@@ -51,8 +50,7 @@ router.post('/upload/url', bodyparser, async(ctx) => {
     if (typeof(ctx.session.credentials) === 'undefined') {
       throw new Error('/upload/url is called without credentials');
     }
-    const owner = ctx.session.credentials.agencyId;
-    await uploadUrl(owner, libraryId, localIdentifier, url);
+    await uploadUrl(ctx.session.credentials, libraryId, localIdentifier, url);
     ctx.status = 200;
     ctx.body = JSON.stringify({result: true});
   }

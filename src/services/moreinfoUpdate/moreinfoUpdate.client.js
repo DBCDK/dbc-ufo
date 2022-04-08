@@ -3,6 +3,7 @@
  * Client for moreinfo update webservice
  */
 import fs from 'fs';
+import FormData from 'form-data';
 import {promiseRequest} from '../../utils/request.util';
 import {CONFIG} from '../../utils/config.util';
 import escapeHtml from '../../utils/escapeHtml.util';
@@ -11,81 +12,77 @@ import {log} from 'dbc-node-logger';
 /**
  * add image to post
  *
- * @param owner
- * @param libraryCode
- * @param localId
- * @param imagePath
+ * @param {object} credentials
+ * @param {string} libraryCode
+ * @param {string} localId
+ * @param {string} imagePath
  * @returns {Promise<boolean>}
  */
-export async function uploadImage(owner, libraryCode, localId, imagePath) {
-  log.debug('uploadImage', {owner, libraryCode, localId, imagePath});
+export async function uploadImage(credentials, libraryCode, localId, imagePath) {
   const binaryData = await getBufferFromFile(imagePath);
-  const infoData = `<ns1:informationBinary>${binaryData}</ns1:informationBinary>`;
-  return makeRequest(owner, libraryCode, localId, infoData);
+  return makeRequest(credentials, libraryCode, localId, 'binary', binaryData);
 }
 
 /**
  * Add url to post.
  *
- * @param owner
- * @param libraryCode
- * @param localId
- * @param url
+ * @param {object} credentials
+ * @param {string} libraryCode
+ * @param {string} localId
+ * @param {string} url
  * @returns {boolean}
  */
-export async function uploadUrl(owner, libraryCode, localId, url) {
-  const infoData = `<ns1:informationUrl>${escapeHtml(url)}</ns1:informationUrl>`;
-  return makeRequest(owner, libraryCode, localId, infoData);
+export async function uploadUrl(credentials, libraryCode, localId, url) {
+  return makeRequest(credentials, libraryCode, localId, 'url', escapeHtml(url));
 }
 
 /**
- * Make request to moreinfo update webservice.
+ * Creates a multipart POST request to moreinfoUpdate and send the request
  *
- * @param owner
- * @param libraryCode
- * @param localId
- * @param moreInfoData
- * @returns {boolean}
+ * @param {object} credentials
+ * @param {string} libraryCode
+ * @param {string} localId
+ * @param {string} dataType
+ * @param {string} data
+ * @returns {Promise<boolean>}
  */
-async function makeRequest(owner, libraryCode, localId, moreInfoData) {
+async function makeRequest(credentials, libraryCode, localId, dataType, data) {
   if (CONFIG.mock_externals.moreinfo_update) {
     return mockRequest(libraryCode, localId);
   }
 
+  const attachmentInfo = {
+    authentication:{
+      groupId: credentials.agencyId,
+      password: '**********',
+      userId: credentials.userIdAut
+    },
+    dataType: dataType,  // binary or url
+    category : "coverImage",
+    recordId: localId,  // id of the record
+    agencyId: libraryCode,  // agency of the record
+    sourceId: credentials.agencyId,  // owner (agency) of the image
+    recordSize: data.length
+  };
+  log.info('Start upload to moreinfoUpdate ', attachmentInfo);
+  attachmentInfo.authentication.password = credentials.passwordAut;
+
+  const form = new FormData();
+  form.append('attachmentInfo', JSON.stringify(attachmentInfo), {contentType: 'application/json'});
+  form.append('data', data);
   const params = {
     url: CONFIG.moreinfo_update.uri,
-    body: `
-<SOAP-ENV:Envelope xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://oss.dbc.dk/ns/moreinfoupdate" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-   <SOAP-ENV:Header/>
-   <ns0:Body>
-      <ns1:moreinfoUpdate>
-         <ns1:moreinfoData>
-            <ns1:moreinfo>
-               ${moreInfoData}
-            </ns1:moreinfo>
-            <ns1:moreinfoCategory>coverImage</ns1:moreinfoCategory>
-            <ns1:danbibRecordId>
-               <ns1:localIdentifier>${localId}</ns1:localIdentifier>
-               <ns1:libraryCode>${libraryCode}</ns1:libraryCode>
-            </ns1:danbibRecordId>
-         </ns1:moreinfoData>
-         <ns1:source>${owner}</ns1:source>
-        <ns1:outputType>json</ns1:outputType>
-      </ns1:moreinfoUpdate>
-   </ns0:Body>
-</SOAP-ENV:Envelope>
-`
-  };
+    headers: form.getHeaders(),
+    body: form
+  }
 
   try {
-    log.debug('moreinfoUpdate makeRequest', {owner, libraryCode, localId});
     const {body, statusCode} = await promiseRequest('post', params);
     if (statusCode !== 200) {
-      throw new Error('MoreinfoUpdate not responding');
+      throw new Error('MoreinfoUpdate failed with statusCode: ' + statusCode.toString());
     }
-    const response = JSON.parse(body).moreinfoUpdateResponse;
-    log.debug('moreinfoUpdate makeRequest response', response);
-    if (response.error || response.requestAccepted.recordRejected) {
+    const response = JSON.parse(body);
+    if (response.error || response.result !== 'ok') {
       throw new Error(JSON.stringify(response));
     }
     return true;
@@ -99,7 +96,7 @@ async function makeRequest(owner, libraryCode, localId, moreInfoData) {
 /**
  * Converts a file to base64 buffer.
  *
- * @param path
+ * @param {string} path
  * @returns {Promise}
  */
 function getBufferFromFile(path) {
@@ -123,8 +120,8 @@ function getBufferFromFile(path) {
 
 /**
  * Mock calls to Moreinfo Update webservice
- * @param libraryCode
- * @param localId
+ * @param {string} libraryCode
+ * @param {string} localId
  * @returns {boolean}
  */
 function mockRequest(libraryCode, localId) {
