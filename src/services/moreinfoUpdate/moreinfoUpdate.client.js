@@ -12,10 +12,10 @@ import {log} from 'dbc-node-logger';
 /**
  * add image to post
  *
- * @param credentials
- * @param libraryCode
- * @param localId
- * @param imagePath
+ * @param {object} credentials
+ * @param {string} libraryCode
+ * @param {string} localId
+ * @param {string} imagePath
  * @returns {Promise<boolean>}
  */
 export async function uploadImage(credentials, libraryCode, localId, imagePath) {
@@ -26,10 +26,10 @@ export async function uploadImage(credentials, libraryCode, localId, imagePath) 
 /**
  * Add url to post.
  *
- * @param credentials
- * @param libraryCode
- * @param localId
- * @param url
+ * @param {object} credentials
+ * @param {string} libraryCode
+ * @param {string} localId
+ * @param {string} url
  * @returns {boolean}
  */
 export async function uploadUrl(credentials, libraryCode, localId, url) {
@@ -39,11 +39,11 @@ export async function uploadUrl(credentials, libraryCode, localId, url) {
 /**
  * Creates a multipart POST request to moreinfoUpdate and send the request
  *
- * @param credentials
- * @param libraryCode
- * @param localId
- * @param dataType
- * @param data
+ * @param {object} credentials
+ * @param {string} libraryCode
+ * @param {string} localId
+ * @param {string} dataType
+ * @param {string} data
  * @returns {Promise<boolean>}
  */
 async function makeRequest(credentials, libraryCode, localId, dataType, data) {
@@ -54,7 +54,7 @@ async function makeRequest(credentials, libraryCode, localId, dataType, data) {
   const attachmentInfo = {
     authentication:{
       groupId: credentials.agencyId,
-      password: credentials.passwordAut,
+      password: '**********',
       userId: credentials.userIdAut
     },
     dataType: dataType,  // binary or url
@@ -64,6 +64,8 @@ async function makeRequest(credentials, libraryCode, localId, dataType, data) {
     sourceId: credentials.agencyId,  // owner (agency) of the image
     recordSize: data.length
   };
+  log.info('Start upload to moreinfoUpdate ', attachmentInfo);
+  attachmentInfo.authentication.password = credentials.passwordAut;
 
   const form = new FormData();
   form.append('attachmentInfo', JSON.stringify(attachmentInfo), {contentType: 'application/json'});
@@ -94,7 +96,7 @@ async function makeRequest(credentials, libraryCode, localId, dataType, data) {
 /**
  * Converts a file to base64 buffer.
  *
- * @param path
+ * @param {string} path
  * @returns {Promise}
  */
 function getBufferFromFile(path) {
@@ -118,8 +120,8 @@ function getBufferFromFile(path) {
 
 /**
  * Mock calls to Moreinfo Update webservice
- * @param libraryCode
- * @param localId
+ * @param {string} libraryCode
+ * @param {string} localId
  * @returns {boolean}
  */
 function mockRequest(libraryCode, localId) {
