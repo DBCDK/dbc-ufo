@@ -106,8 +106,8 @@ function getBufferFromFile(path) {
         reject(err);
       }
       else {
-        const encodedImage = new Buffer(data, 'binary').toString('base64');
-        resolve(encodedImage);
+        const binary = new Buffer(data, 'binary');
+        resolve(binary);
         fs.unlink(path, (error) => {
           if (error) {
             log.warn('Could not delete file ' + path, error);
