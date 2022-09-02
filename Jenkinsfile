@@ -10,7 +10,7 @@ def PRODUCT = "ufo"
 def DOCKER_REPO = "docker-fbiscrum.artifacts.dbccloud.dk"
 
 def BRANCH = BRANCH_NAME.toLowerCase().replaceAll(/[\/._ ]/, "-")
-def CONTAINER_NAME = "${PRODUCT}-${BRANCH}"
+def CONTAINER_NAME = PRODUCT + (BRANCH == "master" ? "" : BRANCH)
 def DOCKER_NAME = "${DOCKER_REPO}/${CONTAINER_NAME}:${BUILD_NUMBER}"
 def DOCKER_STATUS = ''
 pipeline {
