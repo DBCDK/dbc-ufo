@@ -3,7 +3,6 @@
 context('Testing image upload', () => {
   beforeEach(() => {
     cy.signIn();
-    cy.selectImageUpload();
   });
 
   it('Should render component', () => {
@@ -21,7 +20,7 @@ context('Testing image upload', () => {
     const image = 'invalid_horse.txt';
     cy.addImage(image);
     cy.get('.rejected').should('contain', image);
-    cy.get('.message').then(($msg) => {
+    cy.get('.message').then($msg => {
       expect($msg.text().toUpperCase()).to.contain('BEMÆRK');
     });
     cy.get('.message').should('contain', 'Følgende billeder kan ikke benyttes');
@@ -31,11 +30,14 @@ context('Testing image upload', () => {
     const image = 'horses_500x500.jpg';
     cy.addImage(image);
     cy.get('.rejected').should('contain', image);
-    cy.get('.message').then(($msg) => {
+    cy.get('.message').then($msg => {
       expect($msg.text().toUpperCase()).to.contain('BEMÆRK');
     });
     cy.get('.message').should('contain', 'Følgende billeder kan ikke benyttes');
-    cy.get('.preview.error .message').should('contain', 'Billedet er for lille');
+    cy.get('.preview.error .message').should(
+      'contain',
+      'Billedet er for lille'
+    );
   });
 
   it('Should accept 501x501 pixel image', () => {
@@ -66,7 +68,7 @@ context('Testing image upload', () => {
     cy.addImage('horses.jpg');
     cy.submitId('11111111');
     cy.uploadItem('.upload-errors');
-    cy.get('.modal .message').then(($msg) => {
+    cy.get('.modal .message').then($msg => {
       expect($msg.text().toUpperCase()).to.contain('BEMÆRK');
     });
     cy.get('.modal .message').should('contain', 'Der var fejl i 1 fil.');
@@ -77,15 +79,20 @@ context('Testing image upload', () => {
     const image = 'horses2.jpg';
     cy.addImage(image);
     cy.get('.preview').should('have.length', 2);
-    cy.get('.images img').eq(1).should('contain.attr', 'alt', image);
+    cy.get('.images img')
+      .eq(1)
+      .should('contain.attr', 'alt', image);
     cy.submitId('9788792813114', 0);
-    cy.get('.preview-status .description').eq(0).should('contain', 'Klar til upload');
+    cy.get('.preview-status .description')
+      .eq(0)
+      .should('contain', 'Klar til upload');
     cy.submitId('9788792813114', 1);
-    cy.get('.preview-status .description').eq(1).should('contain', 'Klar til upload');
+    cy.get('.preview-status .description')
+      .eq(1)
+      .should('contain', 'Klar til upload');
     cy.wait(500);
     cy.uploadItem();
     cy.get('.modal').should('contain', 'Upload er gennemført');
     cy.get('.modal').should('contain', '2 filer blev oploadet');
   });
-
 });

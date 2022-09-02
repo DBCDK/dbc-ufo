@@ -20,32 +20,51 @@ export async function getWorkForId(id, type) {
     if (type === 'error') {
       return {error: 'invalid_id'};
     }
-    const fields = ['dcTitleFull', 'creator', 'identifierISBN', 'typeBibDKType', 'pid', 'coverUrlFull'];
+    const fields = [
+      'dcTitleFull',
+      'creator',
+      'identifierISBN',
+      'typeBibDKType',
+      'pid',
+      'coverUrlFull'
+    ];
     let result;
     if (type === 'pid') {
       result = await getWork({params: {pids: [id], fields}});
     }
     else {
-      result = await search({params: {q: `(nr=${id})`, fields}});
+      // openplatform only returns one record from each work
+      // so lets try to find the primary record only using a match for the record identifier (faust)
+      result = await search({params: {q: `(id=${id})`, fields}});
+      if (result.error || !result.length) {
+        // Lets try with a broader search, for isbn and other number systems
+        result = await search({params: {q: `(nr=${id})`, fields}});
+      }
     }
 
     if (!result.error && result.length) {
       let recPos = 0;
       if (result.length > 1) {
         for (let idx = 0; idx < result.length; idx++) {
-          if ((result[idx].pid && result[idx].pid[0].indexOf(id) !== -1) ||
-              (result[idx].identifierISBN && result[idx].identifierISBN.indexOf(id) !== -1)) {
+
+          if (
+            (result[idx].pid && result[idx].pid[0].indexOf(id) !== -1) ||
+            (result[idx].identifierISBN &&
+              result[idx].identifierISBN.indexOf(id) !== -1)
+          ) {
             recPos = idx;
           }
         }
       }
-      const {dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid} = result[recPos];
+      const {
+        dcTitleFull, creator, identifierISBN, typeBibDKType, coverUrlFull, pid
+      } = result[recPos];
       return {
         title: dcTitleFull && dcTitleFull.join(', '),
         creator: creator && creator.join(', '),
         isbn: identifierISBN && identifierISBN.join(', '),
         matType: typeBibDKType && typeBibDKType.join(', '),
-        image: coverUrlFull && coverUrlFull.shift() || null,
+        image: (coverUrlFull && coverUrlFull.shift()) || null,
         pid: pid.join(', ')
       };
     }
@@ -79,17 +98,26 @@ async function makeRequestToServiceProvider(params, endpoint) {
     const result = JSON.parse(response.body);
 
     if (result.statusCode !== 200) {
-      log.error('An error occurred while retrieveing data from openplatform', {result});
+      log.error('An error occurred while retrieveing data from openplatform', {
+        result
+      });
       throw new Error('Invalid response from openplatform', result);
     }
-    if (result.data && result.data.length && Object.keys(result.data[0]).length) {
+    if (
+      result.data &&
+      result.data.length &&
+      Object.keys(result.data[0]).length
+    ) {
       return result.data;
     }
 
     return [];
   }
   catch (e) {
-    log.error('Error while parsing response from openplatform', {error: e.message, stack: e.stack});
+    log.error('Error while parsing response from openplatform', {
+      error: e.message,
+      stack: e.stack
+    });
     return {error: 'Error while parsing response from openplatform'};
   }
 }

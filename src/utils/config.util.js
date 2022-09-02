@@ -4,15 +4,14 @@
  * A validateConfig method that validates the values found in the CONFIG object and throws an Error upon invalid values.
  */
 
-
 export const CONFIG = {
   app: {
     env: process.env.NODE_ENV,
     port: Number(process.env.PORT),
     name: process.env.APP_NAME || 'no name'
   },
-  forsrights: {
-    uri: process.env.FORS_RIGHTS_URI
+  dbcidp: {
+    uri: process.env.DBC_IDP_URI
   },
   moreinfo_update: {
     uri: process.env.MOREINFO_UPDATE_URI
@@ -23,7 +22,7 @@ export const CONFIG = {
   },
   mock_externals: {
     smaug: process.env.MOCK_SMAUG === '1',
-    forsrights: process.env.MOCK_FORS_RIGHTS === '1',
+    dbcidp: process.env.MOCK_DBC_IDP === '1',
     moreinfo_update: process.env.MOCK_MOREINFO_UPDATE === '1'
   },
   openplatform: {
@@ -37,15 +36,19 @@ export const CONFIG = {
     }
   },
   session: {
-    key: process.env.SESSION_REDIS_KEY,
-    port: process.env.SESSION_REDIS_PORT || '6379',
-    host: process.env.SESSION_REDIS_HOST || '127.0.0.1'
+    key: process.env.SESSION_KEY
   },
   upload: {
     max_file_size: process.env.MAX_FILE_SIZE || 50000000
   }
 };
 
+if (process.env.REDIS_CLUSTER_HOST) {
+  CONFIG.session.redis = {
+    host: process.env.REDIS_CLUSTER_HOST,
+    port: process.env.REDIS_PORT || 6379
+  };
+}
 /**
  * Recursive functon that validates that all params in the above CONFIG object is set.
  * Number are validated to be non-NaN numbers.
@@ -60,10 +63,14 @@ export function validateConfig(config = CONFIG, k = '') {
     }
     else {
       if (config[key] === undefined) { // eslint-disable-line no-undefined
-        throw Error(`${k}${key} was not specified in config. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`); // eslint-disable-line max-len
+        throw Error(
+          `${k}${key} was not specified in config. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped` // eslint-disable-line max-len
+        );
       }
       if (typeof config[key] === 'number' && Number.isNaN(config[key])) {
-        throw Error(`${k}${key}: expected NaN to be a number. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped`); // eslint-disable-line max-len
+        throw Error(
+          `${k}${key}: expected NaN to be a number. See https://github.com/DBCDK/dbc-ufo#environment-variabler for a list of environment variables and take a look at https://github.com/DBCDK/dbc-ufo/blob/master/src/utils/config.util.js to see how they're mapped` // eslint-disable-line max-len
+        );
       }
     }
   }
